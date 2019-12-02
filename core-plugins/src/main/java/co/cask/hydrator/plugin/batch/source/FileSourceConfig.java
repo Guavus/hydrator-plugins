@@ -39,7 +39,7 @@ public class FileSourceConfig extends AbstractFileSourceConfig {
   private static final Gson GSON = new Gson();
   private static final Type MAP_STRING_STRING_TYPE = new TypeToken<Map<String, String>>() { }.getType();
 
-  @Macro
+  
   @Description("Path to file(s) to be read. If a directory is specified, " +
     "terminate the path name with a \'/\'. For distributed file system such as HDFS, file system name should come"  +
     "from 'fs.DefaultFS' property in the 'core-site.xml'. For example, 'hdfs://mycluster.net:8020/input', where " +
