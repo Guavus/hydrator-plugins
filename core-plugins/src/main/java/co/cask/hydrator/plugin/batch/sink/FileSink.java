@@ -101,7 +101,7 @@ public class FileSink extends AbstractFileSink<FileSink.Conf> {
     private static final Type MAP_TYPE = new TypeToken<Map<String, String>>() {
     }.getType();
 
-    @Macro
+
     @Description("Destination path prefix. For example, 'hdfs://mycluster.net:8020/output'")
     private String path;
 
