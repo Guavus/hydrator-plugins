@@ -31,6 +31,7 @@ import co.cask.hydrator.plugin.batch.aggregator.function.SelectionFunction;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import javax.ws.rs.Path;
 
 /**
@@ -85,8 +86,12 @@ public class DedupAggregator extends RecordAggregator {
       emitter.emit(record);
       return;
     }
-
     StructuredRecord.Builder builder = StructuredRecord.builder(getGroupKeySchema(record.getSchema()));
+    if(uniqueFields.isEmpty()) {
+      for (Schema.Field field: Objects.requireNonNull(record.getSchema().getFields())) {
+        uniqueFields.add(field.getName());
+      }
+    }
     for (String fieldName : uniqueFields) {
       builder.set(fieldName, record.get(fieldName));
     }
@@ -133,6 +138,10 @@ public class DedupAggregator extends RecordAggregator {
 
   private Schema getGroupKeySchema(Schema inputSchema) {
     List<Schema.Field> fields = new ArrayList<>();
+    if(dedupConfig.getUniqueFields().isEmpty()) {
+      fields = inputSchema.getFields();
+      return Schema.recordOf(inputSchema.getRecordName() + ".unique", fields);
+    }
     for (String fieldName : dedupConfig.getUniqueFields()) {
       Schema.Field field = inputSchema.getField(fieldName);
       if (field == null) {
@@ -163,12 +172,13 @@ public class DedupAggregator extends RecordAggregator {
                                                            "not exist in inputSchema '%s'", uniqueField, inputSchema));
       }
     }
-
-    Schema.Field field = inputSchema.getField(function.getField());
-    if (field == null) {
-      throw new IllegalArgumentException(String.format(
-        "Invalid filter %s(%s): Field '%s' does not exist in input schema '%s'",
-        function.getFunction(), function.getField(), function.getField(), inputSchema));
+    if(function != null) {
+      Schema.Field field = inputSchema.getField(function.getField());
+      if (field == null) {
+        throw new IllegalArgumentException(String.format(
+                "Invalid filter %s(%s): Field '%s' does not exist in input schema '%s'",
+                function.getFunction(), function.getField(), function.getField(), inputSchema));
+      }
     }
   }
 }

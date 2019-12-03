@@ -87,7 +87,7 @@ public class DedupConfig extends AggregatorConfig {
     }
 
     if (filterParts.size() != 2) {
-      throw new IllegalArgumentException(String.format("Invalid filter operation. It should be of format " +
+      throw new IllegalArgumentException(String.format("Invalid filter operation. Only one pair of field and function is allowed. It should be of format " +
                                                          "'fieldName:functionName'. But got : %s", filterOperation));
     }
 
