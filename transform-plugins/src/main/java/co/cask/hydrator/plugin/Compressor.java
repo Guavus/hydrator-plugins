@@ -140,9 +140,15 @@ public final class Compressor extends Transform<StructuredRecord, StructuredReco
             compMap.containsKey(field.getName()) && compMap.get(field.getName()) != CompressorType.NONE &&
             !Schema.Type.BYTES.equals(field.getSchema().getType()) &&
             !Schema.Type.STRING.equals(field.getSchema().getType())) {
-          throw new IllegalArgumentException(
-              String.format("Input field  %s must be of type bytes or string. It is currently of type %s",
-                  field.getName(), field.getSchema().getType().toString()));
+          if (field.getSchema().getType().name().equalsIgnoreCase("UNION")) {
+            throw new IllegalArgumentException(
+                String.format("Input compressor field  %s must be of non-nullable type . It is currently of type %s",
+                    field.getName(), "nullable"));
+          } else {
+            throw new IllegalArgumentException(
+                String.format("Input field  %s must be of type bytes or string. It is currently of type %s",
+                    field.getName(), field.getSchema().getType().toString()));
+          }
         }
       }
     }
@@ -297,6 +303,7 @@ public final class Compressor extends Transform<StructuredRecord, StructuredReco
   public Schema getOutputSchema(GetSchemaRequest request) {
     return request.getOutputSchema(request.inputSchema);
   }
+
   /**
    * Plugin configuration.
    */
@@ -315,26 +322,18 @@ public final class Compressor extends Transform<StructuredRecord, StructuredReco
       this.schema = schema;
     }
 
-    public Schema getSchema() {
-      try {
-        return Strings.isNullOrEmpty(schema) ? null : Schema.parseJson(schema);
-      } catch (IOException e) {
-        throw new IllegalArgumentException("Unable to parse schema: " + e.getMessage());
-      }
-    }
-
     public Schema getOutputSchema(Schema inputSchema) {
       try {
-        List<Schema.Field> filteredList;
         List<Schema.Field> fields = new ArrayList<>();
+        Map<String, CompressorType> compressorTypeMap = parseConfiguration(compressor);
         if (inputSchema != null && inputSchema.getFields() != null) {
-          fields.addAll(inputSchema.getFields());
-          filteredList = inputSchema.getFields().stream().filter(field ->
-              parseConfiguration(compressor).containsKey(field.getName())).collect(Collectors.toList());
-          filteredList.forEach(field -> {
-            fields.remove(field);
-            fields.add(Schema.Field.of(field.getName(), Schema.of(Schema.Type.BYTES)));
-          });
+          for (Schema.Field field : inputSchema.getFields()) {
+            if (compressorTypeMap.containsKey(field.getName())) {
+              fields.add(Schema.Field.of(field.getName(), Schema.of(Schema.Type.BYTES)));
+            } else {
+              fields.add(field);
+            }
+          }
         }
         return Schema.recordOf("outputSchema", fields);
       } catch (Exception e) {
