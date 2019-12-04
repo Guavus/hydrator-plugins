@@ -27,10 +27,11 @@ import co.cask.cdap.etl.api.StageConfigurer;
 import co.cask.cdap.etl.api.batch.BatchAggregator;
 import co.cask.cdap.etl.api.batch.BatchRuntimeContext;
 import co.cask.hydrator.plugin.batch.aggregator.function.SelectionFunction;
-import com.google.common.collect.Lists;
 
-import java.util.*;
 import javax.ws.rs.Path;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Deduplicate aggregator.
