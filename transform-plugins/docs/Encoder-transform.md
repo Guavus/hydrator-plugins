@@ -66,8 +66,7 @@ For above data using below encoding schemes:
             "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"name\",\"type\":[\"string\",\"null\"]},{\"name\":\"country\",\"type\":[\"string\",\"null\"]},{\"name\":\"subcountry\",\"type\":[\"string\",\"null\"]},{\"name\":\"geonameid\",\"type\":[\"string\",\"null\"]}]}",
             "encode": "name:NONE,country:BASE32,subcountry:BASE64,geonameid:HEX"
           }
-        },
-        ...
+        }
 }
 
 ```
