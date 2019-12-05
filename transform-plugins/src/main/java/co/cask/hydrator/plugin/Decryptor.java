@@ -104,7 +104,7 @@ public final class Decryptor extends Transform<StructuredRecord, StructuredRecor
       ByteBuffer bf = (ByteBuffer) obj;
       bytes = new byte[bf.slice().remaining()];
       bf.get(bytes);
-
+      bf.clear();
     } else {
       bytes = (byte[]) obj;
     }
