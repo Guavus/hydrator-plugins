@@ -181,7 +181,8 @@ public final class Decompressor extends Transform<StructuredRecord, StructuredRe
         // Now, the input field should be of type byte[]
         byte[] obj = new byte[0];
         if (field.getSchema().getType() == Schema.Type.BYTES) {
-          obj = toBytes(in.get(name));
+          Object fieldName = in.get(name);
+          obj = (fieldName instanceof ByteBuffer ? toBytes((ByteBuffer)fieldName) : ((byte[])fieldName));
         } else {
           LOG.error("Input field '" + name + "' should be of type BYTES to decompress. It is currently of type " +
                       "'" + field.getSchema().getType().toString() + "'");
@@ -214,8 +215,7 @@ public final class Decompressor extends Transform<StructuredRecord, StructuredRe
     emitter.emit(builder.build());
   }
 
-  private static byte[] toBytes(Object obj) {
-    ByteBuffer bb = (ByteBuffer) obj;
+  private static byte[] toBytes(ByteBuffer bb) {
     int length = bb.remaining();
     byte[] result = new byte[length];
     int pos = bb.position();
