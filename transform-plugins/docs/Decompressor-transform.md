@@ -18,8 +18,7 @@ this is specified as ``<field>:<decompressor>[,<field>:<decompressor>]*``.
 **schema:** Specifies the output schema; the fields that are decompressed will have the same field 
 name but they will be of type ``BYTES`` or ``STRING``.
 
-**Note**: Do not use sink plugins that store data in textual format because Compressor converts the field values to `bytes` and text based sink plugin will convert `bytes` to `string` at the time of writing the data.
-Use any columnar format like `ORC`, `Parquet` etc.
+**Note**: **For input only use columnar datasets like `ORC`, `Parquet` etc.**
 
 Example
 -------
