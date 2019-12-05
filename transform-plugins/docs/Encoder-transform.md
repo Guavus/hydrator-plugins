@@ -16,7 +16,8 @@ this is specified as ``<field>:<encoder>[,<field>:<encoder>]*``.
 **schema:** Specifies the output schema; the fields that are encoded will have the same field name 
 but they will be of type ``BYTES`` or ``STRING``.
 
-**Note**: *Input fields can not be nullable.*
+#### Note
+- *Input fields that need to encoded must be of type `String` or `Bytes` and non-nullable*
 
 
 Sample
@@ -47,7 +48,7 @@ For above data using below encoding schemes:
 - **geonameid**   -   `Hex` encoding.
  
 
-### Sample Pipeline
+### Pipeline
 
 ```json
 {
@@ -71,22 +72,23 @@ For above data using below encoding schemes:
 
 ```
 
-### Output data
+### Encoded output data
 |name             |country             |subcountry        |geonameid|
 |-----------------|--------------------|------------------|---------|
-|les Escaldes     |QW5kb3JyYQ==        |RXNjYWxkZXMtRW5nb3JkYW55|33303430303531|
-|Andorra la Vella |QW5kb3JyYQ==        |QW5kb3JyYSBsYSBWZWxsYQ==|33303431353633|
-|Umm al Qaywayn   |VW5pdGVkIEFyYWIgRW1pcmF0ZXM=|VW1tIGFsIFFheXdheW4=|323930353934|
-|Ras al-Khaimah   |VW5pdGVkIEFyYWIgRW1pcmF0ZXM=|UmHDisK8cyBhbCBLaGF5bWFo|323931303734|
-|Khawr FakkÄ n    |VW5pdGVkIEFyYWIgRW1pcmF0ZXM=|QXNoIFNow4QgcmlxYWg=|323931363936|
-|Dubai            |VW5pdGVkIEFyYWIgRW1pcmF0ZXM=|RHViYWk=          |323932323233|
-|Dibba Al-Fujairah|VW5pdGVkIEFyYWIgRW1pcmF0ZXM=|QWwgRnVqYXlyYWg=  |323932323331|
-|Dibba Al-Hisn    |VW5pdGVkIEFyYWIgRW1pcmF0ZXM=|QWwgRnVqYXlyYWg=  |323932323339|
-|Sharjah          |VW5pdGVkIEFyYWIgRW1pcmF0ZXM=|QXNoIFNow4QgcmlxYWg=|323932363732|
-|Ar Ruways        |VW5pdGVkIEFyYWIgRW1pcmF0ZXM=|QWJ1IERoYWJp      |323932363838|
-|Al Fujayrah      |VW5pdGVkIEFyYWIgRW1pcmF0ZXM=|QWwgRnVqYXlyYWg=  |323932383738|
-|Al Ain           |VW5pdGVkIEFyYWIgRW1pcmF0ZXM=|QWJ1IERoYWJp      |323932393133|
-|Ajman            |VW5pdGVkIEFyYWIgRW1pcmF0ZXM=|QWptYW4=          |323932393332|
-|Adh Dhayd        |VW5pdGVkIEFyYWIgRW1pcmF0ZXM=|QXNoIFNow4QgcmlxYWg=|323932393533|
-|Abu Dhabi        |VW5pdGVkIEFyYWIgRW1pcmF0ZXM=|QWJ1IERoYWJp      |323932393638|
+|les Escaldes     |IFXGI33SOJQQ====    |RXNjYWxkZXMtRW5nb3JkYW55|33303430303531|
+|Andorra la Vella |IFXGI33SOJQQ====    |QW5kb3JyYSBsYSBWZWxsYQ==|33303431353633|
+|Umm al Qaywayn   |KVXGS5DFMQQEC4TBMIQEK3LJOJQXIZLT|VW1tIGFsIFFheXdheW4=|323930353934|
+|Ras al-Khaimah   |KVXGS5DFMQQEC4TBMIQEK3LJOJQXIZLT|UmHDisK8cyBhbCBLaGF5bWFo|323931303734|
+|Khawr FakkÄ n    |KVXGS5DFMQQEC4TBMIQEK3LJOJQXIZLT|QXNoIFNow4QgcmlxYWg=|323931363936|
+|Dubai            |KVXGS5DFMQQEC4TBMIQEK3LJOJQXIZLT|RHViYWk=          |323932323233|
+|Dibba Al-Fujairah|KVXGS5DFMQQEC4TBMIQEK3LJOJQXIZLT|QWwgRnVqYXlyYWg=  |323932323331|
+|Dibba Al-Hisn    |KVXGS5DFMQQEC4TBMIQEK3LJOJQXIZLT|QWwgRnVqYXlyYWg=  |323932323339|
+|Sharjah          |KVXGS5DFMQQEC4TBMIQEK3LJOJQXIZLT|QXNoIFNow4QgcmlxYWg=|323932363732|
+|Ar Ruways        |KVXGS5DFMQQEC4TBMIQEK3LJOJQXIZLT|QWJ1IERoYWJp      |323932363838|
+|Al Fujayrah      |KVXGS5DFMQQEC4TBMIQEK3LJOJQXIZLT|QWwgRnVqYXlyYWg=  |323932383738|
+|Al Ain           |KVXGS5DFMQQEC4TBMIQEK3LJOJQXIZLT|QWJ1IERoYWJp      |323932393133|
+|Ajman            |KVXGS5DFMQQEC4TBMIQEK3LJOJQXIZLT|QWptYW4=          |323932393332|
+|Adh Dhayd        |KVXGS5DFMQQEC4TBMIQEK3LJOJQXIZLT|QXNoIFNow4QgcmlxYWg=|323932393533|
+|Abu Dhabi        |KVXGS5DFMQQEC4TBMIQEK3LJOJQXIZLT|QWJ1IERoYWJp      |323932393638|
+
 
