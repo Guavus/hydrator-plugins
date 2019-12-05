@@ -88,7 +88,7 @@ public final class Decryptor extends Transform<StructuredRecord, StructuredRecor
               "Cannot decrypt field '%s' because it is of type '%s' instead of bytes.",
               field.getName(), fieldType));
           }
-          recordBuilder.set(field.getName(), fieldEncryptor.decrypt(getBytes(val), targetSchema));
+          recordBuilder.set(field.getName(), fieldEncryptor.decrypt((val instanceof ByteBuffer) ? toBytes((ByteBuffer)val) : ((byte[])val), targetSchema));
         }
       } else {
         recordBuilder.set(field.getName(), in.get(field.getName()));
@@ -97,19 +97,13 @@ public final class Decryptor extends Transform<StructuredRecord, StructuredRecor
     emitter.emit(recordBuilder.build());
   }
 
-  public byte[] getBytes(Object obj) {
-    byte[] bytes = null;
-    if(obj instanceof ByteBuffer) {
-      // https://stackoverflow.com/a/679325/4652875
-      ByteBuffer bf = (ByteBuffer) obj;
-      bytes = new byte[bf.slice().remaining()];
-      bf.get(bytes);
-      bf.clear();
-    } else {
-      bytes = (byte[]) obj;
-    }
-
-    return bytes;
+  public static byte[] toBytes(ByteBuffer bb) {
+    int length = bb.remaining();
+    byte[] result = new byte[length];
+    int pos = bb.position();
+    bb.get(result);
+    bb.position(pos);
+    return result;
   }
 
   /**
