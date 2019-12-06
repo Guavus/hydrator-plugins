@@ -16,8 +16,7 @@
             "dropdownOptions": [
               "SNAPPY",
               "ZIP",
-              "GZIP",
-              "NONE"
+              "GZIP"
             ],
             "key-placeholder": "Field Name"
           },
