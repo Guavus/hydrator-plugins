@@ -24,8 +24,7 @@ Properties
 
 **Action After Processing File:** Action to be taken after processing of the XML file. Possible actions are: (DELETE) delete from HDFS; (ARCHIVE) archive to the target location; and (MOVE) move to the target location.
 
-**Reprocessing Required:** Specifies whether the files should be reprocessed. If set to `No`, the files are tracked and
-will not be processed again on future runs of the pipeline.
+**Reprocessing Required:** Specifies whether the files should be reprocessed. If set to `No`, the files are tracked and will not be processed again on future runs of the pipeline and throwing exception if no other file to processed (InvalidInputException: Input path does not exist : file path)
 
 **Temporary Folder:** An existing folder path with read and write access for the current user. This is required for storing temporary files containing paths of the processed XML files. These temporary files will be read at the end of the job to update the file track table. Defaults to `/tmp`.
 
@@ -47,6 +46,24 @@ Here are some regular expression pattern examples:
 1. Use '^' to select files with names starting with 'catalog', such as '^catalog'.
 2. Use '$' to select files with names ending with 'catalog.xml', such as 'catalog.xml$'.
 3. Use '.\*' to select files with a name that contains 'catalogBook', such as 'catalogBook.*'.
+4. '\*'.html – Matches all strings that end in .html
+5. '???' – Matches all strings with exactly three letters or digits
+6. '\*\[0-9]\*' – Matches all strings containing a numeric value
+
+Here are some example of xpath :
+
+Basic XPath Expressions: 
+
+1. /PROJECT\[.="MyProject"]: Selects a PROJECT named "MyProject".
+2. /PROJECT\[STATUS]: Selects all projects that have a STATUS child element.
+3. /PROJECT\[STATUS="Critical"]: Selects all projects that have a STATUS child element with the string-value Critical.
+
+Combining Index Addresses :
+
+The XPath specification defines quite a few addressing mechanisms, and they can be combined in many different ways. As a result, XPath delivers a lot of expressive power for a relatively simple specification. This section illustrates other interesting combinations:
+
+1. LIST\[@type="ordered"]\[3]: Selects all LIST elements of the type ordered, and returns the third.
+2. LIST\[3]\[@type="ordered"]: Selects the third LIST element, but only if it is of the type ordered.
 
 
 Example
