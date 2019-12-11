@@ -18,9 +18,9 @@ Properties
 ----------
 **Reference Name:** Name used to uniquely identify this source for lineage, annotating metadata, etc.
 
-**Path:** Path to file(s) to be read. If a directory is specified, terminate the path name with a '/'. This leverages glob syntax as described in the [Java Documentation](https://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob).
+**Path:** Path to file(s) to be read. If a directory is specified, terminate the path name with a '/'. This leverages glob syntax as described in this link (https://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob).
 
-**Node Path:** Node path (XPath) to emit as an individual event from the XML schema. Example: '/book/price' to read only the price from under the book node. For more information about XPaths, see the [Java Documentation](https://docs.oracle.com/javase/tutorial/jaxp/xslt/xpath.html).
+**Node Path:** Node path (XPath) to emit as an individual event from the XML schema. Example: '/book/price' to read only the price from under the book node. For more information about XPaths, refer this link (https://docs.oracle.com/javase/tutorial/jaxp/xslt/xpath.html).
 
 **Action After Processing File:** Action to be taken after processing of the XML file. Possible actions are: (DELETE) delete from HDFS; (ARCHIVE) archive to the target location; and (MOVE) move to the target location.
 
