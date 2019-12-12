@@ -79,3 +79,32 @@ the record will be written to the 'id' column of that row.
             "jdbcPluginType": "jdbc"
         }
     }
+
+
+Notes :
+-----
+List of supported drivers and connection string .
+
+    +=========================================================================================================================================================================================================================================+
+    | DB name                      | Driver Name(qualified class name)            |   Database URL & Example                                                                                                                                  |
+    +=========================================================================================================================================================================================================================================+
+    | MySQL                        | com.mysql.jdbc.Driver                        |   jdbc:mysql://<server>:<port>/<databaseName>  Eg: jdbc:mysql://localhost:3306/myDBName                                                                   |
+    | Oracle                       | oracle.jdbc.driver.OracleDriver              |   jdbc:oracle:thin:@<server>:<port>:<databaseName>  Eg: jdbc:oracle:thin:@localhost:1521:xe                                                               |
+    | Sybase                       | com.sybase.jdbc.SybDriver                    |   jdbc:sybase:Tds:<server>:<port>/<databaseName> Eg: jdbc:sybase:Tds:localhost:4100/myDBName                                                              |
+    | Teradata                     | com.teradata.jdbc.TeraDriver                 |   jdbc:teradata://<server>/database=<databaseName>,tmode=ANSI,charset=UTF8  Eg: jdbc:teradata://localhost/database=myDBName, tmode=ANSI, charset=UTF8     |
+    | Microsoft SQL Server         | com.microsoft.sqlserver.jdbc.SQLServerDriver |   jdbc:sqlserver://<server>:<port>;databaseName=<databaseName>  Eg: jdbc:sqlserver://localhost:1433;databaseName=myDBName                                 |
+    | Postgre                      | org.postgresql.Driver                        |   jdbc:postgresql://<server>:<port>/<databaseName>  Eg: jdbc:postgresql://localhost:5432/myDBName                                                         |
+    | MS Access (JDBC-ODBC Bridge) | sun.jdbc.odbc.JdbcOdbcDriver                 |   jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=<myDBName.mdb>;   Eg: jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=myDBName.mdb;       | 
+    +=========================================================================================================================================================================================================================================+
+
+
+Steps to upload connecter-jar for mysql using below steps :
+
+1. copy driver jar & json at any location for ex copied in /tmp/ folder
+2. goto any cdap node 
+3. goto → cd /opt/cdap/master/ 
+4. run command => ./bin/cdap cli -v false
+5. and enter username password
+6. Please, specify Username for basic authentication.> usr01
+7. Please, specify Password for basic authentication.> *********
+8. run command => load artifact /tmp/mysql-connector-java-x.x.x.jar config-file /tmp/mysql-connector-java-x.x.x.json name mysql-connector-java version x.x.x
