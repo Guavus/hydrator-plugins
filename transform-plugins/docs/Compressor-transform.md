@@ -9,14 +9,15 @@ Plugin supports SNAPPY, ZIP, and GZIP types of compression of fields.
 
 Configuration
 -------------
-**compressor:** Specifies the configuration for compressing fields; in JSON configuration, 
-this is specified as ``<field>:<compressor>[,<field>:<compressor>]*``.
+**compressor:** List of key value pairs. Key represents the input field that needs to be compressed and Value represents the compression algorithm to use.
 
-**schema:** Specifies the output schema; the fields that are compressed will have the same field name 
-but they will be of type ``BYTES``.
+**Output Schema:** Output schema will be same as input schema except fields in output schema that are compressed will have the same field name 
+but they will be of type *Non-nullable* ``BYTES``.
 
-**Note**: Do not use sink plugins that store data in textual format because Compressor converts the field values to `bytes` and text based sink plugin will convert `bytes` to `string` at the time of writing the data.
+**Note**: 
+- Do not use sink plugins that store data in textual format because Compressor converts the field values to `bytes` and text based sink plugin will convert `bytes` to `string` at the time of writing the data.
 Use any columnar format like `ORC`, `Parquet` etc.
+- Input fields that need to compressed must be of type `String` or `Bytes` and non-nullable.
 
 Example
 -------
