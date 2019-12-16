@@ -107,7 +107,7 @@ public class XMLMultiParser extends Transform<StructuredRecord, StructuredRecord
         // shouldn't happen
         throw new RuntimeException("Unable to create document builder.", e);
       } catch (SAXException e) {
-        LOG.error("Unable to parse the xml document. This record will be dropped.", e);
+        LOG.debug("Unable to parse the xml document. This record will be dropped. Error message: {}", e.getMessage());
         emitter.emitError(new InvalidEntry<>(31, "Unable to parse the xml document. This record will be dropped.",
                                              input));
         return;
@@ -117,7 +117,7 @@ public class XMLMultiParser extends Transform<StructuredRecord, StructuredRecord
       try {
         nodeList = (NodeList) xPathExpression.evaluate(document, XPathConstants.NODESET);
       } catch (XPathExpressionException e) {
-        LOG.error("Unable to evaluate xpath for the xml document. This record will be dropped.", e);
+        LOG.debug("Unable to evaluate xpath for the xml document. This record will be dropped. Error message: {}", e.getMessage());
         emitter.emitError(new InvalidEntry<>(31, "Unable to evaluate xpath for the xml document. This record will be " +
           "dropped.", input));
         return;
@@ -140,7 +140,7 @@ public class XMLMultiParser extends Transform<StructuredRecord, StructuredRecord
           }
           emitter.emit(builder.build());
         } catch (Exception e) {
-          LOG.error("Unable to create a record from the xpath element. This record will be dropped.", e);
+          LOG.debug("Unable to create a record from the xpath element. This record will be dropped. Error message: {}", e.getMessage());
           emitter.emitError(new InvalidEntry<>(31, "Unable to create a record from the xpath element. This record " +
             "will be dropped.", input));
         }
