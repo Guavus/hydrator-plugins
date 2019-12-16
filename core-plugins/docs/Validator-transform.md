@@ -59,5 +59,5 @@ Returns True if the column value's length is more than the specified minimum val
 Use Case
 --------
 The transform is used when you need to validate records. For example, you may want to
-validate records as being valid IP addresses or valid dates and log errors if they aren't
+validate records as being valid maxLength, maxValue, minLength and minValue if they are not
 valid.
