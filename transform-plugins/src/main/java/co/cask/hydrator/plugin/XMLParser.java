@@ -65,7 +65,7 @@ import javax.xml.xpath.XPathFactory;
 @Description("Parse XML events based on XPath")
 public class XMLParser extends Transform<StructuredRecord, StructuredRecord> {
   private static final String EXIT_ON_ERROR = "Exit on error";
-  private static final String WRITE_ERROR_DATASET = "Write to error dataset";
+  private static final String WRITE_ERROR_COLLECTOR = "Write to error collector";
   private final Config config;
   private Schema outSchema;
   private Map<String, String> xPathMapping = new HashMap<>();
@@ -178,7 +178,7 @@ public class XMLParser extends Transform<StructuredRecord, StructuredRecord> {
       switch (config.processOnError) {
         case EXIT_ON_ERROR:
           throw new IllegalStateException("Terminating process on error: " + e.getMessage(), e);
-        case WRITE_ERROR_DATASET:
+        case WRITE_ERROR_COLLECTOR:
           emitter.emitError(new InvalidEntry<>(31, e.getStackTrace()[0].toString() + " : " + e.getMessage(), input));
           break;
         default:
@@ -267,7 +267,7 @@ public class XMLParser extends Transform<StructuredRecord, StructuredRecord> {
     @Description("The action to take in case of an error.\n" +
       "                     - \"Ignore error and continue\"\n" +
       "                     - \"Exit on error\" : Stops processing upon encountering an error\n" +
-      "                     - \"Write to error dataset\" :  Writes the error record to an error dataset and continues")
+      "                     - \"Write to error collector\" :  Writes the error record to an error collector and continues")
     private final String processOnError;
 
     @Nullable

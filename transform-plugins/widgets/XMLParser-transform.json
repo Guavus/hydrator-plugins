@@ -59,7 +59,7 @@
             "values": [
               "Ignore error and continue",
               "Exit on error",
-              "Write to error dataset"
+              "Write to error collector"
             ],
             "default": "Ignore error and continue"
           }
@@ -79,8 +79,6 @@
       ]
     }
   ],
-  "errorDataset": {
-    "errorDatasetTooltip": "Dataset that collects error messages from emitter."
-  },
+  "emit-errors": true,
   "outputs": []
 }
