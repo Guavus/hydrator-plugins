@@ -29,9 +29,9 @@ the XPath. Currently only simply types are supported.
 
 Conditions
 ----------
-If error dataset is configured, then all the erroneous rows, if present in the input, will be committed to the
-specified error dataset.
-If no error dataset is configured, then pipeline will get completed but with warnings in the logs.
+If error collector is configured, then all the erroneous rows, if present in the input, will be committed to the
+specified error collector.
+If no error collector is configured, then pipeline will get completed but with warnings in the logs.
 
 Example
 -------
