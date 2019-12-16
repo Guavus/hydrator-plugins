@@ -22,7 +22,7 @@ Properties
 **tableName:** The name of the table to write to. **Note:** Prior to running the pipeline,
 this table should already exist. (Macro-enabled)
 
-**columnFamily:** The name of the column family to write to. (Macro-enabled)
+**columnFamily:** The name of the column family to write to. **Note:** Only single column family is supported.(Macro-enabled)
 
 **schema:** Schema of records written to the table. Record fields map to row columns. For
 example, if the schema contains a field named 'user' of type string, the value of that
@@ -31,7 +31,7 @@ long, float, double, bytes, string).
 
 **rowField:** Field name indicating that the field value should
 be written as the rowkey instead of written to a column. The field name specified must be present in
-the schema, and must not be nullable.
+the schema, and must not be nullable. Only single row key field is supported.
 
 **zkQuorum:** The ZooKeeper quorum for the hbase instance you are writing to. This should
 be a comma-separated list of hosts that make up the quorum. You can find the correct value
