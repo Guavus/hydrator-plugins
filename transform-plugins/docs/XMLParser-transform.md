@@ -34,7 +34,7 @@ Example : ``<field-name>:<data-type>``
 **processOnError:** The action to take in case of an error.
                      - "Ignore error and continue"
                      - "Exit on error" : Stops processing upon encountering an error
-                     - "Write to error dataset" :  Writes the error record to an error dataset and continues
+                     - "Write to error collector" :  Writes the error record to an error collector and continues
 
 **failOnArray:** Whether to allow xpaths that are arrays. If false, the first element will be chosen. Defaults to false.
 
