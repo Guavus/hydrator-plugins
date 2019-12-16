@@ -29,7 +29,7 @@ Example
 -------
 The transform checks each record's ``'subtotal'`` field: if the ``'subtotal'`` is negative, it emits an error;
 else, it calculates the ``'tax'`` and ``'total'`` fields based on the ``'subtotal'``, and then returns a record
-as a Python dictionary containing those three fields, with the error records written to the configured error dataset:
+as a Python dictionary containing those three fields, with the error records written to the configured error collector:
 
     {
         "name": "PythonEvaluator",
