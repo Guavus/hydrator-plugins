@@ -9,31 +9,31 @@ File Batch Source is a Guavus Enterprise Accelerator that is used when you need 
 This accelerator proves to be instrumental when you have data organized across a distributed file system and you want to read it.
 
 ## Use Case
-Consider a scenario wherein you want to read in log files from S3 every hour and then store the logs in a TimePartitionedFileSet. It can be achieved my making configurational changes as described in the sections below.
+Consider a scenario wherein you want to fetch log files from S3 every hour and then store the logs in a TimePartitionedFileSet. It can be achieved my making configurational changes as described in the sections below.
 
 ## Configuration
 The following pointers describe the fields as displayed in the accelerator properties dialog box.
 
 **Reference Name:** The name used to uniquely identify this source for lineage, annotating metadata, etc.
 
-**Path:** Path to read from. For example, s3a://<bucket>/path/to/input
+**Path:** The path to read from. For example, s3a://<bucket>/path/to/input
 
-**Format:** Format of the data to read.
+**Format:** The format of the data to be read.
 The format must be one of 'avro', 'blob', 'csv', 'delimited', 'json', 'parquet', 'text', 'tsv' or 'orc'.
 If the format is 'blob', every input file will be read into a separate record.
 The 'blob' format also requires a schema that contains a field named 'body' of type 'bytes'.
 If the format is 'text', the schema must contain a field named 'body' of type 'string'.
 
-**Delimiter:** Delimiter to use when the format is 'delimited'. This will be ignored for other formats.
+**Delimiter:** The delimiter to use when the format is 'delimited'. This will be ignored for other formats.
 
-**Maximum Split Size:** Maximum size in bytes for each input partition.
+**Maximum Split Size:** The maximum size in bytes for each input partition.
 Smaller partitions will increase the level of parallelism, but will require more resources and overhead.
 The default value is 128MB.
 
-**Regex Path Filter:** Regular Expressions that file paths must match in order to be included in the input. The full
+**Regex Path Filter:** The Regular Expressions that file paths must match in order to be included in the input. The full
 file path is compared to the regular expression to filter file paths.
 
-**Path Field:** Output field to place the path of the file that the record was read from.
+**Path Field:** The output field in which you should place the path of the file that the record was read from.
 If not specified, the file path will not be included in output records.
 If specified, the field must exist in the output schema as a string.
 
