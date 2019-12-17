@@ -53,8 +53,8 @@ given arguments 'key1' mapped to 'value1' and the argument 'key2' mapped to 'val
 
 **Enable Auto-Commit:** Whether to enable auto-commit for queries run by this source. Defaults to 'false'.
 Normally this setting does not matter. It only matters if you are using a jdbc driver 
-that does not support a false value for autocommit, or a driver that will error when auto-commit is
-set to false. For drivers like those, you will need to set this to 'true'.
+that does not support a false value for autocommit, or a driver that throws error when auto-commit is set to false.
+For drivers like those, you will need to set this to 'true'.
 
 **Column Name Case:** Sets the case of the column names returned from the query.
 Possible options are ``upper`` or ``lower``. By default or for any other input, the column names are not modified and
