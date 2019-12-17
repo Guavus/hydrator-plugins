@@ -43,7 +43,7 @@ If specified, the field must exist in the output schema as a string.
 
 **Allow Empty Input:** Choose True or False based on whether you want to allow an input path that contains no data. When set to false, the plugin will throw an error if there is no data to read. When set to true, no error will be thrown and zero records will be read.
 
-**File System Properties:** Additional properties in json format to use with the InputFormat when reading the data.
+**File System Properties:** The additional properties in json format to use with the InputFormat when reading the data.
 
 ## Sample Input
 
@@ -73,20 +73,19 @@ If specified, the field must exist in the output schema as a string.
 
 ## How to get Output Schema?
 
-Formats supported in File plugin can be categorised into - `hadoop` formats and `non-hadoop` formats
+The formats supported in the File accelerator can be categorised into: `hadoop` formats and `non-hadoop` formats.
 
-1. For `hadoop` file formats - `orc`, `parquet` :
+1. For `hadoop` file formats - `orc`, `parquet`:
 
-   `GetSchema` button is provided in plugin's configuration UI to help user fetch the schema.
-   If value provided in `Path` config is a directory then schema would be fetched from any random file picked from specified path
-   matching extension `.orc` or `.parquet` (depending on selected `Format`).
+   `GetSchema` button is provided in the accelerator's configuration UI to help the user fetch the schema.
+   If the value provided in `Path` config is a directory, then the schema would be fetched from any random file picked from the specified path matching extension `.orc` or `.parquet` (depending on selected `Format`).
 
 
-2. For `non-hadoop` file formats - `csv`, `delimited`, `tsv`, `json`, `avro` :
+2. For `non-hadoop` file formats - `csv`, `delimited`, `tsv`, `json`, `avro`:
 
-   Pls use DataPrep to identify the    schema of the file by applying `parse-as-<format>` directive or `Parse-><format>` on the `body` column.
-   one can click on create pipeline, select batch, and then open wrangler stage and export the schema.
-   Once exported, go back to file plugin, select `Format` as the case is and import this schema file.
+   Pls use DataPrep to identify the schema of the file by applying `parse-as-<format>` directive or `Parse-><format>` on the `body` column.
+   You can click on create pipeline, select batch, and then open wrangler stage and export the schema.
+   Once exported, go back to file accelerator, select `Format` as the case is and import this schema file.
 
 
 
