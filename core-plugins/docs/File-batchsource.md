@@ -1,16 +1,20 @@
 # File Batch Source
 
 
+## Definition
+File Batch Source is a Guavus Enterprise Accelerator that is used when you need to read from a distributed file system.
+
 ## Description
 
-This source is used whenever you need to read from a distributed file system.
-For example, you may want to read in log files from S3 every hour and then store
-the logs in a TimePartitionedFileSet.
+This accelerator proves to be instrumental when you have data organized across a distributed file system and you want to read it.
 
+## Use Case
+Consider a scenario wherein you want to read in log files from S3 every hour and then store the logs in a TimePartitionedFileSet. It can be achieved my making configurational changes as described in the sections below.
 
-## Properties
+## Configuration
+The following pointers describe the fields as displayed in the accelerator properties dialog box.
 
-**Reference Name:** Name used to uniquely identify this source for lineage, annotating metadata, etc.
+**Reference Name:** The name used to uniquely identify this source for lineage, annotating metadata, etc.
 
 **Path:** Path to read from. For example, s3a://<bucket>/path/to/input
 
@@ -82,8 +86,7 @@ Formats supported in File plugin can be categorised into - `hadoop` formats and 
 
 2. For `non-hadoop` file formats - `csv`, `delimited`, `tsv`, `json`, `avro` :
 
-   Pls use DataPrep to identify the
-   schema of the file by applying `parse-as-<format>` directive or `Parse-><format>` on the `body` column.
+   Pls use DataPrep to identify the    schema of the file by applying `parse-as-<format>` directive or `Parse-><format>` on the `body` column.
    one can click on create pipeline, select batch, and then open wrangler stage and export the schema.
    Once exported, go back to file plugin, select `Format` as the case is and import this schema file.
 
