@@ -37,13 +37,11 @@ file path is compared to the regular expression to filter file paths.
 If not specified, the file path will not be included in output records.
 If specified, the field must exist in the output schema as a string.
 
-**Path Filename Only:** Whether to only use the filename instead of the URI of the file path when a path field is given.
-The default value is false.
+**Path Filename Only:** Choose True or False based on whether you only want to use the filename instead of the URI of the file path when a path field is given. The default value is False.
 
-**Read Files Recursively:** Whether files are to be read recursively from the path. The default value is false.
+**Read Files Recursively:** Choose True or False based on whether you want files to be read recursively from the path or not. The default value is False.
 
-**Allow Empty Input:** Whether to allow an input path that contains no data. When set to false, the plugin
-will error when there is no data to read. When set to true, no error will be thrown and zero records will be read.
+**Allow Empty Input:** Choose True or False based on whether you want to allow an input path that contains no data. When set to false, the plugin will throw an error if there is no data to read. When set to true, no error will be thrown and zero records will be read.
 
 **File System Properties:** Additional properties in json format to use with the InputFormat when reading the data.
 
