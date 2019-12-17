@@ -32,7 +32,7 @@ contain the '$CONDITIONS' string. For example, 'SELECT * FROM table WHERE $CONDI
 The '$CONDITIONS' string will be replaced by 'splitBy' field limits specified by the bounding query.
 The '$CONDITIONS' string is not required if numSplits is set to one. (Macro-enabled)
 
-**Bounding Query:** Bounding Query should return the min and max of the values of the 'splitBy' field.
+**Bounding Query:** Bounding Query should return the min and max of the values of the 'splitBy' field. Both min and max must required in query.
 For example, 'SELECT MIN(id),MAX(id) FROM table'. Not required if numSplits is set to one. (Macro-enabled)
 
 **Split-By Field Name:** Field Name which will be used to generate splits. Not required if numSplits is set to one. (Macro-enabled)
@@ -52,8 +52,8 @@ the key and value for the argument. For example, 'key1=value1;key2=value' specif
 given arguments 'key1' mapped to 'value1' and the argument 'key2' mapped to 'value2'. (Macro-enabled)
 
 **Enable Auto-Commit:** Whether to enable auto-commit for queries run by this source. Defaults to 'false'.
-Normally this setting does not matter. It only matters if you are using a jdbc driver -- like the Hive
-driver -- that will error when the commit operation is run, or a driver that will error when auto-commit is
+Normally this setting does not matter. It only matters if you are using a jdbc driver 
+that does not support a false value for autocommit, or a driver that will error when auto-commit is
 set to false. For drivers like those, you will need to set this to 'true'.
 
 **Column Name Case:** Sets the case of the column names returned from the query.
@@ -64,7 +64,7 @@ names are the same when the case is ignored (optional).
 
 **Transaction Isolation Level:** The transaction isolation level for queries run by this sink.
 Defaults to TRANSACTION_SERIALIZABLE. See java.sql.Connection#setTransactionIsolation for more details.
-The Phoenix jdbc driver will throw an exception if the Phoenix database does not have transactions enabled
+The jdbc driver will throw an exception if the database does not have transactions enabled
 and this setting is set to true. For drivers like that, this should be set to TRANSACTION_NONE.
 
 **Schema:** The schema of records output by the source. This will be used in place of whatever schema comes
@@ -117,21 +117,14 @@ List of supported drivers and connection string .
     +==============================================================================================================================================+
     | MySQL                        | com.mysql.jdbc.Driver           |   jdbc:mysql://<server>:<port>/<databaseName>                               |
                                                                          Eg: jdbc:mysql://localhost:3306/myDBName                                  
-    | Oracle                       | oracle.jdbc.driver.OracleDriver |   jdbc:oracle:thin:@<server>:<port>:<databaseName>                          |
-                                                                         Eg: jdbc:oracle:thin:@localhost:1521:xe                                   
-    | Sybase                       | com.sybase.jdbc.SybDriver       |   jdbc:sybase:Tds:<server>:<port>/<databaseName>                            |
-                                                                         Eg: jdbc:sybase:Tds:localhost:4100/myDBName                                
-    | Teradata                     | com.teradata.jdbc.TeraDriver    |   jdbc:teradata://<server>/database=<databaseName>,tmode=ANSI,charset=UTF8  |
-                                                                         Eg: jdbc:teradata://localhost/database=myDBName, tmode=ANSI, charset=UTF8     
-    | Microsoft SQL Server         | com.microsoft.sqlserver
-                                    .jdbc.SQLServerDriver            |   jdbc:sqlserver://<server>:<port>;databaseName=<databaseName>              |
-                                                                         Eg: jdbc:sqlserver://localhost:1433;databaseName=myDBName        
     | Postgre                      | org.postgresql.Driver           |   jdbc:postgresql://<server>:<port>/<databaseName>                          |
                                                                          Eg: jdbc:postgresql://localhost:5432/myDBName                  
-    | MS Access (JDBC-ODBC Bridge) | sun.jdbc.odbc.JdbcOdbcDriver    |   jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=<myDBName.mdb>;    |
-                                                                         Eg: jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=myDBName.mdb; 
     +==============================================================================================================================================+
 
+Transaction Isolation Level supports for listed dbs:
+
+***MySql/Postgres*** :  "TRANSACTION_READ_UNCOMMITTED", "TRANSACTION_READ_COMMITTED","TRANSACTION_REPEATABLE_READ",
+                        "TRANSACTION_SERIALIZABLE (default)" .
 
 Steps to upload connecter-jar for mysql using below steps :
 

@@ -305,9 +305,7 @@ public class DBSource extends ReferenceBatchSource<LongWritable, DBRecord, Struc
     @Nullable
     @Name(TRANSACTION_ISOLATION_LEVEL)
     @Description("The transaction isolation level for queries run by this sink. " +
-      "Defaults to TRANSACTION_SERIALIZABLE. See java.sql.Connection#setTransactionIsolation for more details. " +
-      "The Phoenix jdbc driver will throw an exception if the Phoenix database does not have transactions enabled " +
-      "and this setting is set to true. For drivers like that, this should be set to TRANSACTION_NONE.")
+      "Defaults to TRANSACTION_SERIALIZABLE. See java.sql.Connection#setTransactionIsolation for more details. ")
     @Macro
     public String transactionIsolationLevel;
 
