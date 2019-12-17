@@ -91,7 +91,7 @@ The formats supported in the File accelerator can be categorised into: `hadoop` 
 
 ## Note
 
-It is mandatory to provide output schema when using format other than `text`. Default schema used in this plugin is for `text` format where body represents line read from the file and offset represent offset of line in the file.
+It is mandatory to provide an output schema when using a format other than text. The default schema used in this plugin is for text format where the body represents line read from the file and offset represents offset of line in the file. 
 
-If the format is `orc` then only string, long, int, double, float, boolean and array types are supported in output schema.
+If the format is orc, then only string, long, int, double, float, boolean and array types are supported in output schema. 
 
