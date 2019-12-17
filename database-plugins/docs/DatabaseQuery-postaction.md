@@ -45,8 +45,8 @@ the key and value for the argument. For example, 'key1=value1;key2=value' specif
 given arguments 'key1' mapped to 'value1' and the argument 'key2' mapped to 'value2'. (Macro-enabled)
 
 **Enable Auto-Commit:** Whether to enable auto-commit for queries run by this source. Defaults to 'false'.
-Normally this setting does not matter. It only matters if you are using a jdbc driver -- like the Hive
-driver -- that will error when the commit operation is run, or a driver that will error when auto-commit is
+Normally this setting does not matter. It only matters if you are using a jdbc driver 
+that does not support a false value for autocommit, or a driver that will error when auto-commit is
 set to false. For drivers like those, you will need to set this to 'true'.
 
 
@@ -81,19 +81,8 @@ List of supported drivers and connection string .
      +==============================================================================================================================================+
      | MySQL                        | com.mysql.jdbc.Driver           |   jdbc:mysql://<server>:<port>/<databaseName>                               |
                                                                           Eg: jdbc:mysql://localhost:3306/myDBName                                  
-     | Oracle                       | oracle.jdbc.driver.OracleDriver |   jdbc:oracle:thin:@<server>:<port>:<databaseName>                          |
-                                                                          Eg: jdbc:oracle:thin:@localhost:1521:xe                                   
-     | Sybase                       | com.sybase.jdbc.SybDriver       |   jdbc:sybase:Tds:<server>:<port>/<databaseName>                            |
-                                                                          Eg: jdbc:sybase:Tds:localhost:4100/myDBName                                
-     | Teradata                     | com.teradata.jdbc.TeraDriver    |   jdbc:teradata://<server>/database=<databaseName>,tmode=ANSI,charset=UTF8  |
-                                                                          Eg: jdbc:teradata://localhost/database=myDBName, tmode=ANSI, charset=UTF8     
-     | Microsoft SQL Server         | com.microsoft.sqlserver
-                                     .jdbc.SQLServerDriver            |   jdbc:sqlserver://<server>:<port>;databaseName=<databaseName>              |
-                                                                          Eg: jdbc:sqlserver://localhost:1433;databaseName=myDBName        
      | Postgre                      | org.postgresql.Driver           |   jdbc:postgresql://<server>:<port>/<databaseName>                          |
                                                                           Eg: jdbc:postgresql://localhost:5432/myDBName                  
-     | MS Access (JDBC-ODBC Bridge) | sun.jdbc.odbc.JdbcOdbcDriver    |   jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=<myDBName.mdb>;    |
-                                                                          Eg: jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=myDBName.mdb; 
      +==============================================================================================================================================+
 
 Steps to upload connecter-jar for mysql using below steps :
