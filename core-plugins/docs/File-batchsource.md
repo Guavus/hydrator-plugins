@@ -4,8 +4,6 @@
 ## Description
 File Batch Source is a Guavus Enterprise Accelerator that is used when you want to read from a distributed file system.
 
-This accelerator proves to be instrumental when you have data organized across a distributed file system and you want to read it.
-
 ## Use Case
 Consider a scenario wherein you want to fetch log files from S3 every hour and then store the logs in a TimePartitionedFileSet. It can be achieved my making configurational changes as described in the sections below.
 
