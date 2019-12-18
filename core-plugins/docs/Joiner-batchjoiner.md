@@ -9,30 +9,29 @@ Joiner supports `inner` and `outer` joins, selection and renaming of output fiel
 
 Use Case
 --------
-Consider a scenario where in you want to combine fields from one or more inputs, similar to the joins in SQL.
+Consider a scenario wherein you want to combine fields from one or more inputs, similar to the joins in SQL.
 
 Properties
 ----------
-**joinKeys:** List of keys to perform the join operation. The list is separated by `&`. 
-Join key from each input stage will be prefixed with `<stageName>.` and the relation among join keys from different inputs is represented by `=`. 
-For example: customers.customer_id=items.c_id&customers.customer_name=items.c_name means the join key is a composite key
-of customer id and customer name from customers and items input stages and join will be performed on equality 
+**joinKeys:** This refers to the list of keys for performing the join operation. The list is separated by `&`. 
+The Join key from each input stage will be prefixed with `<stageName>.` and the relation among the join keys from different inputs is represented by `=`. 
+For example: customers.customer_id=items.c_id&customers.customer_name=items.c_name means that the join key is a composite key
+of customer id and customer name from the customers and items input stages, and join will be performed on equality 
 of the join keys. This transform only supports equality for joins.
 
-**selectedFields:** Comma-separated list of fields to be selected and renamed in join output from each input stage. 
+**selectedFields:** This is the comma-separated list of fields to be selected and renamed in join output from each input stage. 
 Each selected field that should be present in the output must be prefixed with '<input_stage_name>'. 
 The syntax for specifying alias for each selected field is similar to sql. 
 For example: customers.id as customer_id, customer.name as customer_name, item.id as item_id, <stageName>.inputFieldName as alias. 
-The output will have same order of fields as selected in selectedFields. There must not be any duplicate fields in output.
+The output will have the same order of fields as selected in selectedFields. There must not be any duplicate fields in output.
 
-**requiredInputs:** Comma-separated list of stages. Required input stages decide the type of the join. 
-If all the input stages are present in required inputs, inner join will be performed. 
-Otherwise, outer join will be performed considering non-required inputs as optional.
+**requiredInputs:** This is the comma-separated list of stages. The required input stages decide the type of the join. 
+If all the input stages are present in required inputs, inner join will be performed. Otherwise, outer join will be performed considering non-required inputs as optional.
 
-**numPartitions:** Number of partitions to use when grouping fields. If not specified, the execution
-framework will decide on the number to use.
+**numPartitions:** This refers to the number of partitions to be used when grouping fields. If not specified, the execution
+framework will decide on the number to be used.
 
-**Generate Schema:** Verifies the Schema of the The input Sources and generates the output schema for the Output.
+**Generate Schema:** This verifies the Schema of input Sources and generates the output schema for the Output.
 
 Example
 -------
@@ -74,7 +73,7 @@ For example, suppose the joiner receives input records from customers and purcha
     | 5           | cookie | 0.50  |
     +==============================+
 
-Output records will contain inner join on customer id:
+Output records will contain the inner join on customer id:
 
     +========================================+
     | customer_id | name    | item   | price |
