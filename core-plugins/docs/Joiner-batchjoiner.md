@@ -3,11 +3,13 @@
 
 Description
 -----------
-Joins records from one or more input based on join keys. Supports `inner` and `outer` joins, selection and renaming of output fields.  
+Joiner is a Guavus Enterprise Accelerator that is used when you want to combine fields from one or more inputs, based on join keys.
+
+Joiner supports `inner` and `outer` joins, selection and renaming of output fields.  
 
 Use Case
 --------
-The transform is used when you want to combine fields from one or more input, similar to the joins in SQL.
+Consider a scenario where in you want to combine fields from one or more inputs, similar to the joins in SQL.
 
 Properties
 ----------
