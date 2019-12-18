@@ -19,8 +19,7 @@ Properties
 ----------
 **referenceName:** This will be used to uniquely identify this sink for lineage, annotating metadata, etc.
 
-**tableName:** The name of the table to write to. **Note:** Prior to running the pipeline,
-this table should already exist. (Macro-enabled)
+**tableName:** The name of the table to write to. (Macro-enabled)
 
 **columnFamily:** The name of the column family to write to. **Note:** Only single column family is supported.(Macro-enabled)
 

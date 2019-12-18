@@ -49,7 +49,8 @@ import org.apache.hadoop.hbase.mapreduce.TableOutputFormat;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.util.StringUtils;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Nullable;
@@ -62,6 +63,9 @@ import javax.annotation.Nullable;
 @Description("HBase Batch Sink")
 public class HBaseSink extends ReferenceBatchSink<StructuredRecord, NullWritable, Mutation> {
 
+  private static final Logger LOG = LoggerFactory.getLogger(HBaseSink.class);
+  public static final String HBASE_CUSTOM_TABLENAME = "hbase.custom.tablename";
+  public static final String HBASE_CUSTOM_COLUMNFAMILY = "hbase.custom.Columnfamily";
   private HBaseSinkConfig config;
   private RecordPutTransformer recordPutTransformer;
 
@@ -112,7 +116,7 @@ public class HBaseSink extends ReferenceBatchSink<StructuredRecord, NullWritable
     HBaseOutputFormatProvider(HBaseSinkConfig config, Configuration configuration) {
       this.conf = new HashMap<>();
       conf.put(TableOutputFormat.OUTPUT_TABLE, config.tableName);
-      if(Strings.isNullOrEmpty(config.zkQuorum)) {
+      if (Strings.isNullOrEmpty(config.zkQuorum)) {
         throw new IllegalArgumentException("Zookeeper Quorum cannot be null");
       }
       String zkQuorum = config.zkQuorum;
@@ -125,6 +129,8 @@ public class HBaseSink extends ReferenceBatchSink<StructuredRecord, NullWritable
         ResultSerialization.class.getName(),
         KeyValueSerialization.class.getName() };
       conf.put("io.serializations", StringUtils.arrayToString(serializationClasses));
+      conf.put(HBASE_CUSTOM_TABLENAME, config.tableName);
+      conf.put(HBASE_CUSTOM_COLUMNFAMILY, config.columnFamily);
     }
 
     @Override
@@ -141,13 +147,12 @@ public class HBaseSink extends ReferenceBatchSink<StructuredRecord, NullWritable
   @Override
   public void initialize(BatchRuntimeContext context) throws Exception {
     super.initialize(context);
-    // If a schema string is present in the properties, use that to construct the outputSchema and pass it to the
-    // recordPutTransformer
     recordPutTransformer = new RecordPutTransformer(config.rowField, config.getSchema());
   }
 
   @Override
   public void transform(StructuredRecord input, Emitter<KeyValue<NullWritable, Mutation>> emitter) throws Exception {
+
     Put put = recordPutTransformer.toPut(input);
     org.apache.hadoop.hbase.client.Put hbasePut = new org.apache.hadoop.hbase.client.Put(put.getRow());
     for (Map.Entry<byte[], byte[]> entry : put.getValues().entrySet()) {
