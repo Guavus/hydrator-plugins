@@ -22,7 +22,8 @@ Otherwise, all files in the directory will be moved. For example: `hdfs://hostna
 If a directory is specified with a file sourcePath, the file will be put into that directory. If sourcePath is
 a directory, it is assumed that destPath is also a directory.
 
-**fileRegex:** Wildcard regular expression to filter the files in the source directory that will be moved.
+**fileRegex:** Wildcard regular expression to filter the files in the source directory that will be moved.FileRegex pattern 
+would be simple search regex pattern which is used in any programming language like -- test.*/.csv -- (for move csv files start with test).
 
 **continueOnError:** Indicates if the pipeline should continue if the move process fails. If all files are not 
 successfully moved, the action will not return the files already moved to their original locations.
