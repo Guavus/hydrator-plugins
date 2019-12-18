@@ -291,7 +291,7 @@ public final class CSVParser extends Transform<StructuredRecord, StructuredRecor
 
     @Nullable
     @Description("Custom delimiter to be used for parsing the fields. The custom delimiter can only be specified by " +
-      "selecting the option 'Custom' from the format drop-down. In case of null, defaults to ','.")
+      "selecting the option 'Custom' from the format drop-down.")
     private Character delimiter;
 
     @Name("field")
