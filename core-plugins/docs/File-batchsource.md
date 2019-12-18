@@ -1,10 +1,8 @@
 # File Batch Source
 
 
-## Definition
-File Batch Source is a Guavus Enterprise Accelerator that is used when you need to read from a distributed file system.
-
 ## Description
+File Batch Source is a Guavus Enterprise Accelerator that is used when you want to read from a distributed file system.
 
 This accelerator proves to be instrumental when you have data organized across a distributed file system and you want to read it.
 
