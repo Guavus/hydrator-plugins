@@ -18,10 +18,12 @@ the file will be removed. If the path points to a directory with no regex specif
 its contents will be removed. If a regex is specified, only the files and directories matching that regex
 will be removed.
 
-**fileRegex:** Wildcard regular expression to filter the files in the source directory that will be removed.
+**fileRegex:** Wildcard regular expression to filter the files in the source directory that will be removed.FileRegex pattern 
+would be simple search regex pattern which is used in any programming language like -- test.*/.csv -- (for delete csv files start with test). 
 
 **continueOnError:** Indicates if the pipeline should continue if the delete process fails. If all files are not 
 successfully deleted, the action will not re-create the files already deleted.
+
 
 
 Example
