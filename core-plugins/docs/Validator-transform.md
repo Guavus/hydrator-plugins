@@ -8,6 +8,7 @@ Validator Transform is used for validating records in a dataset based on some co
 The accelerator takes a dataset and a set of rules as inputs. These rules evaluate the input dataset using some predefined functions. If the specified rules are met,  then the accelerator passes the record to the next stage, else it removes the record from the output dataset. The output dataset contains all the input records for which the specified rules were evaluated to true.
 
 **Output schema**: InputSchema
+
 This table lists the methods available in CoreValidator that can be called from the Validator Transform:
 
 | function                                        | description                                                    |
@@ -87,9 +88,7 @@ Returns `True` if the column value's length is more than or equal to the specifi
 Use Case
 --------
 
-The transform is used when you need to validate records. For example, you may want to
-validate records as being valid maxLength, maxValue, minLength and minValue if they are not
-valid.
+The transform is used when you need to validate records. For example, you may want to validate records as being valid maxLength, maxValue, minLength and minValue.
 
 For example, you may want to validate records in your dataset based on a rule that the `fname` column in the dataset must contain strings of length less than or equal to 3. For such case, you can use Validator and configure this accelerator with a rule that evaluates the `fname` column using the maxLength function. If the `fname` column contains a string of size greater than 3 for a data record, the specific record is dropped from the output dataset. The following sample pipeline configuration illustrates this example.
 
