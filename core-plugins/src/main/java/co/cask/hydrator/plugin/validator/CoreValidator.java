@@ -106,36 +106,36 @@ public class CoreValidator implements Validator {
     /**
      * Checks if a value is within a range (min & max specified in the vars attribute).
      */
-    public boolean isInRange(double value, double min , double max) {
-      return DOUBLE_VALIDATOR.isInRange(value, min, max);
+    public boolean isInRange(Double value, Object min , Object max) {
+      return DOUBLE_VALIDATOR.isInRange(value, ((Number)min).doubleValue(), ((Number)max).doubleValue());
     }
 
     /**
      * Checks if a value is within a range (min & max specified in the vars attribute).
      */
-    public boolean isInRange(int value, int min , int max) {
-      return INTEGER_VALIDATOR.isInRange(value, min, max);
+    public boolean isInRange(Integer value, Object min , Object max) {
+      return INTEGER_VALIDATOR.isInRange(value, ((Number)min).intValue(), ((Number)max).intValue());
     }
 
     /**
      * Checks if a value is within a range (min & max specified in the vars attribute).
      */
-    public boolean isInRange(float value, float min , float max) {
-      return FLOAT_VALIDATOR.isInRange(value, min, max);
+    public boolean isInRange(Float value, Object min , Object max) {
+      return FLOAT_VALIDATOR.isInRange(value, ((Number)min).floatValue(), ((Number)max).floatValue());
     }
 
     /**
      * Checks if a value is within a range (min & max specified in the vars attribute).
      */
-    public boolean isInRange(short value, short min , short max) {
-      return SHORT_VALIDATOR.isInRange(value, min, max);
+    public boolean isInRange(Short value, Object min , Object max) {
+      return SHORT_VALIDATOR.isInRange(value, ((Number)min).shortValue(), ((Number)max).shortValue());
     }
 
     /**
      * Checks if a value is within a range (min & max specified in the vars attribute).
      */
-    public boolean isInRange(long value, long min , long max) {
-      return LONG_VALIDATOR.isInRange(value, min, max);
+    public boolean isInRange(Long value, Object min , Object max) {
+      return LONG_VALIDATOR.isInRange(value, ((Number)min).longValue(), ((Number)max).longValue());
     }
 
     /**
@@ -183,57 +183,57 @@ public class CoreValidator implements Validator {
     /**
      * Checks if the value is less than or equal to the max.
      */
-    public boolean maxValue(double val, double maxVal) {
-      return GenericValidator.maxValue(val, maxVal);
+    public boolean maxValue(Double val, Object maxVal) {
+      return GenericValidator.maxValue(val, ((Number)maxVal).doubleValue());
     }
 
     /**
      * Checks if the value is less than or equal to the max.
      */
-    public boolean maxValue(long val, long maxVal) {
-      return GenericValidator.maxValue(val, maxVal);
+    public boolean maxValue(Long val, Object maxVal) {
+      return GenericValidator.maxValue(val, ((Number)maxVal).longValue());
     }
 
     /**
      * Checks if the value is less than or equal to the max.
      */
-    public boolean maxValue(int val, int maxVal) {
-      return GenericValidator.maxValue(val, maxVal);
+    public boolean maxValue(Integer val, Object maxVal) {
+      return GenericValidator.maxValue(val, ((Number)maxVal).intValue());
     }
 
     /**
      * Checks if the value is less than or equal to the max.
      */
-    public boolean maxValue(float val, float maxVal) {
-      return GenericValidator.maxValue(val, maxVal);
+    public boolean maxValue(Float val, Object maxVal) {
+      return GenericValidator.maxValue(val, ((Number)maxVal).floatValue());
     }
 
     /**
      * Checks if the value is greater than or equal to the min.
      */
-    public boolean minValue(double val, double minVal) {
-      return GenericValidator.minValue(val, minVal);
+    public boolean minValue(Double val, Object minVal) {
+      return GenericValidator.minValue(val, ((Number)minVal).doubleValue());
     }
 
     /**
      * Checks if the value is greater than or equal to the min.
      */
-    public boolean minValue(long val, long minVal) {
-      return GenericValidator.minValue(val, minVal);
+    public boolean minValue(Long val, Object minVal) {
+      return GenericValidator.minValue(val, ((Number)minVal).longValue());
     }
 
     /**
      * Checks if the value is greater than or equal to the min.
      */
-    public boolean minValue(int val, int minVal) {
-      return GenericValidator.minValue(val, minVal);
+    public boolean minValue(Integer val, Object minVal) {
+      return GenericValidator.minValue(val, ((Number)minVal).intValue());
     }
 
     /**
      * Checks if the value is greater than or equal to the min.
      */
-    public boolean minValue(float val, float minVal) {
-      return GenericValidator.minValue(val, minVal);
+    public boolean minValue(Float val, Object minVal) {
+      return GenericValidator.minValue(val, ((Number)minVal).floatValue());
     }
 
     /**
