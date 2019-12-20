@@ -1,10 +1,11 @@
 # Validator Transform
 
-
 Description
 -----------
-Validates a record, writing to an error dataset if the record is invalid.
-Otherwise it passes the record on to the next stage.
+
+Validator Transform is used for validating records in a dataset based on some configured rules.
+
+The accelerator takes a dataset and a set of rules as inputs. These rules evaluate the input dataset using some predefined functions. If the specified rules are met,  then the accelerator passes the record to the next stage, else it removes the record from the output dataset. The output dataset contains all the input records for which the specified rules were evaluated to true.
 
 This table lists the methods available in CoreValidator that can be called from the ValidatorTransform:
 
