@@ -3,14 +3,13 @@
 
 Description
 -----------
-Formats a Structured Record as JSON Object. Plugin will convert the Structured Record to a
-JSON object and write to the output record. The output record schema is a single field,
-either type ``STRING`` or type ``BYTE`` array.
+JSON Formatter is a Guavus Enterprise Accelerator that formats a Structured Record as JSON Object. This accelerator is used to convert the Structured Record to a JSON object and write to the output record. The output record schema is a single field,
+either of type ``STRING`` or of type ``BYTE`` array.
 
 
 Use Case
 --------
-This plugin will convert each row of the input record to json data.
+Consider a scenario wherein you want to convert each row of the input record to json data.
 
 
 Configuration
