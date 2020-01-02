@@ -74,27 +74,26 @@ public class HBaseTableOutputFormat<KEY> extends TableOutputFormat<KEY> {
 
   private void createTable(Configuration conf, HBaseAdmin admin) throws IOException {
     String tableName = conf.get(HBASE_CUSTOM_TABLENAME);
-    List<String> listColumnFamily = Stream.of(conf.get(HBASE_CUSTOM_COLUMNFAMILY).split(","))
-        .collect(Collectors.toList());
+    String columnFamily = conf.get(HBASE_CUSTOM_COLUMNFAMILY);
     if (admin.tableExists(tableName)) {
       try (HTable table = new HTable(conf, tableName)) {
         // check if column family exists
         admin.disableTable(table.getTableName());
-        listColumnFamily.forEach(s -> createFamily(s, table, admin));
+        createFamily(columnFamily, table, admin);
         admin.enableTable(table.getTableName());
       }
       LOG.info("table {} already exists", tableName);
 
     } else {
       HTableDescriptor tableDesc = new HTableDescriptor(TableName.valueOf(tableName));
-      listColumnFamily.forEach(columnFamily -> tableDesc.addFamily(new HColumnDescriptor(columnFamily)));
+      tableDesc.addFamily(new HColumnDescriptor(columnFamily));
       admin.createTable(tableDesc);
-      LOG.info("table has been created with name {}and with column family {}", tableName, listColumnFamily);
+      LOG.info("table has been created with name {}and with column family {}", tableName, columnFamily);
     }
   }
 
 
-  public static void createFamily(String family, HTable table, HBaseAdmin admin) {
+  private static void createFamily(String family, HTable table, HBaseAdmin admin) {
     try {
       // check if column family exists
       boolean exists = false;
