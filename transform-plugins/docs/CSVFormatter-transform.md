@@ -14,11 +14,11 @@ Consider a scenario wherein you want to convert each row of input data to a CSV 
 
 Configuration
 -------------
-**format:** Specifies the format of the CSV Record to be generated.
+**format:** Specify the format of the CSV Record to be generated.
 
-**delimiter:** Specifies the delimiter to be used to generate a CSV Record; this option is available when the format is specified as ``DELIMITED``.
+**delimiter:** Specify the delimiter to be used to generate a CSV Record; this option is available when the format is specified as ``DELIMITED``.
 
-**schema:** Specifies the output schema. Output schema should only have fields of the type String.
+**schema:** Specify the output schema. Output schema should only have fields of the type String.
 
 ## Sample Pipeline
 
