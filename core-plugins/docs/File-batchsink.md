@@ -43,7 +43,7 @@ Advanced features can be used to specify any additional property that should be 
 | `Path Suffix` | Path Suffix | Optional | yyyy-MM-dd-HH-mm | Time format for the output directory that will be appended to the path.For example, the format 'yyyy-MM-dd-HH-mm' will result in a directory of the form '2015-01-01-20-42'.If not specified, nothing will be appended to the path. |
 | `Format` | Format | Yes | Json | Format to write the records in. The format must be one of 'json', 'avro', 'parquet', 'csv', 'tsv', 'delimited' or 'orc'.|
 | `Delimiter` | Delimiter | Optional | N/A | Delimiter to use if the format is 'delimited'.|
-| `File System Properties` | File System Properties | Optional | N/A | Additional properties in json format to use with the OutputFormat when reading the data.Advanced feature to specify any additional property that should be used with the sink. See [here](#file-system-properties) for detais.|
+| `File System Properties` | File System Properties | Optional | N/A | Additional properties in json format to use with the OutputFormat when reading the data.Advanced feature to specify any additional property that should be used with the sink. See [here](#file-system-properties) for details.|
 
 
 ### File System Properties
