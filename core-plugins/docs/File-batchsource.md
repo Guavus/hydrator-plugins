@@ -42,25 +42,26 @@ If specified, the field must exist in the output schema as a string.
 **File System Properties:** The additional properties in json format to use with the InputFormat when reading the data.
 
 
-## Compression
-For compressed input use below sample json properties as a value of `File System Properties` configuration
+### File System Properties
+This is a JSON string representing a map of properties that can can be used when writing the data depending on the use case.
 
-###### Deflate Compression
+Here are sample use cases
+
+- ##### Setting up stripe size when writing to Orc format.
 ```json
 {
-  "mapreduce.output.fileoutputformat.compress": "true",
-  "mapreduce.output.fileoutputformat.compress.codec": "org.apache.hadoop.io.compress.DefaultCodec"
+  "orc.stripe.size": "67108864"
+}
+``` 
+- ##### Writing output to gzip compression format
+```json
+{
+    "mapreduce.output.fileoutputformat.compress": "true",
+    "mapreduce.output.fileoutputformat.compress.codec": "org.apache.hadoop.io.compress.GzipCodec"
 }
 ```
 
-###### GZIP Compression
-```json
-{
-  "mapreduce.output.fileoutputformat.compress": "true",
-  "mapreduce.output.fileoutputformat.compress.codec": "org.apache.hadoop.io.compress.GzipCodec"
-}
-```
-##### BZIP2 Compression
+- ##### Writing output to bzip2 compression format
 ```json
 {
    "mapreduce.output.fileoutputformat.compress": "true",
