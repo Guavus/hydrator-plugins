@@ -43,28 +43,29 @@ Advanced features can be used to specify any additional property that should be 
 | `Path Suffix` | Path Suffix | Optional | yyyy-MM-dd-HH-mm | Time format for the output directory that will be appended to the path.For example, the format 'yyyy-MM-dd-HH-mm' will result in a directory of the form '2015-01-01-20-42'.If not specified, nothing will be appended to the path. |
 | `Format` | Format | Yes | Json | Format to write the records in. The format must be one of 'json', 'avro', 'parquet', 'csv', 'tsv', 'delimited' or 'orc'.|
 | `Delimiter` | Delimiter | Optional | N/A | Delimiter to use if the format is 'delimited'.|
-| `File System Properties` | File System Properties | Optional | N/A | Additional properties in json format to use with the OutputFormat when reading the data.Advanced feature to specify any additional property that should be used with the sink.|
+| `File System Properties` | File System Properties | Optional | N/A | Additional properties in json format to use with the OutputFormat when reading the data.Advanced feature to specify any additional property that should be used with the sink. See [here](#file-system-properties) for detais.|
 
 
-## Compression
-For compressed output use below sample json properties as a value of `File System Properties` configuration
+### File System Properties
+This is a JSON string representing a map of properties that can can be used when writing the data depending on the use case.
 
-###### Deflate Compression
+Here are sample use cases
+
+- ##### Setting up stripe size when writing to Orc format.
 ```json
 {
-  "mapreduce.output.fileoutputformat.compress": "true",
-  "mapreduce.output.fileoutputformat.compress.codec": "org.apache.hadoop.io.compress.DefaultCodec"
+  "orc.stripe.size": "67108864"
+}
+``` 
+- ##### Writing output to gzip compression format
+```json
+{
+    "mapreduce.output.fileoutputformat.compress": "true",
+    "mapreduce.output.fileoutputformat.compress.codec": "org.apache.hadoop.io.compress.GzipCodec"
 }
 ```
 
-###### GZIP Compression
-```json
-{
-  "mapreduce.output.fileoutputformat.compress": "true",
-  "mapreduce.output.fileoutputformat.compress.codec": "org.apache.hadoop.io.compress.GzipCodec"
-}
-```
-##### BZIP2 Compression
+- ##### Writing output to bzip2 compression format
 ```json
 {
    "mapreduce.output.fileoutputformat.compress": "true",
