@@ -45,7 +45,34 @@ Advanced features can be used to specify any additional property that should be 
 | `Delimiter` | Delimiter | Optional | N/A | Delimiter to use if the format is 'delimited'.|
 | `File System Properties` | File System Properties | Optional | N/A | Additional properties in json format to use with the OutputFormat when reading the data.Advanced feature to specify any additional property that should be used with the sink.|
 
-## Sample Input
+
+## Compression
+For compressed output use below sample json properties as a value of `File System Properties` configuration
+
+###### Deflate Compression
+```json
+{
+  "mapreduce.output.fileoutputformat.compress": "true",
+  "mapreduce.output.fileoutputformat.compress.codec": "org.apache.hadoop.io.compress.DefaultCodec"
+}
+```
+
+###### GZIP Compression
+```json
+{
+  "mapreduce.output.fileoutputformat.compress": "true",
+  "mapreduce.output.fileoutputformat.compress.codec": "org.apache.hadoop.io.compress.GzipCodec"
+}
+```
+##### BZIP2 Compression
+```json
+{
+   "mapreduce.output.fileoutputformat.compress": "true",
+   "mapreduce.output.fileoutputformat.compress.codec": "org.apache.hadoop.io.compress.BZip2Codec"
+ }
+```
+
+## Sample Pipeline
 
     {
           "name": "File",
@@ -63,7 +90,8 @@ Advanced features can be used to specify any additional property that should be 
               "suffix": "yyyy-MM-dd-HH-mm",
               "format": "json",
               "path": "/tmp/outputFile",
-              "delimiter": ","
+              "delimiter": ",",
+              "fileSystemProperties": "{\"mapreduce.output.fileoutputformat.compress\":\"true\",\"mapreduce.output.fileoutputformat.compress.codec\":\"org.apache.hadoop.io.compress.GzipCodec\"}"
             }
           }
     }

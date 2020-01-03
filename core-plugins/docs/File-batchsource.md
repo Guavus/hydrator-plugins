@@ -41,7 +41,34 @@ If specified, the field must exist in the output schema as a string.
 
 **File System Properties:** The additional properties in json format to use with the InputFormat when reading the data.
 
-## Sample Input
+
+## Compression
+For compressed input use below sample json properties as a value of `File System Properties` configuration
+
+###### Deflate Compression
+```json
+{
+  "mapreduce.output.fileoutputformat.compress": "true",
+  "mapreduce.output.fileoutputformat.compress.codec": "org.apache.hadoop.io.compress.DefaultCodec"
+}
+```
+
+###### GZIP Compression
+```json
+{
+  "mapreduce.output.fileoutputformat.compress": "true",
+  "mapreduce.output.fileoutputformat.compress.codec": "org.apache.hadoop.io.compress.GzipCodec"
+}
+```
+##### BZIP2 Compression
+```json
+{
+   "mapreduce.output.fileoutputformat.compress": "true",
+   "mapreduce.output.fileoutputformat.compress.codec": "org.apache.hadoop.io.compress.BZip2Codec"
+ }
+```
+
+## Sample Pipeline
 
     {
         "name": "File",
@@ -62,7 +89,8 @@ If specified, the field must exist in the output schema as a string.
             "recursive": "false",
             "ignoreNonExistingFolders": "false",
             "path": "/cdap/file_input",
-            "delimiter": ","
+            "delimiter": ",",
+            "fileSystemProperties": "{\"mapreduce.output.fileoutputformat.compress\":\"true\",\"mapreduce.output.fileoutputformat.compress.codec\":\"org.apache.hadoop.io.compress.GzipCodec\"}"
           }
         }
       }
