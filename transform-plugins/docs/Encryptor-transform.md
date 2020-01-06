@@ -8,7 +8,7 @@ Field Encryptor is a Guavus Enterprise Accelerator that is used to encrypt the f
 ## Configuration
 **Fields to Encrypt:** Specify the fields to be encrypted; different fields should be separated by commas.
 
-***Note:*** Only `int`, `long`, `float`, `double`, `string` and `bytes` formats are supported.
+Note: Only `int`, `long`, `float`, `double`, `string` and `bytes` formats are supported.
 
 **transformation:** The transformation algorithm/mode/padding. For example, AES/CBC/PKCS5Padding.
 
@@ -27,7 +27,7 @@ Else, the keystore file must be present on every slave node of the cluster.
 
 **keyPassword** The password for the key to be used in the keystore.
 
-**Note:**: Do not use sink accelerators that store data in the textual format because Field Encryptor converts the field values to `bytes`, and the text-based sink accelerators will convert bytes to string at the time of writing the data.
+Note: Do not use sink accelerators that store data in the textual format because Field Encryptor converts the field values to `bytes`, and the text-based sink accelerators will convert bytes to string at the time of writing the data.
 Use any columnar format like ORC, Parquet etc.
 
 
