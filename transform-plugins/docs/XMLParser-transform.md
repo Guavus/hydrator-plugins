@@ -1,17 +1,17 @@
-# XML Parser Transform
+# XML Parser
 
 Description
 -----------
-The XML Parser Transform uses XPath to extract fields from a complex XML event. This plugin should generally be used
-in conjunction with the XML Reader Batch Source. The XML Reader will provide individual events to the XML Parser,
-which will be responsible for extracting fields from the events and mapping them to the output schema.
+XML Parser is a Guavus Enterprise Accelerator that uses XPath to extract fields from a complex XML event. 
+
+This accelerator should generally be used in conjunction with the XML Reader. The XML Reader will provide individual events to the XML Parser, which will be responsible for extracting fields from the events and mapping them to the output schema.
 
 
 Use Case
 --------
-The transform takes an input record that contain XML events or records, parses it using the specified XPaths and returns
-a structured record according to the specified schema. For example, this plugin can be used in conjunction with the XML
-Reader Batch Source to extract values from XMLNews documents and create structured records which are easier to query.
+XML Parser takes an input record that contain XML events or records, parses it using the specified XPaths, and returns a structured record according to the specified schema. 
+
+Consider a scenario wherein you want to use this accelerator in conjunction with the XML Reader to extract values from XMLNews documents and create structured records which are easier to query.
 
 
 Properties
