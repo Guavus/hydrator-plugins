@@ -2,34 +2,29 @@
 
 ## Description
 
-Parses an input JSON event into a record. The input JSON event could be either a map of
-string fields to values or it could be a complex nested JSON structure. The plugin allows you
-to express JSON paths for extracting fields from complex nested input JSON.
+JSON Parser is a Guavus Enterprise Accelerator that parses an input JSON event into a record. The input JSON event can either map string fields to values or it can be a complex nested JSON structure. The accelerator allows you to mention JSON paths for extracting fields from complex nested input JSON.
 
 #### Configuration
 
     +=================================================================================================================================================+ 
     | Config  | Description                                                                                                                           |
     |---------|---------------------------------------------------------------------------------------------------------------------------------------|
-    | field   | Specifies the input field that should be parsed as a JSON record.                                                                     |
-    | mapping | JSON Path Mapping specifying output field name to input JSON path for extracting the field. Needed only when parsing the nested JSON. |
+    | field   | Specify the input field that should be parsed as a JSON record.                                                                     |
+    | mapping | JSON Path Mapping specifying the output field name to input JSON path for extracting the field. Needed only when parsing the nested JSON. |
     | schema  | Specifies the output schema for the JSON Record                                                                                       |
     +=================================================================================================================================================+
 
 
 ### Use Case
-JSON Parser reads the values of input column record by record, parses it as json and then extracts the values from json as per output schema.
+JSON Parser reads the values of input column record by record, parses it as json, and then extracts the values from json as per the output schema.
 
 **Note**: Values of input column should be a JSON String.
 
-JSON Parser can be used to handle below two cases 
+JSON Parser can be used to handle the following two cases:
 
 ##### 1. Parsing Simple JSON
 
-Simple JSON (which is defined as a mapping from key to value) parsing is achieved
-by specifying just the output schema fields. The field name in the output schema
-should be the same as the key in the input JSON. The type of the output field should also be the
-same type as the input value. No implicit conversions are performed on the JSON values.
+Simple JSON (which is defined as a mapping from a key to value) parsing is achieved by specifying just the output schema fields. The field name in the output schema should be the same as the key in the input JSON. The type of the output field should also be the same type as the input value. No implicit conversions are performed on the JSON values.
 
 When parsing a simple JSON, no need to specify json path mapping.
 
@@ -65,16 +60,11 @@ The output schema should be specified as:
     | zip      | long   |      |
     +==========================+
 
-**Note:** The field "planet" has not been included in the output schema, meaning that the
-field would be ignored and not processed when the JSON event is mapped. 
+**Note:** The field "planet" has not been included in the output schema, meaning that the field would be ignored and not processed when the JSON event is mapped. 
 
 ##### 2. Parsing Nested JSON
 
-Parser also allows the extracting of fields from a complex nested JSON. In order to extract
-fields, it uses JSON path mapping similar to the XPath expressions for XML. To extract fields using an
-expression in JSON, this plugin uses the **JsonPath** library. The plugin allows you to define a
-mapping from the output fieldname to the JSON path expression that is to be applied on input to
-extract the value from the JSON event.
+Parser also allows the extracting of fields from a complex nested JSON. In order to extract fields, it uses JSON path mapping similar to the XPath expressions for XML. To extract fields using an expression in JSON, this plugin uses the **JsonPath** library. The plugin allows you to define a mapping from the output fieldname to the JSON path expression that is to be applied on input to extract the value from the JSON event.
 
 For example, if you have this nested JSON:
 
@@ -109,7 +99,7 @@ You could specify the mapping for extracting these fields from the input JSON ev
   7. zip
   8. country
 
-The mappings in the plugin will be:
+The mappings in the accelerator will be:
 
     +================================================+
     | Output Field Name | Input JSON Path Expression |
@@ -125,13 +115,12 @@ The mappings in the plugin will be:
     +================================================+
     
 ## JSONPath
-As stated earlier JSONPath is query language for JSON. Below section explains how to use it to write the path mapping.
+As stated earlier, JSONPath is the query language for JSON. The following section explains how to use it to write the path mapping.
 
 ### Expression
-A JSONPath expression specifies a path to an element(or a set of elements) in a JSON structure.
+A JSONPath expression specifies a path to an element (or a set of elements) in a JSON structure.
 
-The "root member object" for parsing any JSON is referred to as ```$```, regardless of
-whether it's an array or an object.
+The "root member object" for parsing any JSON is referred to as ```$```, regardless of whether it's an array or an object.
 
 JsonPath expressions can use the dot–notation ```$.employee.name``` or the bracket notation ```$['employee']['name']``` to access the nested JSON values.
 
@@ -153,9 +142,7 @@ These operators are supported:
 
 #### Supported Functions
 
-The functions perform aggregations at the tail end of the path. The functions take the
-output of the expression as input for performing aggregations. The aggregation function
-can be only be applied where the expression results in an array. 
+The functions perform aggregations at the tail end of the path. The functions take the output of the expression as input for performing aggregations. The aggregation function \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\can be only be applied where the expression results in an array. 
 
     +==================================================================+ 
     | Function | Type   | Description                                  |
