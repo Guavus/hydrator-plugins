@@ -13,7 +13,6 @@ XML Parser takes an input record that contain XML events or records, parses it u
 
 Consider a scenario wherein you want to use this accelerator in conjunction with the XML Reader to extract values from XMLNews documents and create structured records which are easier to query.
 
-
 Properties
 ----------
 
@@ -21,13 +20,13 @@ Properties
 
 **encoding:** The source XML character set encoding (default UTF-8). (Macro-enabled)
 
-**xPathMappings:** Mapping of the field names to the XPaths of the XML record. A comma-separated list, each element of
-which is a field name, followed by a colon, followed by an XPath expression. XPath location paths can include predicates
-and supports XPath 1.0.
+**xPathMappings:** Mapping of the field names to the XPaths of the XML record. It should be a comma-separated list, each element of
+which is a field name, followed by a colon, followed by an XPath expression. The XPath location paths can include predicates
+and support XPath 1.0.
 Example : ``<field-name>:<XPath expression>``
 
-**fieldTypeMapping:** Mapping of field names in the output schema to data types. Consists of a comma-separated list,
-each element of which is a field name followed by a colon and a type, where the field names are the same as used in the
+**fieldTypeMapping:** Mapping of field names in the output schema to the data types. It should be a comma-separated list,
+each element of which is a field name, followed by a colon and a type, where the field names are the same as used in the
 xPathMappings, and the type is one of: boolean, int, long, float, double, bytes, or string.
 Example : ``<field-name>:<data-type>``
 
@@ -41,9 +40,7 @@ Example : ``<field-name>:<data-type>``
 Example
 -------
 
-This example parses an XML record received in the "body" field of the input record following the *xPathMappings* for
-each field name. The output structured record will be created using the type specified for each field in the
-"fieldTypeMapping". Only years and prices will be passed on for books with a price over 35.00:
+This example parses an XML record received in the "body" field of the input record along with the *xPathMappings* for each field name. The output structured record will be created using the type specified for each field in the "fieldTypeMapping". Only years and prices will be passed on for books with a price greater than 35.00:
 
        {
             "name": "XMLParser",
@@ -65,7 +62,7 @@ each field name. The output structured record will be created using the type spe
             }
        }
 
-For example, suppose the transform receives these input records:
+For example, suppose the transform receives the following input records:
 
     +=========================================================================================================+
     | offset   | body                                                                                         |
@@ -89,7 +86,7 @@ The output records will contain:
     |           |                    |        |         | literature</genre></subcategory>                    |
     +=========================================================================================================+
 
-Here, since the subcategory contains child nodes, the plugin will return the complete subcategory node (along with its
-child elements) as string as ``<subcategory><type>Continental</type><genre>European cuisines</genre></subcategory>`` .
-This is to ensure that the plugin returns a single XML event for a structured record intead of the two child events:
+Here, since the subcategory contains child nodes, the accelerator will return the complete subcategory node (along with its
+child elements) in the string type as ``<subcategory><type>Continental</type><genre>European cuisines</genre></subcategory>`` .
+This is to ensure that the accelerator returns a single XML event for a structured record instead of the two child events:
  ``<type>Continental</type>`` and ``<genre>European cuisines</genre>``.
