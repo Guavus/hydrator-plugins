@@ -24,9 +24,9 @@ JSON Parser can be used to handle the following two cases:
 
 ##### 1. Parsing Simple JSON
 
-Simple JSON (which is defined as a mapping from a key to value) parsing is achieved by specifying just the output schema fields. The field name in the output schema should be the same as the key in the input JSON. The type of the output field should also be the same type as the input value. No implicit conversions are performed on the JSON values.
+Simple JSON (which is defined as a mapping from a key to value) parsing is achieved by specifying just the output schema fields. The field name in the output schema should be the same as the key in the input JSON. The type of the output field should also be the same as the input value type. No implicit conversions are performed on the JSON values.
 
-When parsing a simple JSON, no need to specify json path mapping.
+When parsing a simple JSON, you don't need to specify json path mapping.
 
 Here is an example of an event that is to be mapped to the output schema:
 
@@ -60,13 +60,13 @@ The output schema should be specified as:
     | zip      | long   |      |
     +==========================+
 
-**Note:** The field "planet" has not been included in the output schema, meaning that the field would be ignored and not processed when the JSON event is mapped. 
+**Note:** The field "planet" has not been included in the output schema, which means that the field will be ignored and not processed when the JSON event is mapped. 
 
 ##### 2. Parsing Nested JSON
 
-Parser also allows the extracting of fields from a complex nested JSON. In order to extract fields, it uses JSON path mapping similar to the XPath expressions for XML. To extract fields using an expression in JSON, this plugin uses the **JsonPath** library. The plugin allows you to define a mapping from the output fieldname to the JSON path expression that is to be applied on input to extract the value from the JSON event.
+Parser also allows the extracting of fields from a complex nested JSON. In order to extract fields, it uses the JSON path mapping similar to the XPath expressions for XML. To extract fields using an expression in JSON, this accelerator uses the **JsonPath** library. The accelerator allows you to define the mapping from the output fieldname to the JSON path expression that is to be applied on the input to extract the value from the JSON event.
 
-For example, if you have this nested JSON:
+Consider that you have the following nested JSON:
 
     {
       "employee" : {
