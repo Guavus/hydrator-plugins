@@ -35,7 +35,7 @@ Example : ``<field-name>:<data-type>``
                      - "Exit on error" : Stops processing upon encountering an error
                      - "Write to error collector" :  Writes the error record to an error collector and continues
 
-**failOnArray:** Whether to allow xpaths that are arrays. If false, the first element will be chosen. Defaults to false.
+**failOnArray:** Whether to allow Xpaths that are arrays. If false, the first element will be chosen. It defaults to false.
 
 Example
 -------
@@ -87,6 +87,6 @@ The output records will contain:
     +=========================================================================================================+
 
 Here, since the subcategory contains child nodes, the accelerator will return the complete subcategory node (along with its
-child elements) in the string type as ``<subcategory><type>Continental</type><genre>European cuisines</genre></subcategory>`` .
+child elements) in the type string as ``<subcategory><type>Continental</type><genre>European cuisines</genre></subcategory>`` .
 This is to ensure that the accelerator returns a single XML event for a structured record instead of the two child events:
  ``<type>Continental</type>`` and ``<genre>European cuisines</genre>``.
