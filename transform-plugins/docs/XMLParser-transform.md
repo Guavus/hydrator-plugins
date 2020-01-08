@@ -9,7 +9,7 @@ This accelerator should generally be used in conjunction with the XML Reader. Th
 
 Use Case
 --------
-XML Parser takes an input record that contain XML events or records, parses it using the specified XPaths, and returns a structured record according to the specified schema. 
+XML Parser takes an input record that contains XML events or records, parses it using the specified XPaths, and returns a structured record according to the specified schema. 
 
 Consider a scenario wherein you want to use this accelerator in conjunction with the XML Reader to extract values from XMLNews documents and create structured records which are easier to query.
 
