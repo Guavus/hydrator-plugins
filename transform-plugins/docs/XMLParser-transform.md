@@ -30,7 +30,7 @@ each element of which is a field name, followed by a colon and a type, where the
 xPathMappings, and the type is one of: boolean, int, long, float, double, bytes, or string.
 Example : ``<field-name>:<data-type>``
 
-**processOnError:** The action to take in case of an error.
+**processOnError:** The action to be taken in case of an error.
                      - "Ignore error and continue"
                      - "Exit on error" : Stops processing upon encountering an error
                      - "Write to error collector" :  Writes the error record to an error collector and continues
