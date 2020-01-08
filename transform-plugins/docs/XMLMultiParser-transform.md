@@ -1,17 +1,15 @@
-# XML Multi Parser Transform
+# XML Multi Parser
 
 Description
 -----------
-The XML Multi Parser Transform uses XPath to extract fields from an XML document. It will generate records from
-the children of the element specified by the XPath. If there is some error parsing the document or building the record,
-the problematic input record will be dropped.
+XML Multi Parser is a Guavus Enterprise Accelerator that uses XPath to extract fields from an XML document. It will generate records from the children of the element specified by the XPath. 
+
+If there is some error parsing the document or building the record, the input record causing the error will be dropped.
 
 
 Use Case
 --------
-You might want to use this transform if your input record contains a field that is in xml format and you want to
-parse multiple records from that field. For example, it may contain the contents of an RSS feed, and you want to parse
-out the items contained in that feed.
+XML Multi Parser can be used if your input record contains a field that is in the xml format and you want to parse multiple records from that field. For example, it may contain the contents of an RSS feed and you want to parse out the items contained in that feed. This can be achieved by configuring the accelerator as described in the following sections:
 
 
 Properties
@@ -25,21 +23,18 @@ Properties
 children of the elements referenced by the XPath. For example: /rss/channel/item.
 
 **schema:** The schema of records to output. Each field in the schema must be a child of the XML element referenced by
-the XPath. Currently only simply types are supported.
+the XPath. Currently, only simple types are supported.
 
 Conditions
 ----------
-If error collector is configured, then all the erroneous rows, if present in the input, will be committed to the
+If the error collector is configured, all the erroneous rows present in the input will be committed to the
 specified error collector.
-If no error collector is configured, then pipeline will get completed but with warnings in the logs.
+If no error collector is configured, the pipeline will get completed but with warnings in the logs.
 
 Example
 -------
 
-This example parses an XML record received in the "body" field of the input record. It specifies an
-xpath of '/rss/channel/item', which means it will generate a record for each item node that matches that XPath.
-It generates output records with guid, title, and pubDate fields, which are taken from those child
-elements of each item node in the xml.
+This example parses an XML record received in the "body" field of the input record. It specifies an xpath of '/rss/channel/item', which means it will generate a record for each item node that matches that XPath. It generates output records with guid, title, and pubDate fields, which are taken from those child elements of each item node in the xml.
 
         {
             "name": "XMLMultiParser",
@@ -62,7 +57,7 @@ elements of each item node in the xml.
             }
         }
 
-For example, for xml document:
+For example, for the xml document:
 
         <rss>
             <channel>
@@ -79,7 +74,7 @@ For example, for xml document:
             </channel>
         </rss>
 
-The transform will output records:
+The accelerator will output records:
 
     +======================================================================+
     | guid  | title                                  | pubDate             |
