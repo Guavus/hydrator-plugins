@@ -16,7 +16,7 @@ Properties
 **fileRegex:** The wildcard regular expression to filter the files in the source directory that will be removed. The fileRegex pattern 
 would be a simple search regex pattern which is used in any programming language like -- test.*/.csv -- (for delete csv files start with test). 
 
-**continueOnError:** This is to specify if the pipeline should continue in case the delete process fails. If all files are not successfully deleted, the action will not re-create the files already deleted.
+**continueOnError:** To specify if the pipeline should continue in case the delete process fails. If all files are not successfully deleted, the action will not re-create the files already deleted.
 
 Example
 -------
