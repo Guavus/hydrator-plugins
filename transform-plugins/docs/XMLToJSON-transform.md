@@ -1,27 +1,22 @@
-# XML String to JSON String Converter Transform
+# XML to JSON
 
 
 Description
 -----------
-Accepts a field that contains a properly-formatted XML string and 
-outputs a properly-formatted JSON string version of the data.
+XML to JSON is a Guavus Enterprise Accelerator that accepts a field containing a properly-formatted XML string and converts it into a properly-formatted JSON string.
 
 Use Case
 --------
-This plugin can be used with the Javascript transform for the parsing of 
-complex XML documents into parts. Once the XML is a JSON string, you 
-can convert it into a Javascript object using:
+XML to JSON can be used with the Javascript transform for the parsing of complex XML documents into parts. Once the XML is a JSON string, you can convert it into a Javascript object using:
 
         var jsonObj = JSON.parse(input.jsonevent);
 
 
 Configuration
 -------------
-**inputField:** Specifies the input field containing an XML string to 
-be converted to a JSON string.
+**inputField:** Specify the input field containing an XML string to be converted to a JSON string.
 
-**outputField:** Specifies the output field where the JSON string will
-be stored. If it is not present in the output schema, it will be
+**outputField:** Specify the output field where the JSON string will be stored. If it is not present in the output schema, it will be
 added. (Macro-enabled)
 
 ## Sample Pipeline
