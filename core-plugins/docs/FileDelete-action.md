@@ -1,30 +1,22 @@
-# File Delete Action
-
+# File Delete
 
 Description
 -----------
-Deletes a file or files.
+File Delete is a Guavus Enterprise Accelerator that is used to delete a file or files.
 
 
 Use Case
 --------
-This action can be used to remove a file or files.
-
+Consider an example wherein you want to remove a file or files. This can be done by configuring the accelerator as shown in the following sections.
 
 Properties
 ----------
-**path:** The full path of the file or files that need to be deleted. If the path points to a file,
-the file will be removed. If the path points to a directory with no regex specified, the directory and all of 
-its contents will be removed. If a regex is specified, only the files and directories matching that regex
-will be removed.
+**path:** The full path of the file or files that need to be deleted. If the path points directly to a file, the file will be removed. If the path points to a directory with no regex specified, the directory and all of its contents will be removed. If a regex is specified, only the files and directories matching that regex will be removed.
 
-**fileRegex:** Wildcard regular expression to filter the files in the source directory that will be removed.FileRegex pattern 
-would be simple search regex pattern which is used in any programming language like -- test.*/.csv -- (for delete csv files start with test). 
+**fileRegex:** The wildcard regular expression to filter the files in the source directory that will be removed. The fileRegex pattern 
+would be a simple search regex pattern which is used in any programming language like -- test.*/.csv -- (for delete csv files start with test). 
 
-**continueOnError:** Indicates if the pipeline should continue if the delete process fails. If all files are not 
-successfully deleted, the action will not re-create the files already deleted.
-
-
+**continueOnError:** This is to specify if the pipeline should continue in case the delete process fails. If all files are not successfully deleted, the action will not re-create the files already deleted.
 
 Example
 -------
