@@ -1,31 +1,25 @@
-# Normalize Transform
+# Normalize 
 
 
 Description
 -----------
-Normalize is a transform plugin that breaks one source row into multiple target rows.
-Attributes stored in the columns of a table or a file may need to be broken into multiple
-records: for example, one record per column attribute. In general, the plugin allows the
-conversion of columns to rows.
+Normalize is a Guavus Enterprise Accelerator that is used to break one source row into multiple target rows.
+Attributes stored in the columns of a table or a file may need to be broken into multiple records: for example, one record per column attribute. In general, the accelerator allows the conversion of columns to rows.
 
 Use Case
 --------
-The normalize transform can be used if you want to reduce the restructuring of a dataset
-when a new type of data is introduced into the collection. For example, assume you are
-building a master customer table that aggregates data for a user from multiple sources,
-and each of the sources has its own type of data to be added to a "customer-id". Instead
-of creating wide columns, normalization allows you to transform data into its canonical
-form and update the master customer profile simultaneously from the multiple sources.
+Consider a scenario wherein you want to minimize the restructuring of a dataset when a new type of data is introduced into the collection. For example, assume you are building a master customer table that aggregates data for a user from multiple sources,
+and each of the sources has its own type of data to be added to "customer-id". Instead of creating wide columns, normalization allows you to transform data into its canonical form and update the master customer profile simultaneously from the multiple sources.
 
 Properties
 ----------
-**fieldMapping:** A string that is a comma-separated list of field names. Specifies the input schema field
+**fieldMapping:** A string that is a comma-separated list of field names. Specify the input schema field
 to be mapped to the output schema field. Example: "CustomerID:ID" maps the value of the
 CustomerID field to the ID field of the output schema.
 
 **fieldNormalizing:** A string that is a comma-separated list of field names, a common
-column for the field types, and a common column for the field values. Specifies the name
-of the field to be normalized, to which output field its name should be mapped as a type,
+column for the field types, and a common column for the field values. Specify the name
+of the field to be normalized; to which output field its name should be mapped as a type,
 and the output field where the value needs to be saved.
 
 Example: "ItemId:AttributeType:AttributeValue" will save the name "ItemId" to the
@@ -54,7 +48,7 @@ Customer_Profile table:
     |            |            |            | 65765            |             | 23423           |                    |
     +==============================================================================================================+
 
-Map the "CustomerId" column to the "ID" column of the output schema, and the
+Map the "CustomerId" column to the "ID" column of the output schema and the
 "Last_Update_Date" to the "Date" column of the output schema. Normalize the "First_Name",
 "Last_Name", "Credit_Card", and "Billing_Address" columns by mapping each column name to
 the "Attribute_Type" column and their values to the "Attribute_Value" column of the output
