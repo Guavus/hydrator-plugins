@@ -8,8 +8,8 @@ Attributes stored in the columns of a table or a file may need to be broken into
 
 Use Case
 --------
-Consider a scenario wherein you want to minimize the restructuring of a dataset when a new type of data is introduced into the collection. For example, assume you are building a master customer table that aggregates data for a user from multiple sources,
-and each of the sources has its own type of data to be added to "customer-id". Instead of creating wide columns, normalization allows you to transform data into its canonical form and update the master customer profile simultaneously from the multiple sources.
+Consider a scenario wherein you want to minimize the restructuring of a dataset whenever a new type of data is introduced into the collection. For example, assume you are building a master customer table that aggregates data for a user from multiple sources,
+and each of the sources has its own type of data to be added to "customer-id". Instead of creating wide columns, normalization allows you to transform data into its canonical form and update the master customer profile simultaneously from multiple sources.
 
 Properties
 ----------
