@@ -1,19 +1,14 @@
-# Python Evaluator Transform
+# Python Evaluator
 
 
 Description
 -----------
-Executes user-provided python code that transforms one record into zero or more records.
-Each input record is converted into a dictionary which can be directly accessed in
-python. The transform expects to receive a dictionary as input, which it can
-process and emit zero or more transformed dictionaries, or emit an error dictionary using the provided emitter object.
+Python Evaluator is a Guavus Enterprise Accelerator that executes a user-provided python code to transform one record into zero or more records.
+Each input record is converted into a dictionary which can be directly accessed in python. The transform should receive a dictionary as input, which it can process and emit zero or more transformed dictionaries, or emit an error dictionary using the provided emitter object.
 
 Configuration
 -------------
-**script:** Python code defining how to transform one record into another. The script must
-implement a function called ``'transform'``, which takes as input a Python dictionary (representing
-the input record), an emitter object, and a context object (which contains CDAP metrics and logger).
-The script can then use the emitter object to emit transformed Python dictionaries.
+**script:** The Python code defining how to transform one record into another. The script must implement a function called ``'transform'``, which takes as input a Python dictionary (representing the input record), an emitter object, and a context object (which contains CDAP metrics and logger). The script can then use the emitter object to emit transformed Python dictionaries.
 
 For example:
 
@@ -21,8 +16,7 @@ For example:
 
 will scale the ``'count'`` field of ``record`` by 1024.
 
-**schema:** The schema of output objects. If no schema is given, it is assumed that the output
-schema is the same as the input schema.
+**schema:** The schema of output objects. If no schema is given, it is assumed that the output schema is the same as the input schema.
 
 
 Example
