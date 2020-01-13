@@ -3,7 +3,7 @@
 
 Description
 -----------
-Normalize is a Guavus Enterprise Accelerator that is used to break one source row into multiple target rows.
+Normalize is used to break one source row into multiple target rows.
 Attributes stored in the columns of a table or a file may need to be broken into multiple records: for example, one record per column attribute. In general, the accelerator allows the conversion of columns to rows.
 
 Use Case
