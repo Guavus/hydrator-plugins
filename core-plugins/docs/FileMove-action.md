@@ -19,7 +19,7 @@ Properties
 
 **fileRegex:** The wildcard regular expression to filter the files in the source directory that will be moved. The fileRegex pattern would be a simple search regex pattern which is used in any programming language like -- test.*/.csv -- (for move csv files start with test).
 
-**continueOnError:** To specify if the pipeline should continue if the move process fails. If all files are not successfully moved, the action will not return the files already moved to their original locations.
+**continueOnError:** To specify if the pipeline should continue when the move process fails. If all files are not successfully moved, the action will not restore the files already moved to their original locations.
 
 
 Example
