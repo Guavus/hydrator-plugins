@@ -142,7 +142,7 @@ These operators are supported:
 
 #### Supported Functions
 
-The functions perform aggregations at the tail end of the path. The functions take the output of the expression as input for performing aggregations. The aggregation function \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\can be only be applied where the expression results in an array. 
+The functions perform aggregations at the tail end of the path. The functions take the output of the expression as input for performing aggregations. The aggregation function can be only be applied where the expression results in an array. 
 
     +==================================================================+ 
     | Function | Type   | Description                                  |
