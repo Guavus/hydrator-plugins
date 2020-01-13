@@ -1,13 +1,13 @@
-# XML to JSON
+# XML to JSON Converter
 
 
 Description
 -----------
-XML to JSON accepts a field containing a properly-formatted XML string and converts it into a properly-formatted JSON string.
+XML to JSON converter accepts a field containing a properly-formatted XML string and converts it into a properly-formatted JSON string.
 
 Use Case
 --------
-XML to JSON can be used with the Javascript transform for the parsing of complex XML documents into parts. Once the XML is a JSON string, you can convert it into a Javascript object using:
+This accelerator can be used with the Javascript transform for the parsing of complex XML documents into parts. Once the XML is a JSON string, you can convert it into a Javascript object using:
 
         var jsonObj = JSON.parse(input.jsonevent);
 
