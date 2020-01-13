@@ -3,7 +3,7 @@
 
 Description
 -----------
-Database is a Guavus Enterprise Accelerator that is used to read from a database using a configurable SQL query. It outputs one record for each row returned by the query.
+Database accelerator is used to read from a database using a configurable SQL query. It outputs one record for each row returned by the query.
 
 
 Use Case
