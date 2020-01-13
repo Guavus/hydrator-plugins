@@ -3,7 +3,7 @@
 
 Description
 -----------
-File Move is a Guavus Enterprise Accelerator that is used to moves a file or files.
+File Move is used to moves a file or files.
 
 
 Use Case
