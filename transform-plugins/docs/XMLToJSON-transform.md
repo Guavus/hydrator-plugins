@@ -3,7 +3,7 @@
 
 Description
 -----------
-XML to JSON is a Guavus Enterprise Accelerator that accepts a field containing a properly-formatted XML string and converts it into a properly-formatted JSON string.
+XML to JSON accepts a field containing a properly-formatted XML string and converts it into a properly-formatted JSON string.
 
 Use Case
 --------
