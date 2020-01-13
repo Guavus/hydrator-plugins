@@ -3,7 +3,7 @@
 
 Description
 -----------
-XML Reader is a Guavus Enterprise Accelerator that allows users to read XML files stored on HDFS.
+XML Reader allows users to read XML files stored on HDFS.
 
 
 Use Case
