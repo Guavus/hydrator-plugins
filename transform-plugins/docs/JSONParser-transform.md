@@ -2,7 +2,7 @@
 
 ## Description
 
-JSON Parser is a Guavus Enterprise Accelerator that parses an input JSON event into a record. The input JSON event can either map string fields to values or it can be a complex nested JSON structure. The accelerator allows you to mention JSON paths for extracting fields from complex nested input JSON.
+JSON Parser parses an input JSON event into a record. The input JSON event can either map string fields to values or it can be a complex nested JSON structure. The accelerator allows you to mention JSON paths for extracting fields from complex nested input JSON.
 
 #### Configuration
 
