@@ -3,7 +3,7 @@
 
 Description
 -----------
-JSON Formatter is a Guavus Enterprise Accelerator that formats a Structured Record as JSON Object. This accelerator is used to convert the Structured Record to a JSON object and write to the output record. The output record schema is a single field,
+JSON Formatter is used to format a Structured Record as a JSON Object. This accelerator is used to convert the Structured Record to a JSON object and write to the output record. The output record schema is a single field,
 either of the type ``STRING`` or the type ``BYTE``.
 
 
