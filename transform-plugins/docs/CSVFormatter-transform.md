@@ -3,7 +3,7 @@
 
 Description
 -----------
-CSV Formatter is a Guavus Enterprise Accelerator that formats a Structured Record as a CSV Record. 
+CSV Formatter is used to format a Structured Record as a CSV Record. 
 
 The supported CSV Record formats are ``DELIMITED``, ``EXCEL``, ``MYSQL``, ``RFC4180``, and ``TDF``. When the format is ``DELIMITED``, one can specify different delimiters that a CSV Record should use for separating fields.
 
