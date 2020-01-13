@@ -2,7 +2,7 @@
 
 Description
 -----------
-XML Parser is a Guavus Enterprise Accelerator that uses XPath to extract fields from a complex XML event. 
+XML Parser uses XPath to extract fields from a complex XML event. 
 
 This accelerator should generally be used in conjunction with the XML Reader. The XML Reader will provide individual events to the XML Parser, which will be responsible for extracting fields from the events and mapping them to the output schema.
 
