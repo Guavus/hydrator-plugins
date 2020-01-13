@@ -4,6 +4,8 @@
 ## Description
 Field Encryptor is a Guavus Enterprise Accelerator that is used to encrypt the fields present in the input records using a java keystore, which must be present on all nodes of the cluster.
 
+## Use case
+Consider a scenario where some of your fields contains sensitive information and you want to encrypt that field to hide it from other users.
 
 ## Configuration
 **Fields to Encrypt:** Specify the fields to be encrypted; different fields should be separated by commas.
