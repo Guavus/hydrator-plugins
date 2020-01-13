@@ -2,7 +2,7 @@
 
 Description
 -----------
-XML Multi Parser is a Guavus Enterprise Accelerator that uses XPath to extract fields from an XML document. It will generate records from the children of the element specified by the XPath. 
+XML Multi Parser uses XPath to extract fields from an XML document. It will generate records from the children of the element specified by the XPath. 
 
 If there is some error parsing the document or building the record, the input record causing the error will be dropped.
 
