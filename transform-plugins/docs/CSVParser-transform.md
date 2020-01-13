@@ -3,13 +3,13 @@
 
 Description
 -----------
-CSV Parser is a Guavus Enterprise Accelerator that parses an input field as a CSV Record into a Structured Record. 
+CSV Parser parses an input field as a CSV Record into a Structured Record. 
 
 This accelerator supports parsing of a multi-line CSV Record into multiple Structured Records. Different formats of CSV Record can be parsed using this CSV Parser. It supports these CSV Record types: ``DEFAULT``, ``Tab Delimited``, ``Pipe Delimited`` and ``Custom Delimeted``.
 
 Use Case
 ---------
-Consider a scenario where you want to parse each record as a csv based on a delimiter.
+Consider a scenario wherein you want to parse each record as a csv based on a delimiter.
 
 Configuration
 -------------
