@@ -2,7 +2,7 @@
 
 Description
 -----------
-File Delete is a Guavus Enterprise Accelerator that is used to delete a file or files.
+File Delete is used to delete a file or files.
 
 
 Use Case
