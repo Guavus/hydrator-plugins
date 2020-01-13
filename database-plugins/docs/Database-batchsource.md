@@ -3,12 +3,12 @@
 
 Description
 -----------
-Database accelerator is used to read from a database using a configurable SQL query. It outputs one record for each row returned by the query.
+The Database accelerator is used to read from a database using a configurable SQL query. It outputs one record for each row returned by the query.
 
 
 Use Case
 --------
-Consider a scenario wherein you want to create daily snapshots of a database table by using this source and writing to a TimePartitionedFileSet. This can be achieved by configuring the accelerator as described in the following section.
+Consider a scenario wherein you want to read data from a database by using this source and then write to a TimePartitionedFileSet. This can be achieved by configuring the accelerator as described in the following section.
 
 
 Properties
