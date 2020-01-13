@@ -25,7 +25,7 @@ children of the elements referenced by the XPath. For example: /rss/channel/item
 **schema:** The schema of records to output. Each field in the schema must be a child of the XML element referenced by
 the XPath. Currently, only simple types are supported.
 
-Note
+Important Note
 -------
 If the error collector is configured, all the erroneous rows present in the input will be committed to the
 specified error collector. If no error collector is configured, the pipeline will get completed but with warnings in the logs.
