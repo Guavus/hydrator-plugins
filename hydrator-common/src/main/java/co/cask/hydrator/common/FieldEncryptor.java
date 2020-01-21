@@ -19,6 +19,8 @@ package co.cask.hydrator.common;
 import co.cask.cdap.api.common.Bytes;
 import co.cask.cdap.api.data.schema.Schema;
 import org.apache.commons.codec.binary.Hex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.security.Key;
@@ -32,6 +34,7 @@ import javax.crypto.spec.IvParameterSpec;
  * Encrypts and decrypts fields based on their schema.
  */
 public abstract class FieldEncryptor {
+  private static final Logger LOG = LoggerFactory.getLogger(FieldEncryptor.class);
   private final KeystoreConf conf;
   private int mode;
   private Cipher cipher;
@@ -55,6 +58,8 @@ public abstract class FieldEncryptor {
     } else {
       cipher.init(mode, key);
     }
+
+    LOG.info("Using cipher algorithm: {}", cipher.getAlgorithm());
   }
 
   public abstract InputStream getKeystoreInputStream(String keystorePath) throws Exception;
@@ -85,6 +90,9 @@ public abstract class FieldEncryptor {
       case BYTES:
         fieldBytes = (byte[]) fieldVal;
         break;
+      case BOOLEAN:
+        fieldBytes = Bytes.toBytes((boolean) fieldVal);
+        break;
       default:
         throw new IllegalArgumentException("field type " + fieldType + " is not supported.");
     }
@@ -111,6 +119,8 @@ public abstract class FieldEncryptor {
         return Bytes.toString(fieldBytes);
       case BYTES:
         return fieldBytes;
+      case BOOLEAN:
+        return Bytes.toBoolean(fieldBytes);
       default:
         throw new IllegalArgumentException("field type " + fieldType + " is not supported.");
     }
