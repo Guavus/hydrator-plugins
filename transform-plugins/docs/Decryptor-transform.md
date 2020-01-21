@@ -5,6 +5,8 @@
 Decrypts one or more fields in input records using a keystore 
 that must be present on all nodes of the cluster.
 
+**Note:**
+- Input fields that need to be decrypted must be of type `bytes`.
 
 ## Configuration
 **decryptFields** Specifies the fields to decrypt, separated by commas
@@ -13,7 +15,7 @@ that must be present on all nodes of the cluster.
 
 **transformation** Transformation algorithm, mode, and padding, separated by slashes; for example: AES/CBC/PKCS5Padding
 
-**ivHex** The initialization vector if using CBC mode
+**ivHex** Hex value of initialization vector if using the block cipher mode of operation.
 
 **keystorePath** Absolute path of the keystore file.
 If keystore path is configured in property `program.container.dist.jars` of `cdap-site.xml`
@@ -27,6 +29,9 @@ else keystore file must be present on every slave node of the cluster.
 **keyAlias** The alias of the key to use in the keystore
 
 **keyPassword** The password for the key to use in the keystore
+
+**schema** Specifies the output schema. This accelerator decrypts the values in place so the output schema will be same as input schema except the type of decrypted fields.
+User needs to set the type of decrypted fields manually.
 
 
 ## Example
@@ -84,3 +89,10 @@ else keystore file must be present on every slave node of the cluster.
 |  C2270   | computer |   22            |   6      |
 +==================================================+
 ```
+
+#### Reference
+This accelerator internally uses Java cryptography API for Encryption/Decryption. 
+Refer to below articles for details:
+- https://docs.oracle.com/javase/8/docs/technotes/guides/security/crypto/CryptoSpec.html
+- https://www.veracode.com/blog/research/encryption-and-decryption-java-cryptography
+- https://docs.oracle.com/javase/8/docs/api/javax/crypto/Cipher.html

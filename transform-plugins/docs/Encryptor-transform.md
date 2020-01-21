@@ -10,11 +10,12 @@ Consider a scenario wherein some of the input fields contain sensitive informati
 ## Configuration
 **Fields to Encrypt:** Specify the fields to be encrypted; different fields should be separated by commas.
 
-Note: Only `int`, `long`, `float`, `double`, `string` and `bytes` formats are supported.
+Note: 
+- Only `int`, `long`, `float`, `double`, `string`, `boolean` and `bytes` formats are supported.
 
 **transformation:** The transformation algorithm/mode/padding. For example, AES/CBC/PKCS5Padding.
 
-**ivHex:** The initialization vector if using the CBC mode.
+**ivHex:** Hex value of initialization vector if using the block cipher mode of operation.
 
 **keystorePath:** Absolute path of the keystore file.
 If the keystore path is configured in the property `program.container.dist.jars` of `cdap-site.xml`,
@@ -27,11 +28,14 @@ Else, the keystore file must be present on every slave node of the cluster.
 
 **keyAlias:** The alias of the key to be used in the keystore.
 
-**keyPassword** The password for the key to be used in the keystore.
+**keyPassword:** The password for the key to be used in the keystore.
 
 Note: Do not use sink accelerators that store data in the textual format because Field Encryptor converts the field values to `bytes`, and the text-based sink accelerators will convert bytes to string at the time of writing the data.
 Use any columnar format like ORC, Parquet etc.
 
+### GetSchema
+There is `GetSchema` button provided in accelerator's UI configuration. Use this button to auto-generate the expected output schema that this accelerator would generate and apply it.
+The output schema is generated based on the input schema provided and the configuration specified.
 
 ## Example
 
@@ -88,3 +92,10 @@ Use any columnar format like ORC, Parquet etc.
 | [58,-121,68,-21,91,52,57,-107,127,30,123,-103,89,-45,69,74]    | computer |    22            | [-81,56,-98,120,-26,-51,-75,-120,6,-13,-36,3,-62,62,-42,-24] |
 +=============================================================================================================================================================+
 ```
+
+#### Reference
+This accelerator internally uses Java cryptography API for Encryption/Decryption. 
+Refer to below articles for details:
+- https://docs.oracle.com/javase/8/docs/technotes/guides/security/crypto/CryptoSpec.html
+- https://www.veracode.com/blog/research/encryption-and-decryption-java-cryptography
+- https://docs.oracle.com/javase/8/docs/api/javax/crypto/Cipher.html
