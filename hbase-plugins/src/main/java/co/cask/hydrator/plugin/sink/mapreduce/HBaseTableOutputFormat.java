@@ -28,9 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static co.cask.hydrator.plugin.sink.HBaseSink.HBASE_CUSTOM_COLUMNFAMILY;
 import static co.cask.hydrator.plugin.sink.HBaseSink.HBASE_CUSTOM_TABLENAME;
@@ -57,7 +54,7 @@ public class HBaseTableOutputFormat<KEY> extends TableOutputFormat<KEY> {
       super.setConf(otherConf);
       Configuration configuration = super.getConf();
       admin = new HBaseAdmin(configuration);
-      createTable(configuration, admin);
+      createOrUpdateTable(configuration, admin);
     } catch (IOException e) {
       LOG.error("Error while creating hbase table ", e);
     } finally {
@@ -72,14 +69,14 @@ public class HBaseTableOutputFormat<KEY> extends TableOutputFormat<KEY> {
     }
   }
 
-  private void createTable(Configuration conf, HBaseAdmin admin) throws IOException {
+  private void createOrUpdateTable(Configuration conf, HBaseAdmin admin) throws IOException {
     String tableName = conf.get(HBASE_CUSTOM_TABLENAME);
     String columnFamily = conf.get(HBASE_CUSTOM_COLUMNFAMILY);
     if (admin.tableExists(tableName)) {
       try (HTable table = new HTable(conf, tableName)) {
         // check if column family exists
         admin.disableTable(table.getTableName());
-        createFamily(columnFamily, table, admin);
+        createFamilyIfNotExist(columnFamily, table, admin);
         admin.enableTable(table.getTableName());
       }
       LOG.info("table {} already exists", tableName);
@@ -93,7 +90,7 @@ public class HBaseTableOutputFormat<KEY> extends TableOutputFormat<KEY> {
   }
 
 
-  private static void createFamily(String family, HTable table, HBaseAdmin admin) {
+  private static void createFamilyIfNotExist(String family, HTable table, HBaseAdmin admin) {
     try {
       // check if column family exists
       boolean exists = false;
