@@ -173,7 +173,8 @@ Example: for h2db content of json file
 * Below rest API can be used to verify success of driver upload
 <br/>
 `namespaces/default/artifacts/h2db-connector-java/versions/1.4.200`
-<br/>output should be like</br>
+<br/>**Expected output**<br/>
+
 ```
 {
   "classes": {
