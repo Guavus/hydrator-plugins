@@ -170,10 +170,9 @@ Example: for h2db content of json file
 <br/> **For ex:** 
 `load artifact /tmp/h2-1.4.200.jar config-file /tmp/h2-1.4.200.json name h2db-connector-java version 1.4.200`
 
-* Below rest API can be used to verify success of driver upload
-<br/>
+* Below rest API can be used to verify success of driver upload<br/>
 `namespaces/default/artifacts/h2db-connector-java/versions/1.4.200`
-<br/>**Expected output**<br/>
+<br/> **Expected output**
 
 ```
 {
