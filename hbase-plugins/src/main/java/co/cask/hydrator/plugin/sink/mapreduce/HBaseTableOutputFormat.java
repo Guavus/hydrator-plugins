@@ -28,10 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-
-import static co.cask.hydrator.plugin.sink.HBaseSink.HBASE_CUSTOM_COLUMNFAMILY;
-import static co.cask.hydrator.plugin.sink.HBaseSink.HBASE_CUSTOM_TABLENAME;
-
 /**
  * A wrapper class around TableOutputFormat, that sets the current class's classloader as the classloader of the
  * Configuration object used by TableOutputFormat.
@@ -41,7 +37,9 @@ import static co.cask.hydrator.plugin.sink.HBaseSink.HBASE_CUSTOM_TABLENAME;
 public class HBaseTableOutputFormat<KEY> extends TableOutputFormat<KEY> {
 
   private static final Logger LOG = LoggerFactory.getLogger(HBaseTableOutputFormat.class);
-  public static final String DEFAULT_COL_FAMILY = "default";
+
+  public static final String HBASE_CUSTOM_TABLENAME = "hbase.custom.tablename";
+  public static final String HBASE_CUSTOM_COLUMNFAMILY = "hbase.custom.Columnfamily";
 
   @Override
   public void setConf(Configuration otherConf) {
@@ -57,6 +55,7 @@ public class HBaseTableOutputFormat<KEY> extends TableOutputFormat<KEY> {
       createOrUpdateTable(configuration, admin);
     } catch (IOException e) {
       LOG.error("Error while creating hbase table ", e);
+      throw new RuntimeException(e);
     } finally {
       Thread.currentThread().setContextClassLoader(originalClassLoader);
       try {
@@ -64,7 +63,7 @@ public class HBaseTableOutputFormat<KEY> extends TableOutputFormat<KEY> {
           admin.close();
         }
       } catch (IOException e) {
-        LOG.error("Error while closing hbase admin ", e);
+        LOG.warn("Error while closing hbase admin ", e);
       }
     }
   }
@@ -107,6 +106,7 @@ public class HBaseTableOutputFormat<KEY> extends TableOutputFormat<KEY> {
       }
     } catch (IOException e) {
       LOG.error("error while adding column family", e);
+      throw new RuntimeException(e);
     }
   }
 }

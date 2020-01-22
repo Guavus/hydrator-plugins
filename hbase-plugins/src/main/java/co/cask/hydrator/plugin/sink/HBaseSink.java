@@ -55,6 +55,9 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Nullable;
 
+import static co.cask.hydrator.plugin.sink.mapreduce.HBaseTableOutputFormat.HBASE_CUSTOM_COLUMNFAMILY;
+import static co.cask.hydrator.plugin.sink.mapreduce.HBaseTableOutputFormat.HBASE_CUSTOM_TABLENAME;
+
 /**
  * Sink to write to HBase tables.
  */
@@ -64,8 +67,6 @@ import javax.annotation.Nullable;
 public class HBaseSink extends ReferenceBatchSink<StructuredRecord, NullWritable, Mutation> {
 
   private static final Logger LOG = LoggerFactory.getLogger(HBaseSink.class);
-  public static final String HBASE_CUSTOM_TABLENAME = "hbase.custom.tablename";
-  public static final String HBASE_CUSTOM_COLUMNFAMILY = "hbase.custom.Columnfamily";
   private HBaseSinkConfig config;
   private RecordPutTransformer recordPutTransformer;
 
