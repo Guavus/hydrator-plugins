@@ -6,7 +6,7 @@ Decrypts one or more fields in input records using a keystore
 that must be present on all nodes of the cluster.
 
 **Note:**
-- Input fields that need to be decrypted must be of type `bytes`.
+- Only fields of type `bytes` are allowed for decryption.
 
 ## Configuration
 **decryptFields** Specifies the fields to decrypt, separated by commas
@@ -30,8 +30,8 @@ else keystore file must be present on every slave node of the cluster.
 
 **keyPassword** The password for the key to use in the keystore
 
-**schema** Specifies the output schema. This accelerator decrypts the values in place so the output schema will be same as input schema except the type of decrypted fields.
-User needs to set the type of decrypted fields manually.
+**schema** Specifies the output schema. Output columns are same as input columns except the types of decrypted fields.
+User needs to manually set the type of decrypted fields.
 
 
 ## Example
