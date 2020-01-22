@@ -1,18 +1,15 @@
 # Database Batch Source
 
 
-Description
------------
+## Description
 The Database accelerator is used to read from a database using a configurable SQL query. It outputs one record for each row returned by the query.
 
 
-Use Case
---------
+## Use Case
 Consider a scenario wherein you want to read data from a database by using this source and then write to a TimePartitionedFileSet. This can be achieved by configuring the accelerator as described in the following section.
 
 
-Properties
-----------
+## Properties
 **Reference Name:** The name used to uniquely identify this sink for lineage, annotating metadata, etc.
 
 **Plugin Name:** The name of the JDBC plugin to use. This is the value of the 'name' key defined in the JSON file for the JDBC plugin.
@@ -61,8 +58,7 @@ and this setting is set to True. For drivers like that, this should be set to TR
 **Schema:** The schema of records output by the source. This will be used in place of whatever schema is returned from the query. However, it must match the schema that returns from the query, except it can mark fields as nullable and can contain a subset of the fields.
 
 
-Example
--------
+## Example
 This example connects to a database using the specified 'connectionString', which means it will connect to the 'prod' database of a PostgreSQL instance running on 'localhost'. It will run the 'importQuery' against the 'users' table to read four columns from the table.
 The column types will be used to derive the record field types output by the source.
 
@@ -94,31 +90,113 @@ For example, if the 'id' column is a primary key of the type int, and the other 
 
 
 
-Notes :
------
-List of supported drivers and connection string .
+## Notes :
 
-    +==============================================================================================================================================+
-    | DB name                      | Driver Name(class name)         |   Database URL & Example                                                    |
-    +==============================================================================================================================================+
-    | MySQL                        | com.mysql.jdbc.Driver           |   jdbc:mysql://<server>:<port>/<databaseName>                               |
-                                                                         Eg: jdbc:mysql://localhost:3306/myDBName                                  
-    | Postgre                      | org.postgresql.Driver           |   jdbc:postgresql://<server>:<port>/<databaseName>                          |
-                                                                         Eg: jdbc:postgresql://localhost:5432/myDBName                  
-    +==============================================================================================================================================+
+`List of supported drivers and connection details`
+
+```
++=====================================================================================================+
+| DB name  | Driver Name(class name)          |   Database URL & Example                              |
++=====================================================================================================+
+| MySQL    | com.mysql.jdbc.Driver            |   jdbc:mysql://<server>:<port>/<databaseName>         |
+                                                  Eg: jdbc:mysql://localhost:3306/myDBName
+
+| Postgres | org.postgresql.Driver            |   jdbc:postgresql://<server>:<port>/<databaseName>    |
+                                                  Eg: jdbc:postgresql://localhost:5432/myDBName
+
+| H2DB     | org.h2.Driver                    |   jdbc:h2:tcp://<server>:<port>/<databasePath>        |
+                                                  Eg: jdbc:h2:tcp://192.168.111.139:9092/~/test
+
+| Oracle   | oracle.jdbc.driver.OracleDriver  |   jdbc:oracle:thin:@<host>:<port>/<serviceName>       |
+                                                  Eg: jdbc:oracle:thin:@localhost:1521/orcls
++=====================================================================================================+
+```
 
 Transaction Isolation Level supports for listed dbs:
 
 ***MySql/Postgres*** :  "TRANSACTION_READ_UNCOMMITTED", "TRANSACTION_READ_COMMITTED","TRANSACTION_REPEATABLE_READ",
                         "TRANSACTION_SERIALIZABLE (default)" .
 
-Steps to upload connecter-jar for mysql using below steps :
+### Steps to upload database driver
 
-1. Copy driver jar & json at any location for ex copied in /tmp/ folder
-2. Goto any cdap node 
-3. Goto → cd /opt/cdap/master/ 
-4. Run command => ./bin/cdap cli -v false
-5. Enter username password
-6. Specify Username for basic authentication.> usr01
-7. Specify Password for basic authentication.> *********
-8. Run command => load artifact /tmp/mysql-connector-java-x.x.x.jar config-file /tmp/mysql-connector-java-x.x.x.json name mysql-connector-java version x.x.x
+In order to use this accelerator to connect supported databases, there is a need to upload corresponding driver in cdap.
+
+Driver jar can be downloaded from internet. Please refer below table for tested driver versions
+
+```
++===========================+
+| DB name  | Driver Version |
++===========================+
+| MySQL    | 8.0.18         |
+| Postgres | 9.4.1211       |
+| H2DB     | 1.4.200        |
+| Oracle   | 12.1.0.2       |
++===========================+
+```
+
+* Copy driver jar at any location on one of the cdap master node. For ex copied `h2-1.4.200.jar` in `/tmp` folder.
+* Create a json file with below content and copy that in same directory used in above step.<br/>Name of the json file should be same as jar file with extension `.json`. For ex `h2-1.4.200.json`
+```
+{
+ "plugins": [
+    {
+      "name": "<Driver Name>",
+      "type": "jdbc",
+      "description": <Driver description>",
+      "className": "<Driver Class>"
+    }
+  ]
+}
+
+Example: for h2db content of json file
+
+{
+ "plugins": [
+    {
+      "name": "h2db",
+      "type": "jdbc",
+      "description": "H2DB JDBC external plugin",
+      "className": "org.h2.Driver"
+    }
+  ]
+}
+```
+* Login to one of cdap master node
+* Go to directory `/opt/cdap/master`
+* Run Command `./bin/cdap cli -v false`
+* Enter username and password on prompt
+* Run command to load driver
+`load artifact <driver-jar-path> config-file <json-path> name <connector-name> version <driver-version>`
+<br/> **For ex:** 
+`load artifact /tmp/h2-1.4.200.jar config-file /tmp/h2-1.4.200.json name h2db-connector-java version 1.4.200`
+
+* Below rest API can be used to verify success of driver upload
+<br/>
+`namespaces/default/artifacts/h2db-connector-java/versions/1.4.200`
+<br/>output should be like</br>
+```
+{
+  "classes": {
+    "apps": [],
+    "plugins": [
+      {
+        "type": "jdbc",
+        "name": "h2db",
+        "description": "H2DB JDBC external plugin",
+        "className": "org.h2.Driver",
+        "properties": {},
+        "endpoints": [],
+        "requirements": {
+          "datasetTypes": []
+        }
+      }
+    ]
+  },
+  "properties": {},
+  "parents": [],
+  "name": "h2db-connector-java",
+  "version": "1.4.200",
+  "scope": "USER"
+}
+```
+
