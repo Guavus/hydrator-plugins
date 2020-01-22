@@ -98,7 +98,7 @@ public class OrcToStructuredTransformer extends RecordConverter<OrcStruct, Struc
       case STRING:
         return ((Text) field).toString();
       case BYTES:
-        return ((BytesWritable) field).getBytes();
+        return ((BytesWritable) field).copyBytes();
       case INT:
         return ((IntWritable) field).get();
       case LONG:
