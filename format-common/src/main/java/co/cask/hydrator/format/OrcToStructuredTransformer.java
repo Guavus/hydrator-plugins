@@ -114,7 +114,6 @@ public class OrcToStructuredTransformer extends RecordConverter<OrcStruct, Struc
     }
   }
 
-  // TODO: add array support
   private static Schema toSchema(TypeDescription schema) {
     List<Schema.Field> fields = Lists.newArrayList();
     List<String> fieldNames = schema.getFieldNames();
@@ -132,7 +131,6 @@ public class OrcToStructuredTransformer extends RecordConverter<OrcStruct, Struc
     return Schema.recordOf("record", fields);
   }
 
-  // TODO: add array support
   private static Schema getType(TypeDescription typeDescription) {
     switch (typeDescription.getCategory()) {
       case BOOLEAN:
