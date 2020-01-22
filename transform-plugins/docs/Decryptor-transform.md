@@ -9,7 +9,7 @@ that must be present on all nodes of the cluster.
 - Only fields of type `bytes` are allowed for decryption.
 
 ## Configuration
-**decryptFields** Specifies the fields to decrypt, separated by commas
+**decryptFields** Specify the fields to decrypt, separated by commas
 
 **schema** Schema to pull records from
 
@@ -67,12 +67,13 @@ User needs to manually set the type of decrypted fields.
     "properties": {
       "schema": "{\"type\":\"record\",\"name\":\"etlSchemaBody\",\"fields\":[{\"name\":\"name\",\"type\":[\"string\",\"null\"]},{\"name\":\"type\",\"type\":[\"string\",\"null\"]},{\"name\":\"destinationport\",\"type\":[\"string\",\"null\"]},{\"name\":\"protocol\",\"type\":[\"int\",\"null\"]}]}",
       "decryptFields": "name,protocol",
-      "transformation": "AES",
+      "transformation": "AES/CBC/PKCS5Padding",
       "keystorePath": "/tmp/aes-keystore.jck",
       "keystorePassword": "mystorepass",
       "keystoreType": "JCEKS",
       "keyAlias": "jceksaes",
-      "keyPassword": "mykeypass"
+      "keyPassword": "mykeypass",
+      "ivHex": "813d92773b3d5067a3a31182d8a7d028"
     }
   }
 }
@@ -91,7 +92,7 @@ User needs to manually set the type of decrypted fields.
 ```
 
 #### Reference
-This accelerator internally uses Java cryptography API for Encryption/Decryption. 
+This accelerator uses Java cryptography API internally for Encryption/Decryption. 
 Refer to below articles for details:
 - https://docs.oracle.com/javase/8/docs/technotes/guides/security/crypto/CryptoSpec.html
 - https://www.veracode.com/blog/research/encryption-and-decryption-java-cryptography

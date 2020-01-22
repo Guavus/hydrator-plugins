@@ -34,7 +34,7 @@ Note: Do not use sink accelerators that store data in the textual format because
 Use any columnar format like ORC, Parquet etc.
 
 ### GetSchema
-There is `GetSchema` button provided in accelerator's UI configuration. Use this button to auto-generate the expected output schema that this accelerator would generate and apply it.
+There is `GetSchema` button provided in accelerator's UI configuration. Use this button to auto-generate output schema.
 The output schema is generated based on the input schema provided and the configuration specified.
 
 ## Example
@@ -69,12 +69,13 @@ The output schema is generated based on the input schema provided and the config
     },
     "properties": {
       "encryptFields": "name,protocol",
-      "transformation": "AES",
+      "transformation": "AES/CBC/PKCS5Padding",
       "keystorePath": "/tmp/aes-keystore.jck",
       "keystorePassword": "mystorepass",
       "keystoreType": "JCEKS",
       "keyAlias": "jceksaes",
-      "keyPassword": "mykeypass"
+      "keyPassword": "mykeypass",
+      "ivHex": "813d92773b3d5067a3a31182d8a7d028"
     }
   }
 }
@@ -94,7 +95,7 @@ The output schema is generated based on the input schema provided and the config
 ```
 
 #### Reference
-This accelerator internally uses Java cryptography API for Encryption/Decryption. 
+This accelerator uses Java cryptography API internally for Encryption/Decryption. 
 Refer to below articles for details:
 - https://docs.oracle.com/javase/8/docs/technotes/guides/security/crypto/CryptoSpec.html
 - https://www.veracode.com/blog/research/encryption-and-decryption-java-cryptography
