@@ -147,9 +147,11 @@ Driver jar can be downloaded from internet. Please refer below table for tested 
     }
   ]
 }
+```
 
-Example: for h2db content of json file
+**Example:** for h2db content of json file
 
+```
 {
  "plugins": [
     {
