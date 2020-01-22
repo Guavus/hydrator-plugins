@@ -59,7 +59,7 @@ public abstract class FieldEncryptor {
       cipher.init(mode, key);
     }
 
-    LOG.info("Using cipher algorithm: {}", cipher.getAlgorithm());
+    LOG.debug("Using cipher algorithm: {}", cipher.getAlgorithm());
   }
 
   public abstract InputStream getKeystoreInputStream(String keystorePath) throws Exception;
