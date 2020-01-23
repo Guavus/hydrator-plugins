@@ -91,11 +91,7 @@ List of supported drivers and connection string .
     | MySQL                        | com.mysql.jdbc.Driver           |   jdbc:mysql://<server>:<port>/<databaseName>                               |
                                                                          Eg: jdbc:mysql://localhost:3306/myDBName                                  
     | Postgre                      | org.postgresql.Driver           |   jdbc:postgresql://<server>:<port>/<databaseName>                          |
-                                                                         Eg: jdbc:postgresql://localhost:5432/myDBName 
-    | H2DB                         | org.h2.Driver                   |   jdbc:h2:~/<DBName>                                                        |
-                                                                         Eg: jdbc:h2:~/test                                 
-    | Oracle                       | oracle.jdbc.driver.OracleDriver |   jdbc:oracle:thin:@host:1521/servicename                                   |
-                                                                         Eg: jdbc:oracle:thin:@localhost:1521/orcl                  
+                                                                         Eg: jdbc:postgresql://localhost:5432/myDBName                  
     +==============================================================================================================================================+
 
 Transaction Isolation Level supports for listed dbs:
@@ -114,48 +110,3 @@ Steps to upload connecter-jar for mysql using below steps :
 6. Please, specify Username for basic authentication.> usr01
 7. Please, specify Password for basic authentication.> *********
 8. run command => load artifact /tmp/mysql-connector-java-x.x.x.jar config-file /tmp/mysql-connector-java-x.x.x.json name mysql-connector-java version x.x.x
-
-Please find sample json to upload for any connector .
-
-      {
-          "plugins": [
-             {
-               "name": "oracle12c",
-               "type": "jdbc",
-               "description": "Oracle JDBC external plugin",
-               "className": "oracle.jdbc.driver.OracleDriver"
-             }
-           ]
-         }
-
-User can check that API is successfully loaded or not . Please check the example of oracle .
-
-    namespaces/default/artifacts/oracle12c-connector-java/versions/12.1.0.2
-    {
-      "classes": {
-        "apps": [],
-        "plugins": [
-          {
-            "type": "jdbc",
-            "name": "oracle12c",
-            "description": "Oracle JDBC external plugin",
-            "className": "oracle.jdbc.driver.OracleDriver",
-            "properties": {},
-            "endpoints": [],
-            "requirements": {
-              "datasetTypes": []
-            }
-          }
-        ]
-      },
-      "properties": {},
-      "parents": [],
-      "name": "oracle12c-connector-java",
-      "version": "12.1.0.2",
-      "scope": "USER"
-    }
-    
-
-
-
-
