@@ -13,7 +13,7 @@ that must be present on all nodes of the cluster.
 
 **schema** Schema to pull records from
 
-**transformation** Transformation algorithm, mode, and padding, separated by slashes; for example: AES/CBC/PKCS5Padding
+**transformation** The transformation algorithm/mode/padding. For example, `AES`, `RSA`, `AES/ECB/PKCS5Padding` `AES/CBC/PKCS5Padding`.
 
 **ivHex** Hex value of initialization vector if using the block cipher mode of operation.
 
