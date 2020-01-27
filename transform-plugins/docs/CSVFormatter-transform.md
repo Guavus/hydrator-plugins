@@ -22,7 +22,7 @@ Configuration
 
 ## Sample Pipeline
 
-`Below is the Sample Pipeline for converting Structured Record to Comma separated values`
+`Below is the Sample Pipeline for converting Structured Record to CSV using format DELIMITED and delimiter COMMA.`
 
 
 
