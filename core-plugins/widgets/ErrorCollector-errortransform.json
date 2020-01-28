@@ -16,7 +16,7 @@
             "plugin-method": "getSchema"
           },
           "widget-attributes": {
-            "default": "msg"
+            "default": "errMsg"
           }
         },
         {
@@ -24,7 +24,7 @@
           "label": "Error Code Column Name",
           "name": "codeField",
           "widget-attributes": {
-            "default": "code"
+            "default": "errCode"
           }
         },
         {
@@ -32,7 +32,7 @@
           "label": "Error Emitter Node Name",
           "name": "stageField",
           "widget-attributes": {
-            "default": "node"
+            "default": "errStage"
           }
         }
       ]
