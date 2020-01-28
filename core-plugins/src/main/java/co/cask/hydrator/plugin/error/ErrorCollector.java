@@ -27,6 +27,7 @@ import co.cask.cdap.etl.api.Emitter;
 import co.cask.cdap.etl.api.ErrorRecord;
 import co.cask.cdap.etl.api.ErrorTransform;
 import co.cask.cdap.etl.api.PipelineConfigurer;
+import com.google.common.base.Strings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,17 +50,17 @@ public class ErrorCollector extends ErrorTransform<StructuredRecord, StructuredR
   public void configurePipeline(PipelineConfigurer pipelineConfigurer) throws IllegalArgumentException {
     Schema inputSchema = pipelineConfigurer.getStageConfigurer().getInputSchema();
     if (inputSchema != null) {
-      if (config.messageField != null && inputSchema.getField(config.messageField) != null) {
+      if (!Strings.isNullOrEmpty(config.messageField) && inputSchema.getField(config.messageField) != null) {
         throw new IllegalArgumentException(String.format(
           "Input schema already contains message field '%s'. Please set message field to a different value.",
           config.messageField));
       }
-      if (config.codeField != null && inputSchema.getField(config.codeField) != null) {
+      if (!Strings.isNullOrEmpty(config.codeField) && inputSchema.getField(config.codeField) != null) {
         throw new IllegalArgumentException(String.format(
           "Input schema already contains code field '%s'. Please set code field to a different value.",
           config.codeField));
       }
-      if (config.stageField != null && inputSchema.getField(config.stageField) != null) {
+      if (!Strings.isNullOrEmpty(config.stageField) && inputSchema.getField(config.stageField) != null) {
         throw new IllegalArgumentException(String.format(
           "Input schema already contains stage field '%s'. Please set stage field to a different value.",
           config.stageField));
@@ -76,13 +77,13 @@ public class ErrorCollector extends ErrorTransform<StructuredRecord, StructuredR
     for (Schema.Field field : invalidRecord.getSchema().getFields()) {
       output.set(field.getName(), invalidRecord.get(field.getName()));
     }
-    if (config.messageField != null) {
+    if (!Strings.isNullOrEmpty(config.messageField)) {
       output.set(config.messageField, input.getErrorMessage());
     }
-    if (config.codeField != null) {
+    if (!Strings.isNullOrEmpty(config.codeField)) {
       output.set(config.codeField, input.getErrorCode());
     }
-    if (config.stageField != null) {
+    if (!Strings.isNullOrEmpty(config.stageField)) {
       output.set(config.stageField, input.getStageName());
     }
     emitter.emit(output.build());
@@ -91,13 +92,13 @@ public class ErrorCollector extends ErrorTransform<StructuredRecord, StructuredR
   private static Schema getOutputSchema(Config config, Schema inputSchema) {
     List<Schema.Field> fields = new ArrayList<>();
     fields.addAll(inputSchema.getFields());
-    if (config.messageField != null) {
+    if (!Strings.isNullOrEmpty(config.messageField)) {
       fields.add(Schema.Field.of(config.messageField, Schema.of(Schema.Type.STRING)));
     }
-    if (config.codeField != null) {
+    if (!Strings.isNullOrEmpty(config.codeField)) {
       fields.add(Schema.Field.of(config.codeField, Schema.of(Schema.Type.INT)));
     }
-    if (config.stageField != null) {
+    if (!Strings.isNullOrEmpty(config.stageField)) {
       fields.add(Schema.Field.of(config.stageField, Schema.of(Schema.Type.STRING)));
     }
     return Schema.recordOf("error" + inputSchema.getRecordName(), fields);
