@@ -8,7 +8,7 @@ The union splitter is used to split data by a union schema, so that type specifi
 The union splitter will emit records to different ports depending on the schema of a particular field, or of
 the entire record. If no field is specified, each record will be emitted to a port named after the name of the
 record schema. If a field is specified, the schema for that field must be a union of supported schemas. All schemas
-except maps, arrays, unions, and enums are supported. For each input record, the value of that field will be examined
+except maps, arrays, and enums are supported. For each input record, the value of that field will be examined
 and emitted to a port corresponding to its schema in the union.
 
 For record schemas, the output port will be the name of the record schema. For simple types, the output port will
@@ -18,7 +18,7 @@ be the schema type in lowercase ('null', 'bool', 'bytes', 'int', 'long', 'float'
 Properties
 ----------
 **unionField:** The union field to split on. The schema for the field must be a union of supported schemas.
-All schemas except maps, arrays, unions, and enums are supported. Note that nulls are supported,
+All schemas except maps, arrays, and enums are supported. Note that nulls are supported,
 which means all nulls will get sent to the 'null' port.
 
 **modifySchema:** Whether to modify the output schema to remove the union. For example, suppose the field 'x'
