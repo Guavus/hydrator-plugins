@@ -58,11 +58,15 @@ public class StructuredToOrcTransformer extends RecordConverter<StructuredRecord
     //populate ORC struct orcRecord object
     for (int i = 0; i < fields.size(); i++) {
       Schema.Field field = fields.get(i);
-      try {
-        WritableComparable writable = convertToWritable(field.getSchema(), field.getName(), input.get(field.getName()));
-        orcRecord.setFieldValue(fields.get(i).getName(), writable);
-      } catch (UnsupportedTypeException e) {
-        throw new IllegalArgumentException(String.format("%s is not a supported type", field.getName()), e);
+      if (field.getSchema().getType() != Schema.Type.NULL) {
+        try {
+          WritableComparable writable = convertToWritable(field.getSchema(), field.getName(), input.get(field.getName()));
+          orcRecord.setFieldValue(fields.get(i).getName(), writable);
+        } catch (UnsupportedTypeException e) {
+          throw new IllegalArgumentException(String.format("%s is not a supported type", field.getName()), e);
+        }
+      } else {
+        LOG.debug("Ignoring field {} due to null schema type", field.getName());
       }
     }
     return orcRecord;

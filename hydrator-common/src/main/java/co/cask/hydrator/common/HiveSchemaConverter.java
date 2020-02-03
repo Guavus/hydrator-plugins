@@ -36,20 +36,11 @@ public final class HiveSchemaConverter {
    * @return hive schema that can be used in a create statement.
    */
   public static String toHiveSchema(Schema schema) throws UnsupportedTypeException {
-    if (schema.getType() != Schema.Type.RECORD || schema.getFields().size() < 1) {
-      throw new UnsupportedTypeException("Schema must be of type record and have at least one field.");
-    }
-
     StringBuilder builder = new StringBuilder();
     builder.append("(");
 
     // schema is guaranteed to have at least one field, and all field names are guaranteed to be unique.
-    Iterator<Schema.Field> fieldIter = schema.getFields().iterator();
-    appendField(builder, fieldIter.next(), false);
-    while (fieldIter.hasNext()) {
-      builder.append(", ");
-      appendField(builder, fieldIter.next(), false);
-    }
+    appendRecordFields(builder, schema, ", ", false);
 
     builder.append(")");
     return builder.toString();
@@ -101,12 +92,7 @@ public final class HiveSchemaConverter {
       case RECORD:
         //struct<name:string,ints:array<int>>
         builder.append("struct<");
-        Iterator<Schema.Field> fieldIter = schema.getFields().iterator();
-        appendField(builder, fieldIter.next(), true);
-        while (fieldIter.hasNext()) {
-          builder.append(",");
-          appendField(builder, fieldIter.next(), true);
-        }
+        appendRecordFields(builder, schema, ",", true);
         builder.append(">");
         break;
       case UNION:
@@ -120,13 +106,49 @@ public final class HiveSchemaConverter {
     }
   }
 
-  private static void appendField(StringBuilder builder, Schema.Field field, boolean inStruct)
+  private static boolean appendField(StringBuilder builder, Schema.Field field, boolean inStruct)
     throws UnsupportedTypeException {
-    String name = field.getName();
-    builder.append(name);
-    // structs look like "struct<name1:string,name2:array<int>>"
-    // outside a struct fields look like "name1 string, name2 array<int>"
-    builder.append(inStruct ? ":" : " ");
-    appendType(builder, field.getSchema());
+    if(field.getSchema().getType() != Schema.Type.NULL) {
+      String name = field.getName();
+      builder.append(name);
+      // structs look like "struct<name1:string,name2:array<int>>"
+      // outside a struct fields look like "name1 string, name2 array<int>"
+      builder.append(inStruct ? ":" : " ");
+      appendType(builder, field.getSchema());
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Append fields present in given schema.
+   * @param builder
+   * @param schema
+   * @param inStruct
+   * @throws UnsupportedTypeException
+   */
+  private static void appendRecordFields(StringBuilder builder, Schema schema, String typeDelimiter, boolean inStruct) throws UnsupportedTypeException {
+    if (schema.getType() != Schema.Type.RECORD || schema.getFields().size() < 1) {
+      throw new UnsupportedTypeException("Schema must be of type record and have at least one field.");
+    }
+
+    Iterator<Schema.Field> fieldIter = schema.getFields().iterator();
+    boolean fieldAdded = appendField(builder, fieldIter.next(), inStruct);
+    while (fieldIter.hasNext()) {
+      if(fieldAdded) {
+        builder.append(typeDelimiter);
+      }
+      fieldAdded = appendField(builder, fieldIter.next(), inStruct);
+    }
+
+    // In case of only one non-nullable field or in case of last null field there will be an extra delimiter at the end
+    // Delete extra delimiter if present.
+    int builderLength = builder.length();
+    int delimiterLength = typeDelimiter.length();
+    if(builderLength > delimiterLength && builder.substring(builderLength - delimiterLength).equals(typeDelimiter)) {
+      builder.delete(builderLength - delimiterLength, builderLength);
+    }
+
   }
 }
