@@ -62,16 +62,6 @@ public final class Encryptor extends Transform<StructuredRecord, StructuredRecor
     Schema inputSchema = stageConfigurer.getInputSchema();
     Schema outputSchema = inputSchema == null ? null : getOutputSchema(inputSchema, conf);
     stageConfigurer.setOutputSchema(outputSchema);
-
-    // Create an instance of FieldEncryptor and initializing the `cipher` to validate
-    // the cipher related configurations at the deployment time itself.
-    FieldEncryptor fieldEncryptor = new FileBasedFieldEncryptor(conf, Cipher.ENCRYPT_MODE);
-    try {
-      fieldEncryptor.initialize();
-    } catch (Exception e) {
-      LOG.error("Unable to initialize FieldEncryptor");
-      throw new IllegalArgumentException(e);
-    }
   }
 
   @Override

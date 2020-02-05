@@ -60,16 +60,6 @@ public final class Decryptor extends Transform<StructuredRecord, StructuredRecor
   @Override
   public void configurePipeline(PipelineConfigurer pipelineConfigurer) throws IllegalArgumentException {
     pipelineConfigurer.getStageConfigurer().setOutputSchema(conf.getSchema());
-
-    // Create an instance of FieldEncryptor and initializing the `cipher` to validate
-    // the cipher related configurations at the deployment time itself.
-    FieldEncryptor fieldEncryptor = new FileBasedFieldEncryptor(conf, Cipher.ENCRYPT_MODE);
-    try {
-      fieldEncryptor.initialize();
-    } catch (Exception e) {
-      LOG.error("Unable to initialize FieldEncryptor");
-      throw new IllegalArgumentException(e);
-    }
   }
 
   @Override
