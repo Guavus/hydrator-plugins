@@ -13,7 +13,7 @@ Consider a scenario wherein some of the input fields contain sensitive informati
 Note: 
 - Only `int`, `long`, `float`, `double`, `string`, `boolean` and `bytes` formats are supported.
 
-**transformation** The transformation algorithm in the format "algorithm/mode/padding" where mode and padding is optional. For example, `AES`, `RSA`, `AES/ECB/PKCS5Padding` `AES/CBC/PKCS5Padding`.
+**transformation** The transformation algorithm in the format "algorithm/mode/padding" where mode and padding is optional. For example, `AES`, `RSA`, `AES/ECB/PKCS5Padding`, `AES/CBC/PKCS5Padding` etc.
 
 **ivHex:** Hex value of initialization vector if using the block cipher mode of operation.
 

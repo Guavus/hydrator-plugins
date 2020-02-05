@@ -11,9 +11,7 @@ that must be present on all nodes of the cluster.
 ## Configuration
 **decryptFields** Specify the fields to decrypt, separated by commas
 
-**schema** Schema to pull records from
-
-**transformation** The transformation algorithm in the format "algorithm/mode/padding" where mode and padding is optional. For example, `AES`, `RSA`, `AES/ECB/PKCS5Padding` `AES/CBC/PKCS5Padding`.
+**transformation** The transformation algorithm in the format "algorithm/mode/padding" where mode and padding is optional. For example, `AES`, `RSA`, `AES/ECB/PKCS5Padding`, `AES/CBC/PKCS5Padding` etc.
 
 **ivHex** Hex value of initialization vector if using the block cipher mode of operation.
 
