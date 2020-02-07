@@ -1,30 +1,34 @@
-# Decompressor Transform
+# Field Decompressor
 
 
 Description
 -----------
-Decompresses configured fields. Multiple fields can be specified to be decompressed using
-different decompression algorithms. Plugin supports ``SNAPPY``, ``ZIP``, and ``GZIP`` types of
-decompression of fields.
+Field Decompressor is an open source accelerator that decompresses the configured fields in an input record. 
+
+Multiple fields can be specified to be decompressed using different decompression algorithms. This accelerator supports ``SNAPPY``, ``ZIP``, and ``GZIP`` types of decompression of fields.
 
 
 Configuration
 -------------
-**decompressor:** List of key value pairs. Key represents the input field that needs to be decompressed and Value represents the decompression algorithm to use.
 
-**Note**: Use the same format to decompress the field which was used for compression. 
+The following pointers describe the fields as displayed in the accelerator properties dialog box.
 
-**schema:** Specifies the output schema; the fields that are decompressed will have the same field 
-name but they will be of type ``BYTES`` or ``STRING``.
+**Decompressor Fields:** Specify the key value pairs and select the corresponding decompression type for each. A key represents the input field that needs to be decompressed and the drop-down list contains the available decompression algorithms.
+
+**Note**:
+
+Use the same format to decompress the field which was used for compression. 
+
+**schema:** Specify the output schema; fields that are decompressed will have the same field name but these fields will be of the type ``BYTES`` or ``STRING``.
 
 **Note**: 
-- For input only use columnar datasets like `ORC`, `Parquet` etc.
-- Input fields that need to decompressed must be of type `Bytes` and non-nullable.
+- For the input, only use columnar datasets like `ORC`, `Parquet`, and so on.
+- Input fields that need to be decompressed must be of the type `Bytes` and should be non-nullable.
 
 Example
 -------
 
-This example decompresses the fields fname, lname and cost of a dataset using the decompression format provided with the field.
+The following example decompresses the fields fname, lname, and cost of a dataset using the decompression format provided with the field.
 ```
 {
     "name": "Field Decompressor",
