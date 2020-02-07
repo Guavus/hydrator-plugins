@@ -150,8 +150,8 @@ Driver jar can be downloaded from internet. Please refer below table for tested 
 +===========================+
 ```
 
-* Copy driver jar at any location on one of the cdap master node. For ex copied `h2-1.4.200.jar` in `/tmp` folder.
-* Create a json file with below content and copy that in same directory used in above step.<br/>Name of the json file should be same as jar file with extension `.json`. For ex `h2-1.4.200.json`
+* Copy driver jar at any location on one of the cdap master node. For ex copied `postgresql-9.4.1211.jar` in `/tmp` folder.
+* Create a json file with below content and copy that in same directory used in above step.<br/>Name of the json file should be same as jar file with extension `.json`. For ex `postgresql-9.4.1211.json`
 ```
 {
  "plugins": [
@@ -165,16 +165,16 @@ Driver jar can be downloaded from internet. Please refer below table for tested 
 }
 ```
 
-**Example:** for h2db content of json file
+**Example:** for psql content of json file
 
 ```
 {
  "plugins": [
     {
-      "name": "h2db",
+      "name": "psql",
       "type": "jdbc",
-      "description": "H2DB JDBC external plugin",
-      "className": "org.h2.Driver"
+      "description": "Postgres JDBC external plugin",
+      "className": "org.postgresql.Driver"
     }
   ]
 }
@@ -186,10 +186,10 @@ Driver jar can be downloaded from internet. Please refer below table for tested 
 * Run command to load driver
 `load artifact <driver-jar-path> config-file <json-path> name <connector-name> version <driver-version>`
 <br/> **For ex:** 
-`load artifact /tmp/h2-1.4.200.jar config-file /tmp/h2-1.4.200.json name h2db-connector-java version 1.4.200`
+`load artifact /tmp/postgresql-9.4.1211.jar config-file /tmp/postgresql-9.4.1211.json name psql-connector-java version 9.4.1211`
 
 * Below rest API can be used to verify success of driver upload<br/>
-`namespaces/default/artifacts/h2db-connector-java/versions/1.4.200`
+`namespaces/default/artifacts/psql-connector-java/versions/9.4.1211`
 <br/> **Expected output**
 
 ```
@@ -199,9 +199,9 @@ Driver jar can be downloaded from internet. Please refer below table for tested 
     "plugins": [
       {
         "type": "jdbc",
-        "name": "h2db",
-        "description": "H2DB JDBC external plugin",
-        "className": "org.h2.Driver",
+        "name": "psql",
+        "description": "Postgres JDBC external plugin",
+        "className": "org.postgresql.Driver",
         "properties": {},
         "endpoints": [],
         "requirements": {
@@ -212,8 +212,8 @@ Driver jar can be downloaded from internet. Please refer below table for tested 
   },
   "properties": {},
   "parents": [],
-  "name": "h2db-connector-java",
-  "version": "1.4.200",
+  "name": "psql-connector-java",
+  "version": "9.4.1211",
   "scope": "USER"
 }
 ```
