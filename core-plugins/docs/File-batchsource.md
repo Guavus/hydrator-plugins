@@ -1,21 +1,22 @@
 # File Batch Source
 
+## Description
 
-Description
------------
-This source is used whenever you need to read from a distributed file system.
-For example, you may want to read in log files from S3 every hour and then store
-the logs in a TimePartitionedFileSet.
+File Batch Source is an accelerator that is used when you want to read from a distributed file system.
+
+## Use Case
+
+Consider a scenario wherein you want to fetch log files from HDFS every hour and then store the logs in a TimePartitionedFileSet. It can be achieved my making configurational changes as described in the sections below.
 
 
-Properties
-----------
+## Properties
+
 **Reference Name:** Name used to uniquely identify this source for lineage, annotating metadata, etc.
 
-**Path:** Path to read from. For example, s3a://<bucket>/path/to/input
+**Path:** The path to read from. For example, hdfs:///tmp/sample.txt
 
-**Format:** Format of the data to read.
-The format must be one of 'avro', 'blob', 'csv', 'delimited', 'json', 'parquet', 'text', or 'tsv'.
+**Format:** The format of the data to be read.
+The format must be one of  'avro', 'blob', 'csv', 'delimited', 'json', 'parquet', 'text', or 'tsv'.
 If the format is 'blob', every input file will be read into a separate record.
 The 'blob' format also requires a schema that contains a field named 'body' of type 'bytes'.
 If the format is 'text', the schema must contain a field named 'body' of type 'string'.
@@ -42,6 +43,11 @@ The default value is false.
 will error when there is no data to read. When set to true, no error will be thrown and zero records will be read.
 
 **File System Properties:** Additional properties to use with the InputFormat when reading the data. See [here](#file-system-properties) for details.
+
+## Note
+
+It is mandatory to provide an output schema when using a format other than text. The default schema used in this plugin is for text format where the body represents line read from the file and offset represents offset of line in the file. 
+
 
 ## Sample Pipeline
 
