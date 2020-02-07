@@ -37,9 +37,9 @@ A scenario where you want to write a file to a HDFS in batch. For example, you m
 **File System Properties:** Use this additional property with the InputFormat while reading the data. This is an advanced feature to specify any additional property that should be used with the sink. See [here](#file-system-properties) for details.
 
 ### File System Properties
-This is a JSON string representing a map of properties that can can be used when writing the data depending on the use case.
+This JSON string represents a map of properties that can be used for writing the data as required.
 
-Here are sample use cases
+Sample use cases:
 
 - ##### Writing output to gzip compression format
 ```json
