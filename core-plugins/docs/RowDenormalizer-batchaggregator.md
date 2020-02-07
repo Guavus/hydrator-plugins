@@ -3,50 +3,46 @@
 
 Description
 -----------
-Converts raw data into denormalized data based on a key column. User is able to specify the list of fields that should be used in the denormalized record, with an option to use an alias for the output field name. For example, 'ADDRESS' in the input is mapped to 'addr' in the output schema. 
+Row Denormalizer is an open source accelerator that converts raw data into denormalized data based on the key column in the input data. 
+Using this accelerator, the user can specify the list of fields that must be used in the denormalized record, with an option to use an alias for the output field name. For example, 'ADDRESS' in input is mapped to 'addr' in the output schema. 
 
 Use Case
 --------
-The transform takes input record that stores a variable set of custom attributes for an entity, denormalizes it on the basis of the key field, and then returns a denormalized table according to the output schema specified by the user.
-The denormalized data is easier to query.
+Consider a scenario wherein you have an input record that stores a variable set of custom attributes for an entity, and you want to denormalize it. Row Denormalizer takes the input record, denormalizes it on the basis of the key field, and then returns a denormalized table according to the output schema specified by you. The denormalized data is easier to query. The denormalization can be performed by making configurational changes in the accelerator as explained in the following section.
 
 Properties
 ----------
-**keyField:** Name of the column in the input record which will be used to group the raw data. For Example, id.
+The following pointers describe the fields as displayed in the accelerator properties dialog box.
 
-**nameField:** Name of the column in the input record which contains the names of output schema columns. For example,
- input records have columns 'id', 'attribute', 'value' and the 'attribute' column contains 'FirstName', 'LastName',
- 'Address'.
-  "So the output record will have column names as 'FirstName', 'LastName', 'Address'.
+**keyField:** Specify the name of the column in the input record which is to be used to group the raw data. For Example, id.
 
-**valueField:** Name of the column in the input record which contains the values for output schema columns. For
-example, input records have columns 'id', 'attribute', 'value' and the 'value' column contains 'John',
-'Wagh', 'NE Lakeside'. So the output record will have values for columns 'FirstName', 'LastName', 'Address' as 'John', 'Wagh', 'NE Lakeside' respectively.
+**nameField:** Specify the name of the column in the input record which contains the names of output schema columns. For example, if input records have columns 'id', 'attribute', 'value', and the 'attribute' column contains 'FirstName', 'LastName',
+ 'Address', the output record will have column names as 'FirstName', 'LastName', 'Address'.
 
-**outputFields:** List of the output fields to be included in denormalized output.
+**valueField:** Specify the name of the column in the input record which contains the values for output schema columns. For
+example, if input records have columns 'id', 'attribute', 'value', and the 'value' column contains 'John', 'Wagh', 'NE Lakeside', the output record will have values for columns as 'FirstName', 'LastName', 'Address' as 'John', 'Wagh', 'NE Lakeside' respectively.
 
-**fieldAliases:** List of the output fields to rename. The key specifies the name of the field to rename, with its corresponding value specifying the new name for that field.
+**outputFields:** Enter the list of the output fields to be included in the denormalized output.
 
-**numPartitions:** Number of partitions to use when grouping data. If not specified, the execution framework will
-decide on the number to use.
+**fieldAliases:** Enter the list of the output fields to be renamed. The key specifies the name of the required field, with its corresponding value representing the new name for that field.
+
+**numPartitions:** Specify the number of partitions to use when grouping data. If not specified, the default value as per the execution framework is used
 
 Conditions
 ----------
-In case a field value is not present, then it will be considered as NULL.
+In case a field value is not present, it is considered as NULL.
 
-For Example,
+Consider the following cases:
 
-If keyfield('id') in the input record is NULL, then that particular record will be filtered out.
+If keyfield('id') in the input record is NULL, then that particular record is filtered out.
 
-If namefield('attribute') or valuefield('value') is not present for a particular keyfield('id') value, then the
-denormalized output value for that namefield will be NULL.
+If namefield('attribute') or valuefield('value') is not present for a particular keyfield('id') value, then the denormalized output value for that namefield is NULL.
 
-If user provides output field which is not present in the input record, then it will be considered as NULL.
+If the user provides an output field which is not present in the input record, it is considered as NULL.
 
 Example
 -------
-The transform takes input records that have columns id, attribute, value, denormalizes it on the basis of
-id, and then returns a denormalized table according to the output schema specified by the user.
+The accelerator takes input records that have column id, attribute, and value, then denormalizes it on the basis of id, and finally returns a denormalized table according to the output schema specified by the user.
 
     {
       "name": "RowDenormalizer",
@@ -60,7 +56,7 @@ id, and then returns a denormalized table according to the output schema specifi
        }
     }
 
-For example, suppose the aggregator receives the input record:
+For example, suppose the aggregator receives the following input record:
 
     +======================================+
     | id        | attribute   | value      |
@@ -70,7 +66,7 @@ For example, suppose the aggregator receives the input record:
     | joltie    | Address     | NE Lakeside|
     +======================================+
 
-Output records will contain all the output fields specified by user:
+The output records will contain all the output fields specified by the user, as shown below:
 
     +=========================================================+
     | id        | Firstname   | Lastname   |  Office Address  |
@@ -79,7 +75,7 @@ Output records will contain all the output fields specified by user:
     +=========================================================+
 
 
-Now, let's suppose the aggregator receives the input record with NULL values:
+Now, suppose the aggregator receives an input record with NULL values, as shown below:
 
     +======================================+
     | id        | attribute   | value      |
@@ -95,7 +91,7 @@ Now, let's suppose the aggregator receives the input record with NULL values:
     | bob       | Address     |            |
     +======================================+
 
-Output records will contain all the output fields specified by user:
+The output records will contain all the output fields specified by user, as shown below:
 
     +=========================================================+
     | id        | Firstname   | Lastname   |  Office Address  |
