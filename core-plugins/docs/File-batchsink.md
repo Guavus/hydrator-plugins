@@ -1,9 +1,9 @@
 # File Sink
 
 
-Description
+## Description
 
-Writes to a filesystem in various formats format.
+File Batch Sink is a Accelerator that writes to HDFS in various formats.
 
 For the csv, delimited, and tsv formats, each record is written out as delimited text.
 Complex types like arrays, maps, and records will be converted to strings using their
@@ -11,6 +11,10 @@ Complex types like arrays, maps, and records will be converted to strings using 
 string, long, int, double, float, and boolean types.
 
 All types are supported when using the avro or parquet format.
+
+## Use Case
+
+Consider a scenario wherein you need to write a file to an HDFS in batch. For example, you may want to periodically dump any RDD data to HDFS in the file format like csv,tsv,json etc. To do the same, configure the File Sink accelerator as explained in the following sections.
 
 ## Configuration
 
