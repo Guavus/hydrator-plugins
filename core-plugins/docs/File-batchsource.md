@@ -2,7 +2,7 @@
 
 ## Description
 
-File Batch Source is an accelerator that is used when you want to read from a distributed file system.
+File Batch Source is a plugin that is used when you want to read from a distributed file system.
 
 ## Use Case
 
