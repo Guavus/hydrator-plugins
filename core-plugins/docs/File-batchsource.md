@@ -45,7 +45,7 @@ The default value is false.
 **Allow Empty Input:** Allow an input path that contains no data. When this property is set to false, the plugin
 will show an error if there is no data to read. When this property is set to true, no error will appear and zero records will be read.
 
-**File System Properties:** Use this additional property with the InputFormat while reading the data. See [here](#file-system-properties) for details.
+**File System Properties:** Use this additional property with the InputFormat while reading the data.
 
 ## Note
 
