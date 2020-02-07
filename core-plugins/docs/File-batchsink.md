@@ -22,7 +22,7 @@ Consider a scenario wherein you need to write a file to an HDFS in batch. For ex
 
 **Path:** Path to write to. For example, /path/to/output.
 
-**Path Suffix:** Time format for the output directory that will be appended to the path. For example, the format 'yyyy-MM-dd-HH-mm' will result in a directory of the form '2015-01-01-20-42'.If not specified, nothing will be appended to the path.
+**Path Suffix:** Time format for the output directory that will be appended to the path. For example, the format 'yyyy-MM-dd-HH-mm' will result in a directory of the form '2015-01-01-20-42'. If not specified, nothing will be appended to the path.
 
 **Format:** Format to write the records in. The format must be one of 'json', 'avro', 'parquet', 'csv', 'tsv', or 'delimited'.
 
