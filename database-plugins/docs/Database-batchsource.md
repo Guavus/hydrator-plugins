@@ -74,7 +74,7 @@ The column types will be used to derive the record field types output by the sou
         "properties": {
             "jdbcPluginName": "psql",
             "jdbcPluginType": "jdbc",
-            "importQuery": "select id,name,email,phone from users where $CONDITIONS",
+            "importQuery": "select id,name,email,phone from users WHERE $CONDITIONS",
             "boundingQuery": "select min(id),max(id) from users",
             "splitBy": "id",
             "connectionString": "jdbc:postgresql://localhost:5432/test",
