@@ -49,7 +49,9 @@ will show an error if there is no data to read. When this property is set to tru
 
 ## Note
 
-It is mandatory to provide an output schema when using a format other than text. The default schema used in this plugin is for text format where the body represents line read from the file and offset represents offset of line in the file. 
+- It is mandatory to provide an output schema when using a format other than text. The default schema used in this plugin is for text format where the body represents line read from the file and offset represents offset of line in the file. 
+
+- By default this plugin support gzip(.gz) and bzip2(.bz2) compression formats. User does not need to provide any additional configuration for compression, it automatically uncompresses the data based on the file extension.
 
 
 ## Sample Pipeline
