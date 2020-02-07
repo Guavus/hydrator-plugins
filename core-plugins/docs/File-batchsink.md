@@ -18,15 +18,19 @@ Consider a scenario wherein you need to write a file to an HDFS in batch. For ex
 
 ## Configuration
 
-| Configuration | Label | Required? | Default | Description |
-| :------------ | :---- | :-------- | :------ | :---------- |
-| `Reference Name` | label | Yes | File | Name used to uniquely identify this sink for lineage, annotating metadata, etc.|
-| `Path` | Path | Yes | N/A | Path to write to. For example, /path/to/output. |
-| `Path Suffix` | Path Suffix | Optional | yyyy-MM-dd-HH-mm | Time format for the output directory that will be appended to the path.For example, the format 'yyyy-MM-dd-HH-mm' will result in a directory of the form '2015-01-01-20-42'.If not specified, nothing will be appended to the path. |
-| `Format` | Format | Yes | Json | Format to write the records in. The format must be one of 'json', 'avro', 'parquet', 'csv', 'tsv', or 'delimited'. |
-| `Delimiter` | Delimiter | Optional | N/A | Delimiter to use if the format is 'delimited'.|
-| `File System Properties` | File System Properties | Optional | N/A | Additional properties in json format to use with the OutputFormat when reading the data. Advanced feature to specify any additional property that should be used with the sink. See [here](#file-system-properties) for details.|
+**Reference Name:** Name used to uniquely identify this sink for lineage, annotating metadata, etc.
 
+**Path:** Path to write to. For example, /path/to/output.
+
+**Path Suffix:** Time format for the output directory that will be appended to the path. For example, the format 'yyyy-MM-dd-HH-mm' will result in a directory of the form '2015-01-01-20-42'.If not specified, nothing will be appended to the path.
+
+**Format:** Format to write the records in. The format must be one of 'json', 'avro', 'parquet', 'csv', 'tsv', or 'delimited'.
+
+**Delimiter:** Delimiter to use if the format is 'delimited'.
+
+**File System Properties:** Additional properties in json format to use with the OutputFormat when reading the data. 
+
+Advanced feature to specify any additional property that should be used with the sink. See [here](#file-system-properties) for details.
 
 ### File System Properties
 This is a JSON string representing a map of properties that can can be used when writing the data depending on the use case.
