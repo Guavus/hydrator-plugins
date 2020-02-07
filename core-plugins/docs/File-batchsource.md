@@ -2,7 +2,7 @@
 
 ## Description
 
-File Batch Source is a plugin, used to read from a distributed file system.
+File Batch Source is a plugin, which is used to read a distributed file system.
 
 ## Use Case
 
