@@ -6,12 +6,12 @@ File Batch Source is a plugin, which is used to read a distributed file system.
 
 ## Use Case
 
-Consider a scenario wherein you want to fetch log files from HDFS every hour and then store the logs in a TimePartitionedFileSet. This can be achieved by making configurational changes as described in the following sections.
+A scenario where you want to fetch the log files from HDFS every hour and then store the logs in a TimePartitionedFileSet. This can be achieved by making configurational changes as described in the following sections.
 
 
 ## Properties
 
-**Reference Name:** Name used to uniquely identify this source for lineage, annotating metadata, etc.
+**Reference Name:** This is a unique name used to identify this source for lineage, annotating metadata, so on.
 
 **Path:** The path to read from. For example, hdfs:///tmp/sample.txt
 
