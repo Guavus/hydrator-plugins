@@ -25,28 +25,29 @@ Properties
 
 **Connection String:** This is the JDBC connection string including database name. (Macro-enabled)
 
-**Import Query:** The SELECT query to use to import data from the specified table.
-You can specify an arbitrary number of columns to import, or import all columns using \*. The Query should
-contain the '$CONDITIONS' string. For example, 'SELECT * FROM table WHERE $CONDITIONS'.
+**Import Query:** Use the SELECT query to import the data from the specified table. 
+You can import all or arbitrary number of columns using \*. The Query should contain the '$CONDITIONS' string. 
+For example, 'SELECT * FROM table WHERE $CONDITIONS'.
 The '$CONDITIONS' string will be replaced by 'splitBy' field limits specified by the bounding query.
-The '$CONDITIONS' string is not required if numSplits is set to one. (Macro-enabled)
+The '$CONDITIONS' string is not required if numSplits is set to 1. (Macro-enabled)
 
-**Bounding Query:** Bounding Query should return the min and max of the values of the 'splitBy' field.
-For example, 'SELECT MIN(id),MAX(id) FROM table'. Not required if numSplits is set to one. (Macro-enabled)
+**Bounding Query:** This query must return the minimum and maximum of the values of the 'splitBy' field.
+For example, 'SELECT MIN(id),MAX(id) FROM table'. This property is not required if numSplits is set to 1. (Macro-enabled)
 
-**Split-By Field Name:** Field Name which will be used to generate splits. Not required if numSplits is set to one. (Macro-enabled)
+**Split-By Field Name:** These are the field names used to generate splits. This property is not required if numSplits is set to 1. (Macro-enabled)
 
-**Number of Splits to Generate:** Number of splits to generate. (Macro-enabled)
+**Number of Splits to Generate:** This is the value for number of splits to generate. (Macro-enabled)
 
-**Username:** User identity for connecting to the specified database. Required for databases that need
-authentication. Optional for databases that do not require authentication. (Macro-enabled)
+**Username:** Use this for connecting to the specified database. This is required for databases that need
+authentication and optional for databases that do not require authentication. (Macro-enabled)
 
-**Password:** Password to use to connect to the specified database. Required for databases
-that need authentication. Optional for databases that do not require authentication. (Macro-enabled)
+**Password:** Use this for connecting to the specified database. This is required for databases that need
+authentication and optional for databases that do not require authentication. (Macro-enabled)
 
-**Connection Arguments:** A list of arbitrary string tag/value pairs as connection arguments. These arguments will be passed to the JDBC driver, as connection arguments, for JDBC drivers that may need additional configurations. This is a semicolon-separated list of key-value pairs, where each pair is separated by a equals '=' and specifies the key and value for the argument. For example, 'key1=value1;key2=value' specifies that the connection will be given arguments 'key1' mapped to 'value1' and the argument 'key2' mapped to 'value2'. (Macro-enabled)
+**Connection Arguments:** A list of arbitrary string tag/value pairs as connection arguments. These arguments are passed to the JDBC driver for additional configurations as connection arguments. This is a semicolon-separated list of key-value pairs, where each pair is separated by a equals '=' and specifies the key and value for the argument. 
+For example, 'key1=value1;key2=value2' states that the 'key1' is mapped to 'value1' and 'key2' is mapped to 'value2'. (Macro-enabled)
 
-**Enable Auto-Commit:** Whether to enable auto-commit for queries run by this source. Defaults to 'false'. Normally this setting does not matter. It only matters if you are using a jdbc driver that does not support a false value for autocommit, or a driver that throws error when auto-commit is set to false. For drivers like those, you will need to set this to 'true'.
+**Enable Auto-Commit:** Use this to enable auto-commit for queries. The default value is 'false'. This property is only useful when a jdbc driver does not support a false value for autocommit or throws an error when auto-commit is set to false. To resolve this, set the value to 'true'.
 
 **Column Name Case:** Sets the case of the column names returned from the query.
 Possible options are ``upper`` or ``lower``. By default or for any other input, the column names are not modified and
@@ -74,7 +75,7 @@ The column types will be used to derive the record field types output by the sou
         "properties": {
             "jdbcPluginName": "psql",
             "jdbcPluginType": "jdbc",
-            "importQuery": "select id,name,email,phone from users WHERE $CONDITIONS",
+            "importQuery": "select id,name,email,phone from users where $CONDITIONS",
             "boundingQuery": "select min(id),max(id) from users",
             "splitBy": "id",
             "connectionString": "jdbc:postgresql://localhost:5432/test",
