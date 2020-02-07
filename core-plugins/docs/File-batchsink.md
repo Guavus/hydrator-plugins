@@ -3,7 +3,7 @@
 
 ## Description
 
-File Batch Sink is an plugin that writes to HDFS in various formats.
+File Batch Sink is a plugin that writes to HDFS in various formats.
 
 For the csv, delimited, and tsv formats, each record is written out as delimited text.
 Complex types like arrays, maps, and records will be converted to strings using their
