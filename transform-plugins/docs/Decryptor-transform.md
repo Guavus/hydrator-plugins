@@ -1,35 +1,43 @@
-# Decryptor Transform
+# Field Decryptor
 
 
 ## Description
-Decrypts one or more fields in input records using a keystore 
-that must be present on all nodes of the cluster.
+Field Decryptor is an open source accelerator that decrypts fields in input records using a keystore which must be present on all nodes of the cluster.
 
 **Note:**
-- Only fields of type `bytes` are allowed for decryption.
+- Only the fields of type `bytes` are allowed for decryption.
+
+**Use Case**
+
+Suppose you have an input record from which you want to decrypt one or more fields. You can do so using Field Decryptor by making the following configurational changes.
 
 ## Configuration
-**decryptFields** Specify the fields to decrypt, separated by commas
 
-**transformation** The transformation algorithm in the format "algorithm/mode/padding" where mode and padding is optional. For example, `AES`, `RSA`, `AES/ECB/PKCS5Padding`, `AES/CBC/PKCS5Padding` etc.
+The following pointers describe the fields as displayed in the accelerator properties dialog box.
 
-**ivHex** Hex value of initialization vector if using the block cipher mode of operation.
+**decryptFields:** Specify the fields to be decrypted, separated by commas.
 
-**keystorePath** Absolute path of the keystore file.
-If keystore path is configured in property `program.container.dist.jars` of `cdap-site.xml`
-then keystore file must be present on both CDAP master nodes,
-else keystore file must be present on every slave node of the cluster.
+**schema:** Specify the Schema to pull records from.
 
-**keystorePassword** The password for the keystore
+**transformation:** Specify the transformation algorithm in the format "algorithm/mode/padding" where mode and padding is optional. For example, `AES`, `RSA`, `AES/ECB/PKCS5Padding` `AES/CBC/PKCS5Padding` and so on.
 
-**keystoreType** The type of keystore; for example: JKS or JCEKS
+**ivHex:** Specify the Hex value of initialization vector if using the block cipher mode of operation.
 
-**keyAlias** The alias of the key to use in the keystore
+**keystorePath:** Specify the Absolute path of the keystore file.
+If keystore path is configured in the property `program.container.dist.jars` of `cdap-site.xml`
+then keystore file must be present on both the CDAP master nodes,
+else the keystore file must be present on every slave node of the cluster.
 
-**keyPassword** The password for the key to use in the keystore
+**keystorePassword:** Specify the password for the keystore.
 
-**schema** Specifies the output schema. Output columns are same as input columns except the types of decrypted fields.
-User needs to manually set the type of decrypted fields.
+**keystoreType:** Specify the type of keystore; for example, JKS or JCEKS.
+
+**keyAlias:** Specify the alias of the key to be used in the keystore.
+
+**keyPassword:** Specify the password for the key to be used in the keystore.
+
+**schema:** Specify the output schema. The output columns are same as input columns except the types of decrypted fields.
+Set the type of decrypted fields manually.
 
 
 ## Example
@@ -47,9 +55,9 @@ User needs to manually set the type of decrypted fields.
 +=============================================================================================================================================================+
 ```
 
-**Plugin Configuration**
+**Configuration for Decryption**
 
-`To decrypt 'name' and 'protocol' fields from input`
+`The configuration to decrypt 'name' and 'protocol' fields from the input is as follows:`
 ```
 {
   "name": "Field Decrypter",
@@ -77,7 +85,7 @@ User needs to manually set the type of decrypted fields.
 }
 ```
 
-**Output Data**
+**The Output Data is as follows**
 ```
 +==================================================+
 |   name   |   type   | destinationport | protocol |
