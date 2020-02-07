@@ -2,7 +2,7 @@
 
 
 ## Description
-The Database accelerator is used to read from a database using a configurable SQL query. It outputs one record for each row returned by the query.
+The Database open source accelerator is used to read from a database using a configurable SQL query. After reading data from the database as per the query, the accelerator produces an output record for each row.
 
 
 ## Use Case
@@ -10,52 +10,43 @@ Consider a scenario wherein you want to read data from a database by using this 
 
 
 ## Properties
-**Reference Name:** The name used to uniquely identify this sink for lineage, annotating metadata, etc.
 
-**Plugin Name:** The name of the JDBC plugin to use. This is the value of the 'name' key defined in the JSON file for the JDBC plugin.
+The following pointers describe the fields as displayed in the accelerator properties dialog box.
 
-**Plugin Type:** The type of JDBC plugin to use. This is the value of the 'type' key defined in the JSON file for the JDBC plugin. Defaults to 'jdbc'.
+**Reference Name:** Enter a name for this sink to uniquely identify it for lineage, annotating metadata, and so on.
 
-**Connection String:** The JDBC connection string including the database name. (Macro-enabled)
+**Plugin Name:** Enter the name of the JDBC driver. This refers to the 'name' key defined in the JSON file that was used at the time of uploading the JDBC driver. For more information on how to upload a driver, refer the section 'Upload Database Driver'.
 
-**Import Query:** The SELECT query to use to import data from the specified table.
-You can specify an arbitrary number of columns to import, or you can import all columns using \*. The Query should
-contain the '$CONDITIONS' string. For example, 'SELECT * FROM table WHERE $CONDITIONS'.
-The '$CONDITIONS' string will be replaced by 'splitBy' field limits specified by the bounding query.
-The '$CONDITIONS' string is not required if numSplits is set to one. (Macro-enabled)
+**Plugin Type:** Specify the type of JDBC plugin to be used. This is the value of the 'type' key defined in the JSON file for the JDBC plugin. The default type is 'jdbc'.
 
-**Bounding Query:** Bounding Query should return the min and max of the values of the 'splitBy' field. Both min and max are required in query.
-For example, 'SELECT MIN(id),MAX(id) FROM table'. Not required if numSplits is set to one. (Macro-enabled)
+**Connection String:** Specify the JDBC connection string, including the database name. This field is macro-enabled.
 
-**Split-By Field Name:** The field name which will be used to generate splits. Not required if numSplits is set to one. (Macro-enabled)
+**Import Query:** Enter the SELECT query to be used to import data from the specified table. You can specify an arbitrary number of columns to import, or you can import all columns using \*. The Query should contain the $CONDITIONS string. For example, 'SELECT * FROM table WHERE $CONDITIONS'.
+The $CONDITIONS string will be replaced by 'splitBy' field limits specified by the bounding query.
+The $CONDITIONS string is not required if numSplits is set to one. This field is macro-enabled.
 
-**Number of Splits to Generate:** The number of splits to generate. (Macro-enabled)
+**Bounding Query:** A bounding query is required when split is set to a value more than one. Enter the Bounding Query that should return the min and max of the values of the 'splitBy' field. Both min and max are required in the query; for example, 'SELECT MIN(id),MAX(id) FROM table'. This is not required if numSplits is set to one. (Macro-enabled)
 
-**Username:** The user identity for connecting to the specified database. Required for databases that need
-authentication. Optional for databases that do not require authentication. (Macro-enabled)
+**Split-By Field Name:** Enter the field name that will be used to generate splits. This is not required if numSplits is set to one. This field is macro-enabled.
 
-**Password:** The password to use to connect to the specified database. Required for databases
-that need authentication. Optional for databases that do not require authentication. (Macro-enabled)
+**Number of Splits to Generate:** Specify the number of splits to be generated. This field is macro-enabled.
 
-**Connection Arguments:** A list of arbitrary string tag/value pairs as connection arguments. These arguments
-will be passed to the JDBC driver, as connection arguments, for JDBC drivers that may need additional configurations.
-This is a semicolon-separated list of key-value pairs, where each pair is separated by a equals '=' and specifies
-the key and value for the argument. For example, 'key1=value1;key2=value' specifies that the connection will be
-given arguments 'key1' mapped to 'value1' and the argument 'key2' mapped to 'value2'. (Macro-enabled)
+**Username:** Enter the user name for connecting to the specified database. It is mandatory for databases that require authentication but optional for databases that do not require authentication. This field is macro-enabled.
 
-**Enable Auto-Commit:** Whether to enable auto-commit for queries run by this source. Defaults to 'false'.
-Normally this setting does not matter. It only matters if you are using a jdbc driver 
-that does not support a false value for autocommit, or a driver that throws error when auto-commit is set to false.
-For drivers like those, you will need to set this to 'true'.
+**Password:** Enter the password to be used to connect to the specified database. It is mandatory for databases that require authentication but optional for databases that do not require authentication. This field is macro-enabled.
 
-**Column Name Case:** To set the case of the column names returned from the query. The possible options are ``upper`` or ``lower``. The default column names or the column names for any other input are not modified, and the names returned from the database are used as-is. Note that setting this property lends predictability to the column name cases across different databases, but it might result in column name conflicts if multiple columns have the same names when the case is ignored (optional).
+**Connection Arguments:** Enter a list of arbitrary string tag/value pairs as connection arguments. These arguments are passed to the JDBC driver as connection arguments if additional configurations are needed.
+This should be a semicolon-separated list of key-value pairs, where values in each pair are separated by an equals '=' sign and a pair specifies the key and value for the argument. For example, 'key1=value1;key2=value' specifies that the connection will be given arguments 'key1' mapped to 'value1' and the argument 'key2' mapped to 'value2'. This field is macro-enabled.
 
-**Transaction Isolation Level:** The transaction isolation level for queries run by this sink.
-Defaults to TRANSACTION_SERIALIZABLE. See java.sql.Connection#setTransactionIsolation for more details.
-The jdbc driver will throw an exception if the database does not have transactions enabled
-and this setting is set to True. For drivers like that, this should be set to TRANSACTION_NONE.
+**Enable Auto-Commit:** Choose 'True' or 'False' based on whether you want to enable auto-commit for queries run by this source. By default, 'False' is selected.
+**Note** This option is important only when you are using a jdbc driver that does not support a false value for autocommit, or a driver that throws an error when auto-commit is set to false. For such drivers, you will need to set this to 'true'.
 
-**Schema:** The schema of records output by the source. This will be used in place of whatever schema is returned from the query. However, it must match the schema that returns from the query, except it can mark fields as nullable and can contain a subset of the fields.
+**Column Name Case:** Select a case for the column names returned from the query. The available options are ``upper`` and ``lower``. The default column names or the column names for any other input are not modified, and the names returned from the database are used as-is. Note that setting this property lends a predictability to the column name cases across different databases, but it might result in column name conflicts if multiple columns have the same names when the case is ignored.
+
+**Transaction Isolation Level:** From the drop-down list, select the transaction isolation level for queries run by this accelerator. By default, TRANSACTION_SERIALIZABLE is selected. See Java documentation of class java.sql.Connection#setTransactionIsolation for more details. 
+The JDBC driver will throw an exception if the database does not have transactions enabled and this setting is set to True. For such drivers, this property should be set to TRANSACTION_NONE.
+
+**Schema:** Specify the schema of records that the source outputs. This is used in place of the schema that is returned from the query. It must match that schema except that it can mark fields as nullable and can contain a subset of the fields available in the result.
 
 
 ## Example
@@ -77,7 +68,7 @@ The column types will be used to derive the record field types output by the sou
         }
     }
 
-For example, if the 'id' column is a primary key of the type int, and the other columns are non-nullable varchars, output records will have this schema:
+For example, if the 'id' column is a primary key of the type int and the other columns are non-nullable varchars, the output records will have this schema:
 
     +======================================+
     | field name     | type                |
@@ -92,7 +83,7 @@ For example, if the 'id' column is a primary key of the type int, and the other 
 
 ## Notes :
 
-`List of supported drivers and connection details`
+1. `The following table lists the supported drivers and their connection details.`
 
 ```
 +=====================================================================================================+
@@ -112,16 +103,16 @@ For example, if the 'id' column is a primary key of the type int, and the other 
 +=====================================================================================================+
 ```
 
-Transaction Isolation Level supports for listed dbs:
+2. Transaction Isolation Level is supported in MySQL and Postgres dbs:
 
 ***MySql/Postgres*** :  "TRANSACTION_READ_UNCOMMITTED", "TRANSACTION_READ_COMMITTED","TRANSACTION_REPEATABLE_READ",
                         "TRANSACTION_SERIALIZABLE (default)" .
 
-### Steps to upload database driver
+### Upload Database Driver
 
-In order to use this accelerator to connect supported databases, there is a need to upload corresponding driver in cdap.
+To use this accelerator to connect to supported databases, upload the corresponding driver in CDAP.
 
-Driver jar can be downloaded from internet. Please refer below table for tested driver versions
+The corresponding driver jar can be downloaded from the internet. The following table lists the tested driver versions:
 
 ```
 +===========================+
@@ -134,8 +125,8 @@ Driver jar can be downloaded from internet. Please refer below table for tested 
 +===========================+
 ```
 
-* Copy driver jar at any location on one of the cdap master node. For ex copied `h2-1.4.200.jar` in `/tmp` folder.
-* Create a json file with below content and copy that in same directory used in above step.<br/>Name of the json file should be same as jar file with extension `.json`. For ex `h2-1.4.200.json`
+* Copy the driver jar at any location on one of the cdap master nodes. For example, copy `h2-1.4.200.jar` in `/tmp` folder.
+* Create a json file with the following content and copy the file in the same directory used in the step above. The name of the json file should be the same as the jar file with extension `.json`. For example, `h2-1.4.200.json`
 ```
 {
  "plugins": [
@@ -149,7 +140,9 @@ Driver jar can be downloaded from internet. Please refer below table for tested 
 }
 ```
 
-**Example:** for h2db content of json file
+**Example:** 
+
+For the h2db content of json file
 
 ```
 {
@@ -163,18 +156,19 @@ Driver jar can be downloaded from internet. Please refer below table for tested 
   ]
 }
 ```
-* Login to one of cdap master node
-* Go to directory `/opt/cdap/master`
-* Run Command `./bin/cdap cli -v false`
-* Enter username and password on prompt
-* Run command to load driver
+* Log into one of the cdap master nodes
+* Navigate to the directory `/opt/cdap/master`
+* Run the command `./bin/cdap cli -v false`
+* Enter the username and password when prompted
+* Run the following command to load driver:
 `load artifact <driver-jar-path> config-file <json-path> name <connector-name> version <driver-version>`
-<br/> **For ex:** 
+<br/> **For example:** 
 `load artifact /tmp/h2-1.4.200.jar config-file /tmp/h2-1.4.200.json name h2db-connector-java version 1.4.200`
 
-* Below rest API can be used to verify success of driver upload<br/>
+* Use the following Rest API to verify if the driver is uploaded successfully:<br/>
 `namespaces/default/artifacts/h2db-connector-java/versions/1.4.200`
-<br/> **Expected output**
+<br/> 
+* The expected output is as follows:
 
 ```
 {
