@@ -89,6 +89,6 @@ The formats supported in the File accelerator can be categorised into: `hadoop` 
 
 ## Note
 
-It is mandatory to provide an output schema when using a format other than text. The default schema used in this plugin is for text format where the body represents line read from the file and offset represents offset of line in the file. 
-
-If the format is orc, then only string, long, int, double, float, boolean and array types are supported in output schema. 
+- It is mandatory to provide an output schema when using a format other than text. The default schema used in this plugin is for text format where the body represents line read from the file and offset represents offset of line in the file. 
+- If the format is orc, then only string, long, int, double, float, boolean and array types are supported in output schema.
+- By default, this plugin support gzip(.gz) and bzip2(.bz2) compression formats. The user does not need to provide any additional configuration for compression, it automatically un-compresses the data based on the file extension. 
