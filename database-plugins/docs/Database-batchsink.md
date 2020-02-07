@@ -79,3 +79,33 @@ the record will be written to the 'id' column of that row.
             "jdbcPluginType": "jdbc"
         }
     }
+
+## Notes :
+
+List of supported drivers and connection string .
+
+    +==============================================================================================================================================+
+    | DB name                      | Driver Name(class name)         |   Database URL & Example                                                    |
+    +==============================================================================================================================================+
+    | MySQL                        | com.mysql.jdbc.Driver           |   jdbc:mysql://<server>:<port>/<databaseName>                               |
+                                                                         Eg: jdbc:mysql://localhost:3306/myDBName                                  
+    | Postgres                     | org.postgresql.Driver           |   jdbc:postgresql://<server>:<port>/<databaseName>                          |
+                                                                         Eg: jdbc:postgresql://localhost:5432/myDBName                  
+    +==============================================================================================================================================+
+
+Transaction Isolation Level supports for listed dbs:
+
+***MySql/Postgres*** :  "TRANSACTION_READ_UNCOMMITTED", "TRANSACTION_READ_COMMITTED","TRANSACTION_REPEATABLE_READ",
+                        "TRANSACTION_SERIALIZABLE (default)" .
+
+
+Steps to upload connecter-jar for mysql using below steps :
+
+1. copy driver jar & json at any location for ex copied in /tmp/ folder
+2. goto any cdap node 
+3. goto → cd /opt/cdap/master/ 
+4. run command => ./bin/cdap cli -v false
+5. and enter username password
+6. Please, specify Username for basic authentication.> usr01
+7. Please, specify Password for basic authentication.> *********
+8. run command => load artifact /tmp/mysql-connector-java-x.x.x.jar config-file /tmp/mysql-connector-java-x.x.x.json name mysql-connector-java version x.x.x
