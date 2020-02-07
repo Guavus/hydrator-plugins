@@ -2,15 +2,19 @@
 
 
 ## Description
-Hashes fields using a digest algorithm such as ``MD2``, ``MD5``, ``SHA1``, ``SHA256``, ``SHA384``, or ``SHA512``.
+Field Hasher is an open source accelerator that hashes fields using a digest algorithm such as ``MD2``, ``MD5``, ``SHA1``, ``SHA256``, ``SHA384``, or ``SHA512``.
 
 
 ## Configuration
-**fields:** Specifies the fields to be hashed. Only `String` values are allowed. Hashed output would also be of type String.
 
-**hash:** Specifies the hashing algorithm.
+The following pointers describe the fields as displayed in the accelerator properties dialog box.
 
-***Note:*** Output schema of this plugin would be same as input schema.
+
+**Hasher:** Select a hashing algorithm.
+
+**Fields:** Specify the fields to be hashed. Only `String` values are allowed. The hashed output will also be of the type String.
+
+***Note:*** The output schema of this accelerator must be the same as the input schema.
 
 ## Example
 
@@ -26,9 +30,9 @@ Hashes fields using a digest algorithm such as ``MD2``, ``MD5``, ``SHA1``, ``SHA
 +==========================================+
 ```
 
-**Plugin Configuration**
+**Configuration for Hashing**
 
-`To hash 'name' and 'connects' fields from input using MD5 algorithm`
+To hash the 'name' and 'connects' fields from the input using MD5 algorithm, the configuration is as follows:
 ```
 {
     "name": "Field Hasher",
@@ -49,7 +53,7 @@ Hashes fields using a digest algorithm such as ``MD2``, ``MD5``, ``SHA1``, ``SHA
 }
 ```
 
-**Output Data**
+**The Output Data is as follows**
 
 ```
 +============================================================================================+
