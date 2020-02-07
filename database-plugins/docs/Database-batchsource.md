@@ -45,16 +45,9 @@ authentication. Optional for databases that do not require authentication. (Macr
 **Password:** Password to use to connect to the specified database. Required for databases
 that need authentication. Optional for databases that do not require authentication. (Macro-enabled)
 
-**Connection Arguments:** A list of arbitrary string tag/value pairs as connection arguments. These arguments
-will be passed to the JDBC driver, as connection arguments, for JDBC drivers that may need additional configurations.
-This is a semicolon-separated list of key-value pairs, where each pair is separated by a equals '=' and specifies
-the key and value for the argument. For example, 'key1=value1;key2=value' specifies that the connection will be
-given arguments 'key1' mapped to 'value1' and the argument 'key2' mapped to 'value2'. (Macro-enabled)
+**Connection Arguments:** A list of arbitrary string tag/value pairs as connection arguments. These arguments will be passed to the JDBC driver, as connection arguments, for JDBC drivers that may need additional configurations. This is a semicolon-separated list of key-value pairs, where each pair is separated by a equals '=' and specifies the key and value for the argument. For example, 'key1=value1;key2=value' specifies that the connection will be given arguments 'key1' mapped to 'value1' and the argument 'key2' mapped to 'value2'. (Macro-enabled)
 
-**Enable Auto-Commit:** Whether to enable auto-commit for queries run by this source. Defaults to 'false'.
-Normally this setting does not matter. It only matters if you are using a jdbc driver -- like the Hive
-driver -- that will error when the commit operation is run, or a driver that will error when auto-commit is
-set to false. For drivers like those, you will need to set this to 'true'.
+**Enable Auto-Commit:** Whether to enable auto-commit for queries run by this source. Defaults to 'false'. Normally this setting does not matter. It only matters if you are using a jdbc driver that does not support a false value for autocommit, or a driver that throws error when auto-commit is set to false. For drivers like those, you will need to set this to 'true'.
 
 **Column Name Case:** Sets the case of the column names returned from the query.
 Possible options are ``upper`` or ``lower``. By default or for any other input, the column names are not modified and
@@ -62,10 +55,7 @@ the names returned from the database are used as-is. Note that setting this prop
 of column name cases across different databases but might result in column name conflicts if multiple column
 names are the same when the case is ignored (optional).
 
-**Transaction Isolation Level:** The transaction isolation level for queries run by this sink.
-Defaults to TRANSACTION_SERIALIZABLE. See java.sql.Connection#setTransactionIsolation for more details.
-The Phoenix jdbc driver will throw an exception if the Phoenix database does not have transactions enabled
-and this setting is set to true. For drivers like that, this should be set to TRANSACTION_NONE.
+**Transaction Isolation Level:** The transaction isolation level for queries run by this sink. Defaults to TRANSACTION_SERIALIZABLE. See java.sql.Connection#setTransactionIsolation for more details. The jdbc driver will throw an exception if the database does not have transactions enabled and this setting is set to True. For drivers like that, this should be set to TRANSACTION_NONE.
 
 **Schema:** The schema of records output by the source. This will be used in place of whatever schema comes
 back from the query. However, it must match the schema that comes back from the query,
