@@ -32,11 +32,9 @@ A scenario where you want to write a file to a HDFS in batch. For example, you m
 - parquet
 - tsv
 
-**Delimiter:** Delimiter to use if the format is 'delimited'.
+**Delimiter:** Use this when the format of the file is 'delimited'. 
 
-**File System Properties:** Additional properties in json format to use with the OutputFormat when reading the data. 
-
-Advanced feature to specify any additional property that should be used with the sink. See [here](#file-system-properties) for details.
+**File System Properties:** Use this additional property with the InputFormat while reading the data. This is an advanced feature to specify any additional property that should be used with the sink. See [here](#file-system-properties) for details.
 
 ### File System Properties
 This is a JSON string representing a map of properties that can can be used when writing the data depending on the use case.
