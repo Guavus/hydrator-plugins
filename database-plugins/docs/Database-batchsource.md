@@ -75,7 +75,7 @@ except it can mark fields as nullable and can contain a subset of the fields.
 Example
 -------
 This example connects to a database using the specified 'connectionString', which means
-it will connect to the 'prod' database of a PostgreSQL instance running on 'localhost'.
+it will connect to the 'test' database of a PostgreSQL instance running on 'localhost'.
 It will run the 'importQuery' against the 'users' table to read four columns from the table.
 The column types will be used to derive the record field types output by the source.
 
@@ -83,14 +83,14 @@ The column types will be used to derive the record field types output by the sou
         "name": "Database",
         "type": "batchsource",
         "properties": {
+            "jdbcPluginName": "psql",
+            "jdbcPluginType": "jdbc",
             "importQuery": "select id,name,email,phone from users where $CONDITIONS",
             "boundingQuery": "select min(id),max(id) from users",
             "splitBy": "id",
-            "connectionString": "jdbc:postgresql://localhost:5432/prod",
+            "connectionString": "jdbc:postgresql://localhost:5432/test",
             "user": "user123",
-            "password": "password-abc",
-            "jdbcPluginName": "postgres",
-            "jdbcPluginType": "jdbc"
+            "password": "password-abc"
         }
     }
 
