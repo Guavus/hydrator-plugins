@@ -61,7 +61,7 @@ and this setting is set to true. For drivers like that, this should be set to TR
 Example
 -------
 This example connects to a database using the specified 'connectionString', which means
-it will connect to the 'prod' database of a PostgreSQL instance running on 'localhost'.
+it will connect to the 'test' database of a PostgreSQL instance running on 'localhost'.
 Each input record will be written to a row of the 'users' table, with the value for each
 column taken from the value of the field in the record. For example, the 'id' field in
 the record will be written to the 'id' column of that row.
@@ -69,29 +69,38 @@ the record will be written to the 'id' column of that row.
     {
         "name": "Database",
         "type": "batchsink",
+        "label": "Database",
         "properties": {
+            "jdbcPluginType": "jdbc",
+            "enableAutoCommit": "false",
+            "columnNameCase": "No change",
+            "transactionIsolationLevel": "TRANSACTION_SERIALIZABLE",
+            "columns": "id,name,address",
+            "referenceName": "dbSink",
+            "jdbcPluginName": "psql",
+            "connectionString": "jdbc:postgresql://localhost:5432/test",
             "tableName": "users",
-            "columns": "id,name,email,phone",
-            "connectionString": "jdbc:postgresql://localhost:5432/prod",
             "user": "postgres",
-            "password": "",
-            "jdbcPluginName": "postgres",
-            "jdbcPluginType": "jdbc"
+            "password": "admin123"
         }
     }
 
+
 ## Notes :
 
-List of supported drivers and connection string .
+`List of supported drivers and connection details`
 
-    +==============================================================================================================================================+
-    | DB name                      | Driver Name(class name)         |   Database URL & Example                                                    |
-    +==============================================================================================================================================+
-    | MySQL                        | com.mysql.jdbc.Driver           |   jdbc:mysql://<server>:<port>/<databaseName>                               |
-                                                                         Eg: jdbc:mysql://localhost:3306/myDBName                                  
-    | Postgres                     | org.postgresql.Driver           |   jdbc:postgresql://<server>:<port>/<databaseName>                          |
-                                                                         Eg: jdbc:postgresql://localhost:5432/myDBName                  
-    +==============================================================================================================================================+
+```
++=====================================================================================================+
+| DB name  | Driver Name(class name)          |   Database URL & Example                              |
++=====================================================================================================+
+| MySQL    | com.mysql.jdbc.Driver            |   jdbc:mysql://<server>:<port>/<databaseName>         |
+                                                  Eg: jdbc:mysql://localhost:3306/myDBName
+
+| Postgres | org.postgresql.Driver            |   jdbc:postgresql://<server>:<port>/<databaseName>    |
+                                                  Eg: jdbc:postgresql://localhost:5432/myDBName
++=====================================================================================================+
+```
 
 Transaction Isolation Level supports for listed dbs:
 
@@ -99,13 +108,85 @@ Transaction Isolation Level supports for listed dbs:
                         "TRANSACTION_SERIALIZABLE (default)" .
 
 
-Steps to upload connecter-jar for mysql using below steps :
+### Steps to upload database driver
 
-1. copy driver jar & json at any location for ex copied in /tmp/ folder
-2. goto any cdap node 
-3. goto → cd /opt/cdap/master/ 
-4. run command => ./bin/cdap cli -v false
-5. and enter username password
-6. Please, specify Username for basic authentication.> usr01
-7. Please, specify Password for basic authentication.> *********
-8. run command => load artifact /tmp/mysql-connector-java-x.x.x.jar config-file /tmp/mysql-connector-java-x.x.x.json name mysql-connector-java version x.x.x
+In order to use this accelerator to connect supported databases, there is a need to upload corresponding driver in cdap.
+
+Driver jar can be downloaded from internet. Please refer below table for tested driver versions
+
+```
++===========================+
+| DB name  | Driver Version |
++===========================+
+| MySQL    | 8.0.18         |
+| Postgres | 9.4.1211       |
++===========================+
+```
+
+* Copy driver jar at any location on one of the cdap master node. For ex copied `postgresql-9.4.1211.jar` in `/tmp` folder.
+* Create a json file with below content and copy that in same directory used in above step.<br/>Name of the json file should be same as jar file with extension `.json`. For ex `postgresql-9.4.1211.json`
+```
+{
+ "plugins": [
+    {
+      "name": "<Driver Name>",
+      "type": "jdbc",
+      "description": <Driver description>",
+      "className": "<Driver Class>"
+    }
+  ]
+}
+```
+
+**Example:** for psql content of json file
+
+```
+{
+ "plugins": [
+    {
+      "name": "psql",
+      "type": "jdbc",
+      "description": "Postgres JDBC external plugin",
+      "className": "org.postgresql.Driver"
+    }
+  ]
+}
+```
+* Login to one of cdap master node
+* Go to directory `/opt/cdap/master`
+* Run Command `./bin/cdap cli -v false`
+* Enter username and password on prompt
+* Run command to load driver
+`load artifact <driver-jar-path> config-file <json-path> name <connector-name> version <driver-version>`
+<br/> **For ex:** 
+`load artifact /tmp/postgresql-9.4.1211.jar config-file /tmp/postgresql-9.4.1211.json name psql-connector-java version 9.4.1211`
+
+* Below rest API can be used to verify success of driver upload<br/>
+`namespaces/default/artifacts/psql-connector-java/versions/9.4.1211`
+<br/> **Expected output**
+
+```
+{
+  "classes": {
+    "apps": [],
+    "plugins": [
+      {
+        "type": "jdbc",
+        "name": "psql",
+        "description": "Postgres JDBC external plugin",
+        "className": "org.postgresql.Driver",
+        "properties": {},
+        "endpoints": [],
+        "requirements": {
+          "datasetTypes": []
+        }
+      }
+    ]
+  },
+  "properties": {},
+  "parents": [],
+  "name": "psql-connector-java",
+  "version": "9.4.1211",
+  "scope": "USER"
+}
+```
