@@ -73,8 +73,7 @@ It is mandatory to provide an output schema when using a format other than tex
             "recursive": "false",
             "ignoreNonExistingFolders": "false",
             "path": "/cdap/file_input",
-            "delimiter": ",",
-            "fileSystemProperties": "{\"mapreduce.output.fileoutputformat.compress\":\"true\",\"mapreduce.output.fileoutputformat.compress.codec\":\"org.apache.hadoop.io.compress.GzipCodec\"}"
+            "delimiter": ","
           }
         }
       }
