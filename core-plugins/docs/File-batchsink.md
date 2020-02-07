@@ -3,10 +3,10 @@
 
 ## Description
 
-File Batch Sink is a plugin that writes to HDFS in various formats.
+File Batch Sink is a plugin used to write to HDFS in various formats.
 
 For the csv, delimited, and tsv formats, each record is written out as delimited text.
-Complex types like arrays, maps, and records will be converted to strings using their
+Complex types like arrays, maps, and records is converted to strings using their
 ``toString()`` Java method, so for practical use, fields should be limited to the
 string, long, int, double, float, and boolean types.
 
@@ -14,17 +14,23 @@ All types are supported when using the avro or parquet format.
 
 ## Use Case
 
-Consider a scenario wherein you need to write a file to an HDFS in batch. For example, you may want to periodically dump any RDD data to HDFS in the file format like csv,tsv,json etc. To do the same, configure the File Sink accelerator as explained in the following sections.
+A scenario where you want to write a file to a HDFS in batch. For example, you may want to periodically dump any RDD data to HDFS in the file format like csv, tsv, json etc. To do this, configure the File Sink accelerator as explained in the following sections:
 
 ## Configuration
 
-**Reference Name:** Name used to uniquely identify this sink for lineage, annotating metadata, etc.
+**Reference Name:** This is a unique name used to identify this source for lineage, annotating metadata, so on.
 
-**Path:** Path to write to. For example, /path/to/output.
+**Path:** The path to read from. For example, /path/to/output.
 
-**Path Suffix:** Time format for the output directory that will be appended to the path. For example, the format 'yyyy-MM-dd-HH-mm' will result in a directory of the form '2015-01-01-20-42'. If not specified, nothing will be appended to the path.
+**Path Suffix:** Add time format for the output directory to the path. For example, the format 'yyyy-MM-dd-HH-mm' will result in a directory of the form of '2015-01-01-20-42'. If not specified, nothing is added to the path.
 
-**Format:** Format to write the records in. The format must be one of 'json', 'avro', 'parquet', 'csv', 'tsv', or 'delimited'.
+**Format:** The records are written in a particular format. The format of the file must be any one of the following:
+- avro
+- csv
+- delimited
+- json
+- parquet
+- tsv
 
 **Delimiter:** Delimiter to use if the format is 'delimited'.
 
