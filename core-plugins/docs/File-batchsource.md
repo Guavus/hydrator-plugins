@@ -30,22 +30,22 @@ A scenario where you want to fetch the log files from HDFS every hour and then s
 The smaller partitions will increase the level of parallelism, but will require more resources and overhead.
 The default value is 128MB.
 
-**Regex Path Filter:** The Regular Expressions that file paths must match in order to be included in the input. The full
+**Regex Path Filter:** This file must match with the files available at the mentioned path to include it in the input. The complete 
 file path is compared to the regular expression to filter file paths.
 
-**Path Field:** Output field to place the path of the file that the record was read from.
+**Path Field:** Output column is added to place the path of the file that the record was read from.
 If not specified, the file path will not be included in output records.
 If specified, the field must exist in the output schema as a string.
 
-**Path Filename Only:** Whether to only use the filename instead of the URI of the file path when a path field is given.
+**Path Filename Only:** Use the filename instead of the URI of the file path when a path field is given.
 The default value is false.
 
-**Read Files Recursively:** Whether files are to be read recursively from the path. The default value is false.
+**Read Files Recursively:** Read the files recursively from the path. The default value is false.
 
-**Allow Empty Input:** Whether to allow an input path that contains no data. When set to false, the plugin
-will error when there is no data to read. When set to true, no error will be thrown and zero records will be read.
+**Allow Empty Input:** Allow an input path that contains no data. When this property is set to false, the plugin
+will show an error if there is no data to read. When this property is set to true, no error will appear and zero records will be read.
 
-**File System Properties:** Additional properties to use with the InputFormat when reading the data.
+**File System Properties:** Use this additional property with the InputFormat while reading the data. See [here](#file-system-properties) for details.
 
 ## Note
 
