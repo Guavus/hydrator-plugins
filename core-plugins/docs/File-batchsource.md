@@ -15,13 +15,16 @@ A scenario where you want to fetch the log files from HDFS every hour and then s
 
 **Path:** The path to read from. For example, hdfs:///tmp/sample.txt
 
-**Format:** The format of the data to be read.
-The format must be one of  'avro', 'blob', 'csv', 'delimited', 'json', 'parquet', 'text', or 'tsv'.
-If the format is 'blob', every input file will be read into a separate record.
-The 'blob' format also requires a schema that contains a field named 'body' of type 'bytes'.
-If the format is 'text', the schema must contain a field named 'body' of type 'string'.
+**Format:** The format of the file must be any one of the following:
+- avro
+- blob: every input file will be read into a separate record. this requires a schema that contains a field named 'body' of type 'bytes'.
+- csv
+- delimited
+- json
+- parquet
+- text: the schema must contain a field named 'body' of type 'string'.
 
-**Delimiter:** Delimiter to use when the format is 'delimited'. This will be ignored for other formats.
+**Delimiter:** Use this when the format of the file is 'delimited'. This value is not valid for other formats.
 
 **Maximum Split Size:** Maximum size in bytes for each input partition.
 Smaller partitions will increase the level of parallelism, but will require more resources and overhead.
