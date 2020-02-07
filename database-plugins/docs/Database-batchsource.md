@@ -16,15 +16,14 @@ a TimePartitionedFileSet.
 
 Properties
 ----------
-**Reference Name:** Name used to uniquely identify this sink for lineage, annotating metadata, etc.
 
-**Plugin Name:** Name of the JDBC plugin to use. This is the value of the 'name' key
-defined in the JSON file for the JDBC plugin.
+**Reference Name:** This is a unique name used to identify this source for lineage, annotating metadata, so on.
 
-**Plugin Type:** Type of the JDBC plugin to use. This is the value of the 'type' key
-defined in the JSON file for the JDBC plugin. Defaults to 'jdbc'.
+**Plugin Name:** This is the name of the JDBC plugin defined in the JSON file.
 
-**Connection String:** JDBC connection string including database name. (Macro-enabled)
+**Plugin Type:** This is the type of the JDBC plugin defined in the JSON file. The default value is to 'jdbc'.
+
+**Connection String:** This is the JDBC connection string including database name. (Macro-enabled)
 
 **Import Query:** The SELECT query to use to import data from the specified table.
 You can specify an arbitrary number of columns to import, or import all columns using \*. The Query should
