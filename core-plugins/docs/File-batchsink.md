@@ -14,7 +14,7 @@ For the `orc` format, string, long, int, double, float, boolean and array types 
 
 Use Case
 -----------
-Consider a scenario wherein you need to write a file to an HDFS in batch. For example, you may want to periodically dump any RDD data to HDFS in the file format like csv,tsv,json etc. To do the same, configure the File Sink accelerator as explained in the following sections.
+Consider a scenario wherein you need to write a file to an HDFS in batch. For example, you may want to periodically dump any RDD data to HDFS in the file format like csv,tsv,json etc. To do the same, configure the File Sink accelerator as explained in the following sections. 
 
 Properties
 ----------
@@ -33,6 +33,11 @@ The format must be one of 'json', 'avro', 'parquet', 'csv', 'tsv', 'delimited' o
 
 **File System Properties:** Additional properties in json format to be used with the OutputFormat when reading the data.
 Advanced features can be used to specify any additional property that should be used with the sink. See [here](#file-system-properties) for details.
+
+### Note
+- For `date` as output data-type, this accelerator writes the corresponding int value (number of days since epoch) for non-binary file-formats (csv, json, tsv, delimited).
+- For `time` and `timestamp` as output data-type, this accelerator writes long value for non-binary file-formats(csv, json, tsv, delimited). In case of `time` data-type, long value holds the number
+of microseconds since midnight and for `timestamp` data-type, it holds the number of microseconds since UNIX epoch.
 
 ### File System Properties
 This is a JSON string representing a map of properties that can can be used when writing the data depending on the use case.
