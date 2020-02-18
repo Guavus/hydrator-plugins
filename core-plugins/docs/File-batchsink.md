@@ -44,6 +44,11 @@ Advanced feature to specify any additional property that should be used with the
 | `Delimiter` | Delimiter | Optional | N/A | Delimiter to use if the format is 'delimited'.|
 | `File System Properties` | File System Properties | Optional | N/A | Additional properties in json format to use with the OutputFormat when reading the data.Advanced feature to specify any additional property that should be used with the sink.|
 
+### Note
+- For `date` as output data-type, this accelerator writes the corresponding int value (number of days since epoch) for non-binary file-formats (csv, json, tsv, delimited).
+- For `time` and `timestamp` as output data-type, this accelerator writes long value for non-binary file-formats(csv, json, tsv, delimited). In case of `time` data-type, long value holds the number
+of microseconds since midnight and for `timestamp` data-type, it holds the number of microseconds since UNIX epoch.
+
 ## Sample Input
 
     {
