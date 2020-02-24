@@ -22,11 +22,7 @@ import co.cask.cdap.api.annotation.Plugin;
 import co.cask.cdap.api.data.format.StructuredRecord;
 import co.cask.cdap.api.data.schema.Schema;
 import co.cask.cdap.api.data.schema.Schema.Field;
-import co.cask.cdap.etl.api.Emitter;
-import co.cask.cdap.etl.api.PipelineConfigurer;
-import co.cask.cdap.etl.api.StageConfigurer;
-import co.cask.cdap.etl.api.Transform;
-import co.cask.cdap.etl.api.TransformContext;
+import co.cask.cdap.etl.api.*;
 import co.cask.hydrator.common.FieldEncryptor;
 import co.cask.hydrator.common.KeystoreConf;
 import com.google.common.base.Splitter;
@@ -34,18 +30,18 @@ import com.google.common.collect.ImmutableSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.crypto.Cipher;
+import javax.ws.rs.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.crypto.Cipher;
-import javax.ws.rs.Path;
 
 /**
  * Encrypts record fields.
  */
 @Plugin(type = Transform.PLUGIN_TYPE)
-@Name("Encryptor")
+@Name("FieldEncryptor")
 @Description("Encrypts fields of records.")
 public final class Encryptor extends Transform<StructuredRecord, StructuredRecord> {
   private static final Logger LOG = LoggerFactory.getLogger(Encryptor.class);
