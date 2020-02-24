@@ -34,17 +34,17 @@ import com.google.common.collect.ImmutableSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.crypto.Cipher;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.HashSet;
 import java.util.Set;
-import javax.crypto.Cipher;
 
 /**
  * Decrypts record fields.
  */
 @Plugin(type = Transform.PLUGIN_TYPE)
-@Name("Decryptor")
+@Name("FieldDecryptor")
 @Description("Decrypts fields of records.")
 public final class Decryptor extends Transform<StructuredRecord, StructuredRecord> {
   private static final Logger LOG = LoggerFactory.getLogger(Decryptor.class);
