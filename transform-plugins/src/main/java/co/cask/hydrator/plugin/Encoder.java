@@ -102,8 +102,12 @@ public final class Encoder extends Transform<StructuredRecord, StructuredRecord>
     if (inputSchema != null) {
       for (Schema.Field field : inputSchema.getFields()) {
         if (encodeMap.containsKey(field.getName())) {
-          if (!field.getSchema().getType().equals(Schema.Type.BYTES) &&
-            !field.getSchema().getType().equals(Schema.Type.STRING)) {
+          Schema fieldSchema = field.getSchema();
+          if (fieldSchema.isNullable()) {
+            fieldSchema = fieldSchema.getNonNullable();
+          }
+          if (!fieldSchema.getType().equals(Schema.Type.BYTES) &&
+            !fieldSchema.getType().equals(Schema.Type.STRING)) {
             throw new IllegalArgumentException(
               String.format("Input field  %s should be of type bytes or string. It is currently of type %s",
                             field.getName(), field.getSchema().getType().toString()));
@@ -129,7 +133,11 @@ public final class Encoder extends Transform<StructuredRecord, StructuredRecord>
       outSchema = Schema.parseJson(config.schema);
       List<Field> outFields = outSchema.getFields();
       for (Field field : outFields) {
-        outSchemaMap.put(field.getName(), field.getSchema().getType());
+        if (field.getSchema().isNullable()) {
+          outSchemaMap.put(field.getName(), field.getSchema().getNonNullable().getType());
+        } else {
+          outSchemaMap.put(field.getName(), field.getSchema().getType());
+        }
       }
     } catch (IOException e) {
       throw new IllegalArgumentException("Format of schema specified is invalid. Please check the format.");
@@ -165,9 +173,13 @@ public final class Encoder extends Transform<StructuredRecord, StructuredRecord>
         // Now, the input field could be of type String or byte[], so transform everything
         // to byte[] 
         byte[] obj = new byte[0];
-        if (field.getSchema().getType() == Schema.Type.STRING) {
+        Schema fieldSchema = field.getSchema();
+        if (fieldSchema.isNullable()) {
+          fieldSchema = fieldSchema.getNonNullable();
+        }
+        if (fieldSchema.getType() == Schema.Type.STRING) {
           obj = ((String) in.get(name)).getBytes();
-        } else if (field.getSchema().getType() == Schema.Type.BYTES) {
+        } else if (fieldSchema.getType() == Schema.Type.BYTES) {
           obj = in.get(name);
         }
 

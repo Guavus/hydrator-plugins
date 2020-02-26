@@ -15,9 +15,6 @@ You need to specify the following configuration for the accelerator:
 
 **schema:** Specifies the output schema. The fields that are encoded will have the same field name, but they will be of type ``BYTES`` or ``STRING``.
 
-#### Note
-- *Input fields that need to be encoded must be of type `String` or `Bytes` and non-nullable*
-
 
 Use Case
 --------
