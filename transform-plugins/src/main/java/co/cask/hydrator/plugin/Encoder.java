@@ -43,7 +43,7 @@ import java.util.TreeMap;
  * Encodes the input fields as BASE64, BASE32 or HEX.
  */
 @Plugin(type = "transform")
-@Name("Encoder")
+@Name("FieldEncoder")
 @Description("Encodes the input field(s) using Base64, Base32 or Hex")
 public final class Encoder extends Transform<StructuredRecord, StructuredRecord> {
   private static final Logger LOG = LoggerFactory.getLogger(Encoder.class);

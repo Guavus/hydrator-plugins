@@ -44,7 +44,7 @@ import java.util.TreeMap;
  * Please note that Encoder and Decoder might look the same right now, but in near future they will diverge.
  */
 @Plugin(type = "transform")
-@Name("Decoder")
+@Name("FieldDecoder")
 @Description("Decodes the input field(s) using Base64, Base32, or Hex")
 public final class Decoder extends Transform<StructuredRecord, StructuredRecord> {
   private static final Logger LOG = LoggerFactory.getLogger(Decoder.class);
