@@ -1,9 +1,9 @@
-# Decoder Transform
+# Field Decoder
 
 
 Description
 -----------
-Decoder transform is used for decoding the fields of a dataset using a decoding method. You can specify multiple fields to be decoded using different decoding methods.
+Field Decoder is used for decoding the fields of a dataset using a decoding method. You can specify multiple fields to be decoded using different decoding methods.
 The available decoding methods are ``STRING_BASE64``, ``BASE64``, ``BASE32``, ``STRING_BASE32``, and ``HEX``.
 
 
@@ -23,7 +23,7 @@ name, but they will be of type ``BYTES`` or ``STRING``.
 
 Use Case
 --------
-Consider a scenario wherein you want to decode some fields of your dataset which were previously encoded using an encoding scheme. For instance, you apply any source accelerator to take the input as rdd and apply the Decoder accelerator to decode the desired fields, then save the transformed output by applying any sink accelerator.
+Consider a scenario wherein you want to decode some fields of your dataset which were previously encoded using an encoding scheme. For instance, you apply any source accelerator to take the input as rdd and apply the Field Decoder accelerator to decode the desired fields, then save the transformed output by applying any sink accelerator.
 
 
 Sample

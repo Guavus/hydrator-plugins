@@ -1,9 +1,9 @@
-# XML to JSON Converter
+# XML to JSON
 
 
 Description
 -----------
-XML to JSON converter accepts a field containing a properly-formatted XML string and converts it into a properly-formatted JSON string.
+XML to JSON accepts a field containing a properly-formatted XML string and converts it into a properly-formatted JSON string.
 
 Use Case
 --------

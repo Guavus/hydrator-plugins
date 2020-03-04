@@ -1,9 +1,9 @@
-# Encoder Transform
+# Field Encoder
 
 
 Description
 -----------
-Encoder transform is used for encoding the fields of a dataset using an encoding method. You can specify multiple fields to be encoded using different encoding methods.
+Field Encoder is used for encoding the fields of a dataset using an encoding method. You can specify multiple fields to be encoded using different encoding methods.
 The available encoding methods are ``BASE64``, ``BASE32``, and ``HEX``. `STRING_BASE32` and `STRING_BASE64` are also supported, which work similar to `BASE32` and `BASE64` with the only difference that they first encode the values as string, and then convert them to bytes instead of directly converting to encoded bytes.
 
 
@@ -21,7 +21,7 @@ You need to specify the following configuration for the accelerator:
 
 Use Case
 --------
-Consider a scenario wherein you want to encode some fields of your dataset for securing data fields from external users. For instance, you apply any source accelerator to take the input as rdd and apply the Encoder accelerator to encode the desired fields, then sink the transformed output using any sink accelerator.
+Consider a scenario wherein you want to encode some fields of your dataset for securing data fields from external users. For instance, you apply any source accelerator to take the input as rdd and apply the Field Encoder accelerator to encode the desired fields, then sink the transformed output using any sink accelerator.
 
 
 

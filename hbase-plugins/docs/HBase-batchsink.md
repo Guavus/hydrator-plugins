@@ -1,9 +1,9 @@
-# HBase Batch Sink
+# HBase (Sink)
 
 
 Description
 -----------
-HBase Batch Sink is a Guavus Enterprise Accelerator that writes records to a column family in an HBase table, with a single record field mapped to the rowkey and all the other record fields mapped to table column qualifiers.
+HBase (Sink) is a Guavus Enterprise Accelerator that writes records to a column family in an HBase table, with a single record field mapped to the rowkey and all the other record fields mapped to table column qualifiers.
 The difference between this sink and Table sink is that HBase Batch Sink does not use CDAP datasets and instead writes to HBase directly.
 
 

@@ -1,9 +1,9 @@
-# Projection Transform
+# Projection
 
 
 Description
 -----------
-Projection Transform is a Guavus Enterprise Accelerator that lets you drop, keep, rename, and cast fields to a different type.
+Projection is a Guavus Enterprise Accelerator that lets you drop, keep, rename, and cast fields to a different type.
 Fields are first dropped or kept, then cast, and then renamed.
 
 For example, suppose the transform is configured to drop the field 'B' and rename the field 'A' to 'B'.

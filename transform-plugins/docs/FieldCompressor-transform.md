@@ -1,9 +1,9 @@
-# Compressor Transform
+# Field Compressor
 
 
 Description
 -----------
-Compressor transform is used for compressing the fields of a dataset using the configured compression algorithm. You can specify multiple fields to be compressed using different compression algorithms.
+Field Compressor is used for compressing the fields of a dataset using the configured compression algorithm. You can specify multiple fields to be compressed using different compression algorithms.
 The accelerator supports SNAPPY, ZIP, and GZIP types of compression.
 
 
