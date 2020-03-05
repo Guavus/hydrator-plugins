@@ -1,4 +1,4 @@
-# Database Batch Sink
+# Database
 
 
 Description

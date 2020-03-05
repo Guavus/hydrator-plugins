@@ -1,4 +1,4 @@
-# Field Hasher Transform
+# Field Hasher
 
 
 ## Description

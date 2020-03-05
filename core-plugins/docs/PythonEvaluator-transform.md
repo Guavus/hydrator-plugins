@@ -1,9 +1,9 @@
-# Python
+# Python Evaluator
 
 
 Description
 -----------
-Python is a Guavus Enterprise Accelerator that executes a user-provided python code to transform one record into zero or more records.
+Python Evaluator is a Guavus Enterprise Accelerator that executes a user-provided python code to transform one record into zero or more records.
 Each input record is converted into a dictionary which can be directly accessed in python. The transform should receive a dictionary as input, which it can process and emit zero or more transformed dictionaries, or emit an error dictionary using the provided emitter object.
 
 Configuration

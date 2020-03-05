@@ -2,7 +2,7 @@
   "metadata": {
     "spec-version": "1.6"
   },
-  "display-name" : "Python",
+  "display-name" : "Python Evaluator",
   "configuration-groups": [
     {
       "label": "Python",

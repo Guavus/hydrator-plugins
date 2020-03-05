@@ -2,6 +2,7 @@
   "metadata": {
     "spec-version": "1.4"
   },
+  "display-name": "Union Splitter",
   "icon": {
     "type": "inline",
     "arguments": {

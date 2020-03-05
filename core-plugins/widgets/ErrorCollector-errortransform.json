@@ -2,6 +2,7 @@
   "metadata": {
     "spec-version": "1.0"
   },
+  "display-name": "Error Collector",
   "configuration-groups": [
     {
       "label": "Error Collector Configuration",

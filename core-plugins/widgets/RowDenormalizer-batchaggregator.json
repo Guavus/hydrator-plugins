@@ -3,6 +3,7 @@
     "spec-version": "1.1",
     "label": "RowDenormalizer"
   },
+  "display-name": "Row Denormalizer",
   "configuration-groups": [
     {
       "label": "Field Mapping",
