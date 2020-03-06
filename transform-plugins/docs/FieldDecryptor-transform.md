@@ -17,8 +17,6 @@ The following pointers describe the fields as displayed in the accelerator prope
 
 **decryptFields:** Specify the fields to be decrypted, separated by commas.
 
-**schema:** Specify the Schema to pull records from.
-
 **transformation:** Specify the transformation algorithm in the format "algorithm/mode/padding" where mode and padding is optional. For example, `AES`, `RSA`, `AES/ECB/PKCS5Padding` `AES/CBC/PKCS5Padding` and so on.
 
 **ivHex:** Specify the Hex value of initialization vector if using the block cipher mode of operation.
