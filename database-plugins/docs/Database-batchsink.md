@@ -110,3 +110,5 @@ Steps to upload connecter-jar for mysql using below steps :
 6. Please, specify Username for basic authentication.> usr01
 7. Please, specify Password for basic authentication.> *********
 8. run command => load artifact /tmp/mysql-connector-java-x.x.x.jar config-file /tmp/mysql-connector-java-x.x.x.json name mysql-connector-java version x.x.x
+**Note:** Running these steps will load the driver in default namespace. If the user want this driver to be available in other namespace
+then switch the namespace using the command `use namespace <NAMESPACE_NAME>` and load the driver again as described in step 8.
