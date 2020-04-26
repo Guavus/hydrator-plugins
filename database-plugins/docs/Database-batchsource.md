@@ -164,6 +164,8 @@ For the h2db content of json file
 `load artifact <driver-jar-path> config-file <json-path> name <connector-name> version <driver-version>`
 <br/> **For example:** 
 `load artifact /tmp/h2-1.4.200.jar config-file /tmp/h2-1.4.200.json name h2db-connector-java version 1.4.200`
+**Note:** Running these steps will load the driver in default namespace. If the user want this driver to be available in other namespace
+then switch the namespace using the command `use namespace <NAMESPACE_NAME>` and load the driver again.
 
 * Use the following Rest API to verify if the driver is uploaded successfully:<br/>
 `namespaces/default/artifacts/h2db-connector-java/versions/1.4.200`
