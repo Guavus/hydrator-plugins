@@ -37,6 +37,7 @@ import co.cask.cdap.etl.api.batch.BatchSourceContext;
 import co.cask.hydrator.common.TimeParser;
 import co.cask.hydrator.plugin.common.Properties;
 import com.google.common.base.Objects;
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
@@ -137,7 +138,7 @@ public class StreamBatchSource extends BatchSource<Object, Object, StructuredRec
     // if not format spec was given, the value is a StreamEvent
     if (Strings.isNullOrEmpty(streamBatchConfig.format)) {
       StreamEvent event = (StreamEvent) input.getValue();
-      Map<String, String> headers = Objects.firstNonNull(event.getHeaders(), ImmutableMap.<String, String>of());
+      Map<String, String> headers = MoreObjects.firstNonNull(event.getHeaders(), ImmutableMap.<String, String>of());
       StructuredRecord output = StructuredRecord.builder(DEFAULT_SCHEMA)
         .set("ts", event.getTimestamp())
         .set("headers", headers)
@@ -162,7 +163,7 @@ public class StreamBatchSource extends BatchSource<Object, Object, StructuredRec
       }
 
       // easier to just deal with an empty map than deal with nullables, so the headers field is non-nullable.
-      Map<String, String> headers = Objects.firstNonNull(event.getHeaders(), ImmutableMap.<String, String>of());
+      Map<String, String> headers = MoreObjects.firstNonNull(event.getHeaders(), ImmutableMap.<String, String>of());
       StructuredRecord.Builder builder = StructuredRecord.builder(outputSchema);
       Object key = input.getKey();
       // today, spark returns a Long while mapreduce returns a LongWritable

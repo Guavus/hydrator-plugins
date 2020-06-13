@@ -110,8 +110,8 @@ public class BatchCassandraSource extends ReferenceBatchSource<Long, Row, Struct
     if (!Strings.isNullOrEmpty(config.properties)) {
       for (String pair : config.properties.split(",")) {
         // the key and value of properties might have spaces so remove only leading and trailing ones
-        conf.set(CharMatcher.WHITESPACE.trimFrom(pair.split(":")[0]),
-                 CharMatcher.WHITESPACE.trimFrom(pair.split(":")[1]));
+        conf.set(CharMatcher.whitespace().trimFrom(pair.split(":")[0]),
+                 CharMatcher.whitespace().trimFrom(pair.split(":")[1]));
       }
     }
     CqlConfigHelper.setInputCql(conf, config.query);
