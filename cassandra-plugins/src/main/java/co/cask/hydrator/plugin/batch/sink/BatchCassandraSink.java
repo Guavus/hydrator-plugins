@@ -73,7 +73,7 @@ public class BatchCassandraSink
   public void transform(StructuredRecord record,
                         Emitter<KeyValue<Map<String, ByteBuffer>, List<ByteBuffer>>> emitter) throws Exception {
     Map<String, ByteBuffer> keys = new LinkedHashMap<>();
-    for (String key : CharMatcher.WHITESPACE.removeFrom(config.primaryKey).split(",")) {
+    for (String key : CharMatcher.whitespace().removeFrom(config.primaryKey).split(",")) {
       Preconditions.checkNotNull(record.get(key), String.format("Primary key %s is not present in this record: %s",
                                                                 key, StructuredRecordStringConverter
                                                                        .toDelimitedString(record, ";")));
@@ -84,8 +84,8 @@ public class BatchCassandraSink
 
   private List<ByteBuffer> getColumns(StructuredRecord record) throws Exception {
     List<ByteBuffer> columns = new ArrayList<>();
-    List<String> primaryKeys = Arrays.asList(CharMatcher.WHITESPACE.removeFrom(config.primaryKey).split(","));
-    for (String columnName : CharMatcher.WHITESPACE.removeFrom(config.columns).split(",")) {
+    List<String> primaryKeys = Arrays.asList(CharMatcher.whitespace().removeFrom(config.primaryKey).split(","));
+    for (String columnName : CharMatcher.whitespace().removeFrom(config.columns).split(",")) {
 
       //Cassandra allows multiple primary keys, so splitting that list on a comma
       // and checking that the current column isn't a primary key
