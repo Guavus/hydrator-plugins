@@ -42,6 +42,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -103,6 +104,7 @@ public abstract class AbstractFileSource<T extends PluginConfig & FileSourceProp
 
     Job job = JobUtils.createInstance();
     Configuration conf = job.getConfiguration();
+    addAdditionalConfigurations(conf);
 
     Pattern pattern = config.getFilePattern();
     if (pattern != null) {
@@ -125,8 +127,8 @@ public abstract class AbstractFileSource<T extends PluginConfig & FileSourceProp
       conf.set(entry.getKey(), entry.getValue());
     }
 
-    Path path = new Path(config.getPath());
-    FileSystem pathFileSystem = FileSystem.get(path.toUri(), conf);
+    Path path = getSourcePath(conf);
+    FileSystem pathFileSystem = getFileSystem(path.toUri(), conf);
     FileStatus[] fileStatus = pathFileSystem.globStatus(path);
 
     String inputFormatClass;
@@ -154,6 +156,18 @@ public abstract class AbstractFileSource<T extends PluginConfig & FileSourceProp
     }
 
     context.setInput(Input.of(config.getReferenceName(), new SourceInputFormatProvider(inputFormatClass, conf)));
+  }
+
+  public Path getSourcePath(Configuration conf) {
+    return new Path(config.getPath());
+  }
+
+  public FileSystem getFileSystem(URI uri, Configuration conf) throws IOException {
+    return FileSystem.get(uri, conf);
+  }
+
+  public void addAdditionalConfigurations(Configuration conf) {
+    return;
   }
 
   @Override

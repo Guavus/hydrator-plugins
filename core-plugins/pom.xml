@@ -32,9 +32,9 @@
   <dependencies>
     <!-- https://mvnrepository.com/artifact/ch.ethz.ganymed/ganymed-ssh2 -->
     <dependency>
-      <groupId>ch.ethz.ganymed</groupId>
-      <artifactId>ganymed-ssh2</artifactId>
-      <version>262</version>
+      <groupId>org.jvnet.hudson</groupId>
+      <artifactId>ganymed-ssh-2</artifactId>
+      <version>build260</version>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
@@ -207,6 +207,7 @@
               co.cask.hydrator.plugin.alert.*;
               co.cask.hydrator.plugin.batch.*;
               co.cask.hydrator.plugin.common;
+              co.cask.hydrator.plugin.common.sftp.*;
               co.cask.hydrator.plugin.realtime.*;
               co.cask.hydrator.plugin.streaming.*;
               co.cask.hydrator.plugin.transform.*;

@@ -57,6 +57,27 @@ public class FileSourceConfig extends AbstractFileSourceConfig {
   @Description("Deprecated property. Use the logicalStartTime macro in the file path instead of this.")
   private String timeTable;
 
+  // Configurations belonging to Sftp
+  @Macro
+  @Nullable
+  @Description("SFTP Server host.")
+  private String host;
+
+  @Macro
+  @Nullable
+  @Description("Port on which SFTP Server is running.")
+  private int port;
+
+  @Macro
+  @Nullable
+  @Description("SFTP Server account username")
+  private String username;
+
+  @Macro
+  @Nullable
+  @Description("SFTP Server account passowrd")
+  private String password;
+
   FileSourceConfig() {
     super();
     fileSystemProperties = "{}";
@@ -81,6 +102,22 @@ public class FileSourceConfig extends AbstractFileSourceConfig {
 
   public String getPath() {
     return path;
+  }
+
+  public String getHost() {
+    return host;
+  }
+
+  public int getPort() {
+    return port;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public String getPassword() {
+    return password;
   }
 
   @Nullable

@@ -30,20 +30,23 @@ import co.cask.hydrator.format.FileFormat;
 import co.cask.hydrator.format.input.PathTrackingInputFormat;
 import co.cask.hydrator.format.input.TextInputProvider;
 import co.cask.hydrator.format.plugin.AbstractFileSource;
+import co.cask.hydrator.plugin.common.sftp.SFTPFileSystem;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 
+import javax.ws.rs.Path;
+import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.URI;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
-import javax.ws.rs.Path;
+
+import static co.cask.hydrator.plugin.common.sftp.SFTPFileSystem.*;
 
 
 /**
@@ -142,5 +145,70 @@ public class FileBatchSource extends AbstractFileSource<FileSourceConfig> {
     properties.put("mapreduce.input.pathFilter.class", BatchFileFilter.class.getName());
 
     return properties;
+  }
+
+  @Override
+  public org.apache.hadoop.fs.Path getSourcePath(Configuration conf) {
+    return (isSourceSftp() ? SFTPFileSystem.getPath(conf) : super.getSourcePath(conf));
+  }
+
+  @Override
+  public FileSystem getFileSystem(URI uri, Configuration conf) throws IOException {
+    if(isSourceSftp()) {
+      FileSystem fs = new SFTPFileSystem();
+      try {
+        fs.initialize(uri, conf);
+      } catch (IOException ex) {
+        throw new RuntimeException("Unable to initialize SFTP connection.", ex);
+      }
+      return fs;
+    } else return super.getFileSystem(uri, conf);
+  }
+
+  @Override
+  public void addAdditionalConfigurations(Configuration conf) {
+    if(isSourceSftp()) {
+      this.addSFTPConfigurations(conf, config.getHost(), config.getPort(), config.getPath(), config.getUsername(), config.getPassword());
+    }
+  }
+
+  public void addSFTPConfigurations(Configuration conf, String host, int port, String path, String username, String password) {
+    // validations
+    if(host == null || host.trim().equals("")) {
+      throw new IllegalArgumentException("Sftp host can not be empty.");
+    }
+
+    if(username == null || username.trim().equals("")) {
+      throw new IllegalArgumentException("Username can not be empty.");
+    }
+
+    if(password == null || password.equals("")) {
+      throw new IllegalArgumentException("Password can not be empty.");
+    }
+
+    if(path == null || path.equals("")) {
+      throw new IllegalArgumentException("Sftp path can not be empty.");
+    }
+
+
+    conf.set(SFTP_IMPL_KEY, "co.cask.hydrator.plugin.common.sftp.SFTPFileSystem");
+    conf.set(SFTP_PATH_TO_READ, path.trim());
+
+    // Limit the number of splits to 1 since FTPInputStream does not support seek;
+    conf.set(FileInputFormat.SPLIT_MINSIZE, Long.toString(Long.MAX_VALUE));
+
+    conf.set(PARAM_HOST, host.trim());
+    conf.set(PARAM_PORT, Integer.toString(port));
+
+    conf.set(PARAM_USER, username.trim());
+    conf.set(PARAM_PASSWORD, password);
+  }
+
+  /**
+   * Check if the path is present on sftp
+   * @return
+   */
+  public boolean isSourceSftp() {
+    return (config.getHost() != null && !config.getHost().trim().equals(""));
   }
 }

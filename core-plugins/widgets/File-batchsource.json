@@ -66,6 +66,38 @@
       ]
     },
     {
+      "label": "Sftp",
+      "properties": [
+        {
+          "widget-type": "textbox",
+          "label": "Host",
+          "name": "host"
+        },
+
+        {
+          "widget-type": "number",
+          "label": "Port",
+          "name": "port",
+          "widget-attributes" : {
+            "min": "1",
+            "max": "8080",
+            "default": "22"
+          }
+        },
+        {
+          "widget-type": "textbox",
+          "label": "Username",
+          "name": "username"
+        },
+
+        {
+          "widget-type": "password",
+          "label": "Password",
+          "name": "password"
+        }
+      ]
+    },
+    {
       "label": "Advanced",
       "properties": [{
         "widget-type": "textbox",
