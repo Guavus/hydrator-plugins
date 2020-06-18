@@ -12,7 +12,7 @@ Properties
 ----------
 **Reference Name:** Name used to uniquely identify this source for lineage, annotating metadata, etc.
 
-**Path:** Path to read from. For example, s3a://<bucket>/path/to/input
+**Path:** Path to read from. For example, s3a://<bucket>/path/to/input. "Get Schema" fetches schema of data present at path. In case path is a directory and format is parquet, schema of file under the directory path with latest modification time is returned. 
 
 **Format:** Format of the data to read.
 The format must be one of 'avro', 'blob', 'csv', 'delimited', 'json', 'parquet', 'text', or 'tsv'.
