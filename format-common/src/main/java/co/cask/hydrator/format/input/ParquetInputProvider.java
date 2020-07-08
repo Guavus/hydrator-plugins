@@ -20,7 +20,7 @@ import co.cask.cdap.api.data.schema.Schema;
 import co.cask.hydrator.format.AvroSchemaConverter;
 import com.google.common.base.Strings;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.*;
 
 import org.apache.parquet.format.converter.ParquetMetadataConverter;
 import org.apache.parquet.hadoop.ParquetFileReader;
@@ -29,7 +29,7 @@ import org.apache.parquet.schema.MessageType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Map;
+import java.util.*;
 import javax.annotation.Nullable;
 
 /**
@@ -42,13 +42,48 @@ public class ParquetInputProvider implements FileInputFormatterProvider {
     @Nullable
     @Override
     public Schema getSchema(@Nullable String pathField) {
-        if (Strings.isNullOrEmpty(pathField)) {
-            throw new IllegalArgumentException("Path Field should contain a valid path for fetching Schema");
-        }
-        Path path = new Path(pathField);
         try {
+            if (Strings.isNullOrEmpty(pathField)) {
+                throw new IllegalArgumentException("Path Field should contain a valid path for fetching Schema");
+            }
+            Path path = new Path(pathField);
             Configuration conf = new Configuration();
             conf.setBoolean(AvroSchemaConverter.ADD_LIST_ELEMENT_RECORDS, false);
+            FileSystem fs = FileSystem.get(conf);
+            if(!fs.exists(path)) {
+                throw new IllegalArgumentException("Path: " + pathField + " doesn't exist for fetching Schema");
+            }
+            String parquetFile = pathField;
+            if(fs.isDirectory(path)){
+                RemoteIterator<LocatedFileStatus> locatedFileStatusRemoteIterator = fs.listFiles(path, true);
+                Map<String, Long> map = new java.util.HashMap<String, Long>();
+
+                while (locatedFileStatusRemoteIterator.hasNext()){
+                    LocatedFileStatus fileStatus = locatedFileStatusRemoteIterator.next();
+                    if(fileStatus.isFile() && fileStatus.getPath().toString().endsWith(".parquet") && (fileStatus.getLen() > 0)){
+                        map.put(fileStatus.getPath().toString(),fileStatus.getModificationTime());
+                    }
+                }
+
+                if(!map.isEmpty()) {
+                    LinkedHashMap<String, Long> reverseSortedMap = new LinkedHashMap<>();
+
+                    map.entrySet()
+                            .stream()
+                            .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                            .forEachOrdered(x -> reverseSortedMap.put(x.getKey(), x.getValue()));
+
+                    if (reverseSortedMap.keySet().iterator().hasNext()) {
+                        parquetFile = reverseSortedMap.keySet().iterator().next();
+                        System.out.println("Using latest parquet file: " + parquetFile + " with modification time: " + reverseSortedMap.get(parquetFile) + " for getSchema");
+                    }
+                }
+
+                if(parquetFile.equals(pathField)){
+                    throw new RuntimeException("No valid parquet files present inside directory: " + pathField + " to fetch schema ");
+                }
+            }
+            path = new Path(parquetFile);
             ParquetMetadata readFooter = ParquetFileReader.readFooter(conf, path, ParquetMetadataConverter.NO_FILTER);
             MessageType mt = readFooter.getFileMetaData().getSchema();
             org.apache.avro.Schema avroSchema = new AvroSchemaConverter(conf).convert(mt);
