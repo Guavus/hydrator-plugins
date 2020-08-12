@@ -55,6 +55,7 @@ public class FileSink extends AbstractFileSink<FileSink.Conf> {
   private final Conf config;
   private FileOutputFormatter<Object, Object> outputFormatter;
 
+
   public FileSink(Conf config) {
     super(config);
     this.config = config;
@@ -68,14 +69,6 @@ public class FileSink extends AbstractFileSink<FileSink.Conf> {
   @Override
   public void configurePipeline(PipelineConfigurer pipelineConfigurer) {
     ((FileSinkProperties) this.config).validate();
-    config.setReferenceName(encryptId(config.getPath()));
-    Map<String, String> pipelineproperties = new HashMap<>(config.getProperties().getProperties());
-    pipelineproperties.put("referenceName", config.getReferenceName());
-    pipelineConfigurer.createDataset(config.getReferenceName(), Constants.EXTERNAL_DATASET_TYPE,
-        DatasetProperties.builder()
-            .add(DatasetProperties.SCHEMA, pipelineConfigurer.getStageConfigurer().getInputSchema().toString())
-            .addAll(pipelineproperties).build());
-
   }
 
   public static String encryptId(String referenceId) {
@@ -87,9 +80,17 @@ public class FileSink extends AbstractFileSink<FileSink.Conf> {
   }
 
   @Override
-  public void prepareRun(BatchSinkContext context) {
+  public void prepareRun(BatchSinkContext context)  {
     config.validate();
     config.setReferenceName(encryptId(config.getPath()));
+    Map<String, String> pipelineproperties = new HashMap<>(config.getProperties().getProperties());
+    pipelineproperties.put("referenceName", config.getReferenceName());
+    if (!context.datasetExists(config.getReferenceName())) {
+      context.createDataset(config.getReferenceName(), Constants.EXTERNAL_DATASET_TYPE,
+              DatasetProperties.builder()
+                      .add(DatasetProperties.SCHEMA, config.getSchema().toString())
+                      .addAll(pipelineproperties).build());
+    }
     super.prepareRun(context);
   }
 
