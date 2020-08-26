@@ -75,7 +75,7 @@ public class FileStreamingSource extends ReferenceStreamingSource<StructuredReco
   @Override
   public void configurePipeline(PipelineConfigurer pipelineConfigurer) throws IllegalArgumentException {
 
-   // super.configurePipeline(pipelineConfigurer);
+    super.configurePipeline(pipelineConfigurer);
 
     conf.validate();
     pipelineConfigurer.getStageConfigurer().setOutputSchema(conf.getSchema());
@@ -180,7 +180,6 @@ public class FileStreamingSource extends ReferenceStreamingSource<StructuredReco
     @Description("The schema of the source files.")
     private String schema;
 
-    @Macro
     @Description("The path to the directory containing source files to stream.")
     private String path;
 
