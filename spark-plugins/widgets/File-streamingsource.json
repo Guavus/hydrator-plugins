@@ -7,9 +7,12 @@
       "label": "File Configuration",
       "properties": [
         {
-          "widget-type": "textbox",
+          "widget-type": "hidden",
           "label": "Reference Name",
-          "name": "referenceName"
+          "name": "referenceName",
+          "widget-attributes": {
+            "default": "ref_hdfs_src"
+          }
         },
         {
           "widget-type": "textbox",

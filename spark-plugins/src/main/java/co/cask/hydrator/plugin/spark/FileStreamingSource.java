@@ -24,11 +24,13 @@ import co.cask.cdap.api.data.format.FormatSpecification;
 import co.cask.cdap.api.data.format.RecordFormat;
 import co.cask.cdap.api.data.format.StructuredRecord;
 import co.cask.cdap.api.data.schema.Schema;
+import co.cask.cdap.api.dataset.DatasetProperties;
 import co.cask.cdap.api.flow.flowlet.StreamEvent;
 import co.cask.cdap.etl.api.PipelineConfigurer;
 import co.cask.cdap.etl.api.streaming.StreamingContext;
 import co.cask.cdap.etl.api.streaming.StreamingSource;
 import co.cask.cdap.format.RecordFormats;
+import co.cask.hydrator.common.Constants;
 import co.cask.hydrator.common.ReferencePluginConfig;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
@@ -45,9 +47,7 @@ import scala.Tuple2;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import javax.annotation.Nullable;
 
 /**
@@ -64,9 +64,19 @@ public class FileStreamingSource extends ReferenceStreamingSource<StructuredReco
     this.conf = conf;
   }
 
+  private static String encryptId(String referenceId) {
+    if (referenceId.startsWith("/")) {
+      referenceId = referenceId.replaceFirst("/", "file_");
+    }
+    return referenceId.replace("/", "_--_").replace(":", "-__-").replace(".", "-___-")
+            .replace("*", "_---_");
+  }
+
   @Override
   public void configurePipeline(PipelineConfigurer pipelineConfigurer) throws IllegalArgumentException {
+
     super.configurePipeline(pipelineConfigurer);
+
     conf.validate();
     pipelineConfigurer.getStageConfigurer().setOutputSchema(conf.getSchema());
   }
@@ -74,8 +84,16 @@ public class FileStreamingSource extends ReferenceStreamingSource<StructuredReco
   @Override
   public JavaDStream<StructuredRecord> getStream(StreamingContext context) throws Exception {
     conf.validate();
+    conf.referenceName = encryptId(conf.getPath());
+    Map<String, String> pipelineProperties = new HashMap<>(conf.getProperties().getProperties());
+    if (!context.getSparkExecutionContext().getAdmin().datasetExists(conf.referenceName)) {
+      context.getSparkExecutionContext().getAdmin().createDataset(conf.referenceName, Constants.EXTERNAL_DATASET_TYPE,
+              DatasetProperties.builder()
+                      .add(DatasetProperties.SCHEMA, Objects.requireNonNull(conf.getSchema()).toString())
+                      .addAll(pipelineProperties).build());
+    }
+    
     context.registerLineage(conf.referenceName);
-
     JavaStreamingContext jsc = context.getSparkStreamingContext();
 
     Function<Path, Boolean> filter =
@@ -162,7 +180,6 @@ public class FileStreamingSource extends ReferenceStreamingSource<StructuredReco
     @Description("The schema of the source files.")
     private String schema;
 
-    @Macro
     @Description("The path to the directory containing source files to stream.")
     private String path;
 
@@ -212,6 +229,11 @@ public class FileStreamingSource extends ReferenceStreamingSource<StructuredReco
       }
       return extensionsSet;
     }
+
+    public String getPath() {
+      return path;
+    }
+
   }
 
 }

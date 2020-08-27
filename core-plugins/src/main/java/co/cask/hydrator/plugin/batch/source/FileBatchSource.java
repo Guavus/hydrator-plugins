@@ -52,12 +52,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -99,20 +94,21 @@ public class FileBatchSource extends AbstractFileSource<FileSourceConfig> {
   public void prepareRun(BatchSourceContext context) throws Exception {
     config.validate();
     config.setReferenceName(encryptId(config.getPath()));
+    Map<String, String> pipelineProperties = new HashMap<>(config.getProperties().getProperties());
+    pipelineProperties.put("referenceName", config.getReferenceName());
+
+    if (!context.datasetExists(config.getReferenceName())) {
+      context.createDataset(config.getReferenceName(), Constants.EXTERNAL_DATASET_TYPE,
+              DatasetProperties.builder()
+                      .add(DatasetProperties.SCHEMA, Objects.requireNonNull(config.getSchema()).toString())
+                      .addAll(pipelineProperties).build());
+    }
     super.prepareRun(context);
   }
 
   @Override
   public void configurePipeline(PipelineConfigurer pipelineConfigurer) {
     ((FileSourceProperties) this.config).validate();
-    config.setReferenceName(encryptId(config.getPath()));
-    Map<String, String> pipelineproperties = new HashMap<>(config.getProperties().getProperties());
-    pipelineproperties.put("referenceName", config.getReferenceName());
-    pipelineConfigurer.createDataset(config.getReferenceName(), Constants.EXTERNAL_DATASET_TYPE,
-        DatasetProperties.builder()
-            .add(DatasetProperties.SCHEMA, config.getSchema().toString())
-            .addAll(pipelineproperties).build());
-
     Schema schema = config.getSchema();
     FileFormat fileFormat = config.getFormat();
     if (fileFormat != null) {

@@ -22,6 +22,7 @@ import co.cask.cdap.api.annotation.Name;
 import co.cask.cdap.api.annotation.Plugin;
 import co.cask.cdap.api.data.batch.Output;
 import co.cask.cdap.api.data.schema.Schema;
+import co.cask.cdap.api.dataset.DatasetManagementException;
 import co.cask.cdap.api.dataset.DatasetProperties;
 import co.cask.cdap.etl.api.PipelineConfigurer;
 import co.cask.cdap.etl.api.batch.BatchSink;
@@ -45,6 +46,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Writes to the FileSystem.
  */
@@ -52,8 +56,10 @@ import javax.annotation.Nullable;
 @Name("File")
 @Description("Writes to the FileSystem.")
 public class FileSink extends AbstractFileSink<FileSink.Conf> {
+  private static final Logger LOG = LoggerFactory.getLogger(FileSink.class);
   private final Conf config;
   private FileOutputFormatter<Object, Object> outputFormatter;
+
 
   public FileSink(Conf config) {
     super(config);
@@ -68,14 +74,6 @@ public class FileSink extends AbstractFileSink<FileSink.Conf> {
   @Override
   public void configurePipeline(PipelineConfigurer pipelineConfigurer) {
     ((FileSinkProperties) this.config).validate();
-    config.setReferenceName(encryptId(config.getPath()));
-    Map<String, String> pipelineproperties = new HashMap<>(config.getProperties().getProperties());
-    pipelineproperties.put("referenceName", config.getReferenceName());
-    pipelineConfigurer.createDataset(config.getReferenceName(), Constants.EXTERNAL_DATASET_TYPE,
-        DatasetProperties.builder()
-            .add(DatasetProperties.SCHEMA, pipelineConfigurer.getStageConfigurer().getInputSchema().toString())
-            .addAll(pipelineproperties).build());
-
   }
 
   public static String encryptId(String referenceId) {
@@ -87,9 +85,22 @@ public class FileSink extends AbstractFileSink<FileSink.Conf> {
   }
 
   @Override
-  public void prepareRun(BatchSinkContext context) {
+  public void prepareRun(BatchSinkContext context)  {
     config.validate();
     config.setReferenceName(encryptId(config.getPath()));
+    Map<String, String> pipelineProperties = new HashMap<>(config.getProperties().getProperties());
+    pipelineProperties.put("referenceName", config.getReferenceName());
+    try {
+      if (!context.datasetExists(config.getReferenceName())) {
+        context.createDataset(config.getReferenceName(), Constants.EXTERNAL_DATASET_TYPE,
+                DatasetProperties.builder()
+                        .add(DatasetProperties.SCHEMA, config.getSchema().toString())
+                        .addAll(pipelineProperties).build());
+      }
+    } catch (DatasetManagementException e) {
+      LOG.error("DatasetManagementException occurred while creating dataset : " + e.getMessage());
+    }
+
     super.prepareRun(context);
   }
 
@@ -101,7 +112,7 @@ public class FileSink extends AbstractFileSink<FileSink.Conf> {
     private static final Type MAP_TYPE = new TypeToken<Map<String, String>>() {
     }.getType();
 
-
+    @Macro
     @Description("Destination path prefix. For example, 'hdfs://mycluster.net:8020/output'")
     private String path;
 
